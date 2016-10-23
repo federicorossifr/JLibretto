@@ -3,6 +3,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.event.EventHandler;
 import javafx.scene.control.TableColumn.CellEditEvent;
+import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.NumberStringConverter;
@@ -35,7 +36,7 @@ public class ExamTableView extends TableView {
         private void setupCellEditFormats() {
             nameColumn.setCellFactory(TextFieldTableCell.forTableColumn());
             creditsColumn.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));            
-            markColumn.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));            
+            markColumn.setCellFactory(ComboBoxTableCell.forTableColumn(Exam.defaultMarks));            
             dateColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         }
 
@@ -46,17 +47,19 @@ public class ExamTableView extends TableView {
                     public void handle(CellEditEvent<Exam, String> t) {
                         int index = t.getTablePosition().getRow();
                         (ExamObservableList.getInstance().getExam(index)).setName(t.getNewValue());
-                        ExamObservableList.getInstance().notifyChangedExam(index);                        
+                        ExamObservableList.getInstance().notifyChangedExam(index);
+                        
                     }
                 }
             );
             markColumn.setOnEditCommit(
-                new EventHandler<CellEditEvent<Exam, Long>>() {
+                new EventHandler<CellEditEvent<Exam, Integer>>() {
                     @Override
-                    public void handle(CellEditEvent<Exam, Long> t) {
+                    public void handle(CellEditEvent<Exam, Integer> t) {
                         int index = t.getTablePosition().getRow();
                         (ExamObservableList.getInstance().getExam(index)).setMark(t.getNewValue().intValue());
                         ExamObservableList.getInstance().notifyChangedExam(index);
+                        
                     }
                 }
             );

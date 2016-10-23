@@ -38,9 +38,9 @@ public class ExamForm extends GridPane {
         formAction.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e) -> insertExam());
     }
     
-    private Integer getMark() {
+    private static Integer getMark(ComboBox input) {
         Integer mark;
-        Object tmpMark = markInput.getValue();
+        Object tmpMark = input.getValue();
         if(tmpMark instanceof String) 
             mark = Integer.parseInt((String)tmpMark);
         else if(tmpMark instanceof Integer)
@@ -58,7 +58,7 @@ public class ExamForm extends GridPane {
             Exam insertedExam;
             String name = nameInput.getText();
             Integer credits = Integer.parseInt(creditsInput.getText());
-            Integer mark = getMark();
+            Integer mark = getMark(markInput);
             LocalDate d = dateInput.getValue();
             insertedExam = new Exam(name,mark,credits,d);
             boolean result = ExamStoringManager.getInstance().insertExam(insertedExam);
