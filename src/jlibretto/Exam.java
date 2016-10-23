@@ -3,12 +3,20 @@ package jlibretto;
 import java.time.LocalDate;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class Exam {
     private SimpleStringProperty name;
     private SimpleIntegerProperty mark;
     private SimpleIntegerProperty credits;
     private SimpleStringProperty date;
+    public static final ObservableList<Integer> defaultMarks;
+    static {
+        defaultMarks = FXCollections.observableArrayList();
+        for(int mm = 18; mm<=33; ++mm)
+            defaultMarks.add(mm);
+    }
     
     public Exam(String n,Integer m,Integer c,LocalDate d) {
         name = new SimpleStringProperty(n);

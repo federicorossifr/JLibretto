@@ -3,11 +3,11 @@ package jlibretto;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import javafx.collections.ObservableList;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -16,10 +16,10 @@ import javafx.scene.layout.GridPane;
 
 public class ExamForm extends GridPane {
     
-    private TextField nameInput = new TextField();
-    private TextField creditsInput = new TextField();
-    private TextField markInput = new TextField();
-    private DatePicker dateInput = new DatePicker();
+    private final TextField nameInput = new TextField();
+    private final TextField creditsInput = new TextField();
+    private final ComboBox<Integer> markInput = new ComboBox<>(Exam.defaultMarks);
+    private final DatePicker dateInput = new DatePicker();
     
     public ExamForm() {
         super();
@@ -27,6 +27,8 @@ public class ExamForm extends GridPane {
         Label examCredits = new Label("Crediti esame");
         Label examMark = new Label("Voto esame");
         Label examDate = new Label("Data esame");
+        markInput.setPromptText("Seleziona valutazione");
+        markInput.setEditable(true);
         Button formAction = new Button("Inserisci");
         dateInput.setShowWeekNumbers(false);
         Node[] gridContent = new Node[]{examName,examCredits,examMark,examDate,nameInput,creditsInput,markInput,dateInput,formAction};
@@ -36,30 +38,48 @@ public class ExamForm extends GridPane {
         formAction.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e) -> insertExam());
     }
     
+    private Integer getMark() {
+        Integer mark;
+        Object tmpMark = markInput.getValue();
+        if(tmpMark instanceof String) 
+            mark = Integer.parseInt((String)tmpMark);
+        else if(tmpMark instanceof Integer)
+            mark = (Integer)tmpMark;
+        else
+            throw new NumberFormatException("Non è stato inserito un numero");
+        if(mark >=18 && mark<=33)
+            return mark;
+        else
+            throw new NumberFormatException("La valutazione non rientra nell'intervallo [18,33]");
+    }
+ 
     private void insertExam() {
-        Exam insertedExam;
-        String name = nameInput.getText();
-        Integer credits = Integer.parseInt(creditsInput.getText());
-        Integer mark = Integer.parseInt(markInput.getText());
-        LocalDate d = dateInput.getValue();
-        insertedExam = new Exam(name,mark,credits,d);
-        boolean result = ExamStoringManager.getInstance().insertExam(insertedExam);
-        
-        if(result)
-            ExamObservableList.getInstance().addExam(insertedExam);
-        clearForm();
+        try {
+            Exam insertedExam;
+            String name = nameInput.getText();
+            Integer credits = Integer.parseInt(creditsInput.getText());
+            Integer mark = getMark();
+            LocalDate d = dateInput.getValue();
+            insertedExam = new Exam(name,mark,credits,d);
+            boolean result = ExamStoringManager.getInstance().insertExam(insertedExam);
+            if(result)
+                ExamObservableList.getInstance().addExam(insertedExam);
+            clearForm();
+        } catch(Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
     
     private void clearForm() {
         nameInput.clear();
         creditsInput.clear();
-        markInput.clear();
+        markInput.getEditor().clear();
         dateInput.getEditor().clear();
     }
     
     private  static void centerInGridPane(Node[] list) {
         for(Node n:list) {
-            GridPane.setHalignment(n,HPos.CENTER);
+            GridPane.setHalignment(n,HPos.LEFT);
             GridPane.setValignment(n,VPos.CENTER);
         }
     }
