@@ -20,7 +20,7 @@ public class ExamStoringManager{
         } catch(SQLException e) {
             System.out.println("Impossibile connettersi al database: "+e.getMessage());
             Platform.exit();
-            System.exit(1);
+            System.exit(-1);
         }
     }
     
