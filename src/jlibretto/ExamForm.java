@@ -1,6 +1,7 @@
 
 package jlibretto;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Arrays;
 import javafx.geometry.HPos;
@@ -16,10 +17,10 @@ import javafx.scene.layout.GridPane;
 
 public class ExamForm extends GridPane {
     
-    private final TextField nameInput = new TextField();
-    private final TextField creditsInput = new TextField();
-    private final ComboBox<Integer> markInput = new ComboBox<>(Exam.defaultMarks);
-    private final DatePicker dateInput = new DatePicker();
+    final TextField nameInput = new TextField();
+    final TextField creditsInput = new TextField();
+    final ComboBox<Integer> markInput = new ComboBox<>(Exam.defaultMarks);
+    final DatePicker dateInput = new DatePicker();
     
     public ExamForm() {
         super();
@@ -38,7 +39,7 @@ public class ExamForm extends GridPane {
         formAction.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e) -> insertExam());
     }
     
-    private static Integer getMark(ComboBox input) {
+    private Integer getMarkFromComboBox(ComboBox input) {
         Integer mark;
         Object tmpMark = input.getValue();
         if(tmpMark instanceof String) 
@@ -52,13 +53,15 @@ public class ExamForm extends GridPane {
         else
             throw new NumberFormatException("La valutazione non rientra nell'intervallo [18,33]");
     }
- 
+    
+    
+    
     private void insertExam() {
         try {
             Exam insertedExam;
             String name = nameInput.getText();
             Integer credits = Integer.parseInt(creditsInput.getText());
-            Integer mark = getMark(markInput);
+            Integer mark = getMarkFromComboBox(markInput);
             LocalDate d = dateInput.getValue();
             insertedExam = new Exam(name,mark,credits,d);
             boolean result = ExamStoringManager.getInstance().insertExam(insertedExam);
