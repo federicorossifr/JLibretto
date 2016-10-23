@@ -30,7 +30,7 @@ public class JLibrettoMain extends Application {
         primaryStage.show();
         
         
-        StoringManager.getInstance().readExams();
+        ExamStoringManager.getInstance().readExams();
     }
 
     private VBox makeExamsContentPanel() {

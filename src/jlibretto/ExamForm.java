@@ -43,7 +43,7 @@ public class ExamForm extends GridPane {
         Integer mark = Integer.parseInt(markInput.getText());
         LocalDate d = dateInput.getValue();
         insertedExam = new Exam(name,mark,credits,d);
-        boolean result = StoringManager.getInstance().insertExam(insertedExam);
+        boolean result = ExamStoringManager.getInstance().insertExam(insertedExam);
         
         if(result)
             ExamObservableList.getInstance().addExam(insertedExam);
