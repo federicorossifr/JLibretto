@@ -1,7 +1,6 @@
 package jlibretto;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.PropertyValueFactory;
