@@ -39,7 +39,9 @@ public class ExamStoringManager{
             ips.setString(1, e.getName());
             ips.setInt(2,e.getCredits());
             ips.setInt(3,e.getMark());
-            ips.setDate(4,Date.valueOf(LocalDate.parse(e.getDate())));            
+            ips.setDate(4,Date.valueOf(LocalDate.parse(e.getDate())));
+            int inserted = ips.executeUpdate();
+            System.out.println("Inserted: "+inserted);
             ResultSet idResult = ips.getGeneratedKeys();
             int id = -1;
             if(idResult.next()) {
