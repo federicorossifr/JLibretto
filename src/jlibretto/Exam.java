@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Exam {
+    private int index;
     private SimpleStringProperty name;
     private SimpleIntegerProperty mark;
     private SimpleIntegerProperty credits;
@@ -18,15 +19,16 @@ public class Exam {
             defaultMarks.add(mm);
     }
     
-    public Exam(String n,Integer m,Integer c,LocalDate d) {
+    public Exam(int i,String n,Integer m,Integer c,LocalDate d) {
+        index = i;
         name = new SimpleStringProperty(n);
         mark = new SimpleIntegerProperty(m);
         credits = new SimpleIntegerProperty(c);
         date = new SimpleStringProperty(d.toString());
     }
     
-    public Exam(String n,Integer m,Integer c) {
-        this(n,m,c,LocalDate.now());
+    public Exam(String n,Integer m,Integer c,LocalDate d) {
+        this(-1,n,m,c,d);
     }
     
     public String getName() {return name.get();}
@@ -39,6 +41,7 @@ public class Exam {
     public void setDate(String d) {
         LocalDate tmpDate = LocalDate.parse(d);
         date = new SimpleStringProperty(tmpDate.toString());
-        
     }
+    public int getIndex() {return index;}
+    public void setIndex(int i) {index = i;}
 }

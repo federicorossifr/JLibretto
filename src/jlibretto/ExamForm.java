@@ -24,13 +24,13 @@ public class ExamForm extends GridPane {
     
     public ExamForm() {
         super();
-        Label examName = new Label("Nome esame");
-        Label examCredits = new Label("Crediti esame");
-        Label examMark = new Label("Voto esame");
-        Label examDate = new Label("Data esame");
-        markInput.setPromptText("Seleziona valutazione");
+        Label examName = new Label("Exam name");
+        Label examCredits = new Label("Exam credits");
+        Label examMark = new Label("Exam mark");
+        Label examDate = new Label("Exam date");
+        markInput.setPromptText("Select mark");
         markInput.setEditable(true);
-        Button formAction = new Button("Inserisci");
+        Button formAction = new Button("Insert");
         dateInput.setShowWeekNumbers(false);
         Node[] gridContent = new Node[]{examName,examCredits,examMark,examDate,nameInput,creditsInput,markInput,dateInput,formAction};
         setGridIndexes(gridContent,2,4);
@@ -47,11 +47,11 @@ public class ExamForm extends GridPane {
         else if(tmpMark instanceof Integer)
             mark = (Integer)tmpMark;
         else
-            throw new NumberFormatException("Non è stato inserito un numero");
+            throw new NumberFormatException();
         if(mark >=18 && mark<=33)
             return mark;
         else
-            throw new NumberFormatException("La valutazione non rientra nell'intervallo [18,33]");
+            throw new NumberFormatException();
     }
     
     
@@ -64,9 +64,11 @@ public class ExamForm extends GridPane {
             Integer mark = getMarkFromComboBox(markInput);
             LocalDate d = dateInput.getValue();
             insertedExam = new Exam(name,mark,credits,d);
-            boolean result = ExamStoringManager.getInstance().insertExam(insertedExam);
-            if(result)
+            int insertedId = ExamStoringManager.getInstance().insertExam(insertedExam);
+            if(insertedId > 0) {
+                insertedExam.setIndex(insertedId);
                 ExamObservableList.getInstance().addExam(insertedExam);
+            }
             clearForm();
         } catch(Exception e) {
             System.out.println(e.getMessage());
@@ -82,7 +84,7 @@ public class ExamForm extends GridPane {
     
     private  static void centerInGridPane(Node[] list) {
         for(Node n:list) {
-            GridPane.setHalignment(n,HPos.LEFT);
+            GridPane.setHalignment(n,HPos.CENTER);
             GridPane.setValignment(n,VPos.CENTER);
         }
     }

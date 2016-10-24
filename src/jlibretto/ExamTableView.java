@@ -9,10 +9,10 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.NumberStringConverter;
 public class ExamTableView extends TableView {
     
-        TableColumn nameColumn = new TableColumn("Esame");
-        TableColumn creditsColumn = new TableColumn("Crediti");
-        TableColumn markColumn = new TableColumn("Voto");
-        TableColumn dateColumn = new TableColumn("Data");
+        TableColumn nameColumn = new TableColumn("Exam name");
+        TableColumn creditsColumn = new TableColumn("Exam credits");
+        TableColumn markColumn = new TableColumn("Exam mark");
+        TableColumn dateColumn = new TableColumn("Exam data");
         public ExamTableView() {
             setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -39,6 +39,13 @@ public class ExamTableView extends TableView {
             markColumn.setCellFactory(ComboBoxTableCell.forTableColumn(Exam.defaultMarks));            
             dateColumn.setCellFactory(TextFieldTableCell.forTableColumn());
         }
+        
+        private void completeCommit(Exam e,int rowIndex) {
+            boolean result = ExamStoringManager.getInstance().editExam(e);
+            System.out.println(result);
+            if(result)
+                ExamObservableList.getInstance().notifyChangedExam(rowIndex);
+        }
 
         private void setupCellEditCommits() {
             nameColumn.setOnEditCommit(
@@ -46,9 +53,9 @@ public class ExamTableView extends TableView {
                     @Override
                     public void handle(CellEditEvent<Exam, String> t) {
                         int index = t.getTablePosition().getRow();
-                        (ExamObservableList.getInstance().getExam(index)).setName(t.getNewValue());
-                        ExamObservableList.getInstance().notifyChangedExam(index);
-                        
+                        Exam edited = (ExamObservableList.getInstance().getExam(index));
+                        edited.setName(t.getNewValue());
+                        completeCommit(edited,index);
                     }
                 }
             );
@@ -57,9 +64,9 @@ public class ExamTableView extends TableView {
                     @Override
                     public void handle(CellEditEvent<Exam, Integer> t) {
                         int index = t.getTablePosition().getRow();
-                        (ExamObservableList.getInstance().getExam(index)).setMark(t.getNewValue().intValue());
-                        ExamObservableList.getInstance().notifyChangedExam(index);
-                        
+                        Exam edited = (ExamObservableList.getInstance().getExam(index));                        
+                        edited.setMark(t.getNewValue());
+                        completeCommit(edited,index);
                     }
                 }
             );
@@ -68,8 +75,9 @@ public class ExamTableView extends TableView {
                     @Override
                     public void handle(CellEditEvent<Exam, Long> t) {
                         int index = t.getTablePosition().getRow();
-                        (ExamObservableList.getInstance().getExam(index)).setCredits(t.getNewValue().intValue());                        
-                        ExamObservableList.getInstance().notifyChangedExam(index);                        
+                        Exam edited = (ExamObservableList.getInstance().getExam(index));                         
+                        edited.setCredits(t.getNewValue().intValue());                        
+                        completeCommit(edited,index);
                     }
                 }
             );
@@ -78,8 +86,9 @@ public class ExamTableView extends TableView {
                     @Override
                     public void handle(CellEditEvent<Exam, String> t) {
                         int index = t.getTablePosition().getRow();
-                        (ExamObservableList.getInstance().getExam(index)).setDate(t.getNewValue());   
-                        ExamObservableList.getInstance().notifyChangedExam(index);                        
+                        Exam edited = (ExamObservableList.getInstance().getExam(index));                                                 
+                        edited.setDate(t.getNewValue());   
+                        completeCommit(edited,index);                        
                     }
                 }
             );   

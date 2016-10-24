@@ -13,17 +13,19 @@ class AverageChart extends LineChart {
     public AverageChart(NumberAxis n) {
         super(new CategoryAxis(),n);
         setLegendVisible(false);
-        setTitle("Andamento media");
+        setTitle("Average Plot");
         ExamObservableList.getInstance().getExams().addListener((ListChangeListener.Change<? extends Exam> c) -> {
-            update((ObservableList<Exam>) c.getList());               
+            Double avg = update((ObservableList<Exam>) c.getList());
+            setTitle("Current average "+avg);
+            
         });
         setAnimated(false);
     }
     
-    public void update(ObservableList<Exam> exams) {
+    public double update(ObservableList<Exam> exams) {
         Double sum = 0.0;
         Integer count = 0;
-        Double tmp;
+        Double tmp = 0.0;
         Series<String,Double> mobileAvg;        
         mobileAvg = new Series<>();
         for(Exam e:exams) {
@@ -33,5 +35,6 @@ class AverageChart extends LineChart {
             mobileAvg.getData().add(new XYChart.Data(e.getName(),tmp));
         }
         setData(FXCollections.observableArrayList(mobileAvg));
+        return tmp;
     }
  }
