@@ -28,18 +28,19 @@ public class SettingsForm extends VBox {
     RadioButton weightedAvgMode = new RadioButton("Weighted");
     
     public SettingsForm() {
+        Label title = new Label("Settings");
+        title.setFont(JLibrettoMain.greater);
         Label userLabel = new Label("User");
-        Font bolder = Font.font(Font.getDefault().getFamily(),FontWeight.BOLD,Font.getDefault().getSize());
-        userLabel.setFont(bolder);
+        userLabel.setFont(JLibrettoMain.bolder);
         Label departementLabel = new Label("Departement");
-        departementLabel.setFont(bolder);
+        departementLabel.setFont(JLibrettoMain.bolder);
         Label averageLabel = new Label("Average mode");
-        averageLabel.setFont(bolder);
+        averageLabel.setFont(JLibrettoMain.bolder);
         ToggleGroup avgMode = new ToggleGroup();
         Button saveButton = new Button("Save");
         arithmeticAvgMode.setToggleGroup(avgMode);
         weightedAvgMode.setToggleGroup(avgMode);
-        getChildren().addAll(userLabel,userInput,departementLabel,departementInput,averageLabel,arithmeticAvgMode,weightedAvgMode,saveButton);
+        getChildren().addAll(title,userLabel,userInput,departementLabel,departementInput,averageLabel,arithmeticAvgMode,weightedAvgMode,saveButton);
         setPadding(new Insets(5,10,5,10));
         setAlignment(Pos.TOP_CENTER);
         setSpacing(5);
