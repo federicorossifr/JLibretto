@@ -27,13 +27,15 @@ public class JLibrettoMain extends Application {
         BorderPane mainPanel = new BorderPane();
         VBox examsContentPanel = makeExamsContentPanel();
         mainPanel.setCenter(examsContentPanel);
+        mainPanel.setLeft(new SettingsForm());
         StackPane root = new StackPane();
         root.getChildren().add(mainPanel);
-        Scene scene = new Scene(root, 800, 600);
+        Scene scene = new Scene(root, 1024, 600);
+        
         primaryStage.setTitle("JLibretto");
         primaryStage.setScene(scene);
         primaryStage.show();
-        
+        primaryStage.setResizable(false);
         primaryStage.setOnCloseRequest((WindowEvent we) -> {
            System.out.println("Closing,saving form cache...");
            formToCache(); 
