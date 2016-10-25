@@ -30,7 +30,7 @@ public class FormInserimentoEsame extends GridPane {
         Label etichettaInputCodiceUtente = new Label("Codice utente");
         Label etichettaInputNomeEsame = new Label("Nome esame");
         Label etichettaInputCreditiEsame = new Label("Crediti esame");
-        Label etichettaInputValutazioneEsame = new Label("Voto esame");
+        Label etichettaInputValutazioneEsame = new Label("Valutazione esame");
         Label etichettaInputDataEsame = new Label("Data esame");
         inputValutazioneEsame.setPromptText("Seleziona voto");
         inputValutazioneEsame.setEditable(true);
