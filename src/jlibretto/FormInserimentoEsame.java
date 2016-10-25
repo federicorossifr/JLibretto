@@ -24,6 +24,7 @@ public class FormInserimentoEsame extends GridPane {
     final DatePicker inputDataEsame = new DatePicker();
     final Button pulsanteInvioForm = new Button("Inserisci");
     final Button pulsanteApplicaCodiceUtente = new Button("Applica");
+    
     public FormInserimentoEsame() {
         super();
         Label etichettaInputCodiceUtente = new Label("Codice utente");
@@ -33,7 +34,6 @@ public class FormInserimentoEsame extends GridPane {
         Label etichettaInputDataEsame = new Label("Data esame");
         inputValutazioneEsame.setPromptText("Seleziona voto");
         inputValutazioneEsame.setEditable(true);
-        
         inputDataEsame.setShowWeekNumbers(false);
         Node[] gridContent = new Node[]{etichettaInputCodiceUtente,null,etichettaInputNomeEsame,
                                         etichettaInputCreditiEsame,etichettaInputValutazioneEsame,etichettaInputDataEsame,
@@ -96,6 +96,7 @@ public class FormInserimentoEsame extends GridPane {
             inputCodiceUtente.setEditable(false);
             pulsanteInvioForm.setDisable(false);
             pulsanteApplicaCodiceUtente.setDisable(true);
+            pulisciForm();
             GestoreArchiviazioneEsami.getIstanza().leggiEsami(codice);
         } catch(Exception e) {
             System.out.println("Errore nella compilazione del codice utente: "+e.getMessage());

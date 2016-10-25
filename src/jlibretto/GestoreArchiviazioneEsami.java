@@ -41,13 +41,11 @@ public class GestoreArchiviazioneEsami{
             ips.setInt(3,e.getValutazione());
             ips.setDate(4,Date.valueOf(LocalDate.parse(e.getData())));
             ips.setString(5,e.getCodiceUtente());
-            int inserted = ips.executeUpdate();
-            System.out.println("Inserite righe n.: "+inserted);
+            ips.executeUpdate();
             ResultSet idResult = ips.getGeneratedKeys();
             int id = -1;
             if(idResult.next()) {
                 id = idResult.getInt(1);
-                System.out.println("Inserito l\'id:"+id);
             }
             return id;
         } catch (SQLException ex) {
@@ -87,7 +85,6 @@ public class GestoreArchiviazioneEsami{
             eps.setDate(4,Date.valueOf(LocalDate.parse(e.getData())));
             eps.setInt(5,e.getId());
             int affectedRows = eps.executeUpdate();
-            System.out.println("Affected: " +affectedRows);
             return affectedRows > 0;
         } catch(SQLException ex) {
             System.out.println("Impossibile modificare l\'esame: "+ex.getMessage());

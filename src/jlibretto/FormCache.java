@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jlibretto;
 
 import java.io.FileInputStream;
@@ -12,10 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
-/**
- *
- * @author feder
- */
+
 public class FormCache implements Serializable {
     String contenutoInputNome;
     String contenutoInputCrediti;
@@ -29,7 +21,7 @@ public class FormCache implements Serializable {
         contenutoInputData = d;
     }
 
-    private static void formToCache(FormInserimentoEsame form) {
+    public static void salvaInCache(FormInserimentoEsame form) {
         try {
                 ObjectOutputStream toBin = new ObjectOutputStream(new FileOutputStream("cache.bin"));
                 String name,credits,mark,date;
@@ -58,7 +50,7 @@ public class FormCache implements Serializable {
                 System.out.println("Erore nel salvare la cache form: "+e.getMessage());
         } 
     }
-    private static void cacheToForm(FormInserimentoEsame form) {
+    public static void caricaDaCache(FormInserimentoEsame form) {
         try {
             ObjectInputStream fromBin = new ObjectInputStream(new FileInputStream("cache.bin"));
             FormCache formCachedData = (FormCache)fromBin.readObject();

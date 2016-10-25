@@ -40,11 +40,14 @@ public class JLibrettoMain extends Application {
         primaryStage.show();
         primaryStage.setResizable(false);
         primaryStage.setOnCloseRequest((WindowEvent we) -> {
-           System.out.println("Closing,saving form cache...");
-           System.out.println("Saved.");
+           System.out.println("In fase di chiusura, salvataggio in cache del form.");
+           FormCache.salvaInCache(examForm);
+           System.out.println("Salvataggio completato.");
         });
         
-        
+        System.out.println("Caricamento contenuto form da cache");
+        FormCache.caricaDaCache(examForm);
+
     }
     
 
@@ -75,6 +78,7 @@ public class JLibrettoMain extends Application {
     }
 
     public static void main(String[] args) {
+        System.out.println("Avvio applicazione...");
         launch(args);
         
     }
