@@ -8,5 +8,6 @@ CREATE TABLE exam (
 	name VARCHAR(50) NOT NULL,
 	credits INT NOT NULL,
 	mark INT NOT NULL,
-	date DATE NOT NULL
+	date DATE NOT NULL,
+	usercode VARCHAR(255) NOT NULL
 );
