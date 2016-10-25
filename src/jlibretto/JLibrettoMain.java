@@ -20,9 +20,9 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 public class JLibrettoMain extends Application {
-    ExamTableView examTable;
-    ExamForm examForm;
-    AverageChart mobileAvg;
+    TabellaEsami examTable;
+    FormInserimentoEsame examForm;
+    GraficoMediaEsami mobileAvg;
     static Font bolder = Font.font(Font.getDefault().getFamily(),FontWeight.BOLD,Font.getDefault().getSize());
     static Font greater = Font.font(Font.getDefault().getFamily(),FontWeight.BOLD,Font.getDefault().getSize()+3);
 
@@ -47,7 +47,7 @@ public class JLibrettoMain extends Application {
         cacheToForm();
         
         
-        ExamStoringManager.getInstance().readExams();
+        GestoreArchiviazioneEsami.getInstance().readExams();
     }
     
     private void formToCache() {
@@ -93,7 +93,7 @@ public class JLibrettoMain extends Application {
     }
     private VBox makeExamsContentPanel() {
         VBox vb = new VBox();
-        examTable = new ExamTableView();
+        examTable = new TabellaEsami();
         HBox hb = new HBox();
         examForm = makeExamForm();
         examForm.setVgap(5);
@@ -102,7 +102,7 @@ public class JLibrettoMain extends Application {
         NumberAxis na = new NumberAxis();
         na.setLowerBound(18);
         na.setUpperBound(33);
-        mobileAvg = new AverageChart(na);
+        mobileAvg = new GraficoMediaEsami(na);
         HBox.setHgrow(examForm,Priority.ALWAYS);
         HBox.setHgrow(mobileAvg,Priority.ALWAYS);
         hb.getChildren().addAll(examForm,mobileAvg);
@@ -112,8 +112,8 @@ public class JLibrettoMain extends Application {
         return vb;
     }
     
-    private ExamForm makeExamForm() {
-        ExamForm gp = new ExamForm();
+    private FormInserimentoEsame makeExamForm() {
+        FormInserimentoEsame gp = new FormInserimentoEsame();
         return gp;
     }
 
