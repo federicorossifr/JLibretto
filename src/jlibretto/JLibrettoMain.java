@@ -33,7 +33,7 @@ public class JLibrettoMain extends Application {
         mainPanel.setCenter(examsContentPanel);
         StackPane root = new StackPane();
         root.getChildren().add(mainPanel);
-        Scene scene = new Scene(root, 1024, 600);
+        Scene scene = new Scene(root, 800, 600);
         
         primaryStage.setTitle("JLibretto");
         primaryStage.setScene(scene);
@@ -45,7 +45,6 @@ public class JLibrettoMain extends Application {
         });
         
         
-        GestoreArchiviazioneEsami.getIstanza().leggiEsami();
     }
     
 

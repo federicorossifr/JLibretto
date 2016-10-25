@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 
 public class Esame {
     private int id;
+    private String codiceUtente;
     private SimpleStringProperty nome;
     private SimpleIntegerProperty valutazione;
     private SimpleIntegerProperty crediti;
@@ -19,16 +20,17 @@ public class Esame {
             listaVotiStandard.add(mm);
     }
     
-    public Esame(int i,String n,Integer m,Integer c,LocalDate d) {
+    public Esame(int i,String n,Integer m,Integer c,LocalDate d,String cu) {
         id = i;
         nome = new SimpleStringProperty(n);
         valutazione = new SimpleIntegerProperty(m);
         crediti = new SimpleIntegerProperty(c);
         data = new SimpleStringProperty(d.toString());
+        codiceUtente = cu;
     }
     
-    public Esame(String n,Integer m,Integer c,LocalDate d) {
-        this(-1,n,m,c,d);
+    public Esame(String n,Integer m,Integer c,LocalDate d,String cu) {
+        this(-1,n,m,c,d,cu);
     }
     
     public String getNome() {return nome.get();}
@@ -44,4 +46,5 @@ public class Esame {
     }
     public int getId() {return id;}
     public void setId(int i) {id = i;}
+    public String getCodiceUtente() {return codiceUtente;}
 }

@@ -13,9 +13,9 @@ import javafx.application.Platform;
 public class GestoreArchiviazioneEsami{
     private Connection connessioneDatabase;
     private static GestoreArchiviazioneEsami _istanza;
-    private final String queryInserimentoEsame = "INSERT INTO exam(name,credits,mark,date) VALUES(?,?,?,?)";
+    private final String queryInserimentoEsame = "INSERT INTO exam(name,credits,mark,date,usercode) VALUES(?,?,?,?,?)";
     private final String queryModificaEsame = "UPDATE exam SET name = ?,credits=?,mark=?,date=? WHERE id = ?";
-    private final String queryLetturaEsami = "SELECT * FROM exam";
+    private final String queryLetturaEsami = "SELECT * FROM exam WHERE usercode=?";
     private GestoreArchiviazioneEsami() {
         try {
             connessioneDatabase = DriverManager.getConnection("jdbc:mysql://localhost:3306/prg", "root","");
@@ -40,6 +40,7 @@ public class GestoreArchiviazioneEsami{
             ips.setInt(2,e.getCrediti());
             ips.setInt(3,e.getValutazione());
             ips.setDate(4,Date.valueOf(LocalDate.parse(e.getData())));
+            ips.setString(5,e.getCodiceUtente());
             int inserted = ips.executeUpdate();
             System.out.println("Inserite righe n.: "+inserted);
             ResultSet idResult = ips.getGeneratedKeys();
@@ -55,13 +56,19 @@ public class GestoreArchiviazioneEsami{
         }        
     }
     
-    public void leggiEsami() {
+    public void leggiEsami(String codiceUtente) {
         try {
             PreparedStatement ips = connessioneDatabase.prepareStatement(queryLetturaEsami);
+            ips.setString(1, codiceUtente);
             ResultSet ers = ips.executeQuery();
             Esame e;
             while(ers.next()) {
-                e = new Esame(ers.getInt("id"),ers.getString("name"),ers.getInt("mark"),ers.getInt("credits"),ers.getDate("date").toLocalDate());
+                e = new Esame(ers.getInt("id"),
+                              ers.getString("name"),
+                              ers.getInt("mark"),
+                              ers.getInt("credits"),
+                              ers.getDate("date").toLocalDate(),
+                              ers.getString("usercode"));
                 System.out.println(e.getNome());
                 RisorsaListaEsami.getIstanza().aggiungiEsame(e);
             }
