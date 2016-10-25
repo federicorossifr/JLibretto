@@ -12,15 +12,15 @@ import java.io.Serializable;
  * @author feder
  */
 public class FormCache implements Serializable {
-    String nameBinaryInput;
-    String creditsBinaryInput;
-    String markBinaryInput;
-    String dateBinaryInput;
+    String contenutoInputNome;
+    String contenutoInputCrediti;
+    String contenutoInputValutazione;
+    String contenutoInputData;
     
     public FormCache(String n,String c,String m,String d) {
-        nameBinaryInput = n;
-        creditsBinaryInput = c;
-        markBinaryInput = m;
-        dateBinaryInput = d;
+        contenutoInputNome = n;
+        contenutoInputCrediti = c;
+        contenutoInputValutazione = m;
+        contenutoInputData = d;
     }
 }

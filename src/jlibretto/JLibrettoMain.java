@@ -47,7 +47,7 @@ public class JLibrettoMain extends Application {
         cacheToForm();
         
         
-        GestoreArchiviazioneEsami.getInstance().readExams();
+        GestoreArchiviazioneEsami.getIstanza().leggiEsami();
     }
     
     private void formToCache() {
@@ -55,22 +55,22 @@ public class JLibrettoMain extends Application {
                 ObjectOutputStream toBin = new ObjectOutputStream(new FileOutputStream("cache.bin"));
                 String name,credits,mark,date;
                 try {
-                    name = examForm.nameInput.getText();
+                    name = examForm.inputNomeEsame.getText();
                 } catch(Exception e) {
                     name = "";
                 }
                 try {
-                    credits = examForm.creditsInput.getText();
+                    credits = examForm.inputCreditiEsame.getText();
                 } catch(Exception e) {
                     credits = "";
                 }
                 try {
-                    mark = examForm.markInput.getEditor().getText();
+                    mark = examForm.inputValutazioneEsame.getEditor().getText();
                 } catch(Exception e) {
                     mark = "";
                 }
                 try {
-                    date = examForm.dateInput.getEditor().getText();
+                    date = examForm.inputDataEsame.getEditor().getText();
                 } catch(Exception e) {
                     date = "";
                 }
@@ -83,10 +83,10 @@ public class JLibrettoMain extends Application {
         try {
             ObjectInputStream fromBin = new ObjectInputStream(new FileInputStream("cache.bin"));
             FormCache formCachedData = (FormCache)fromBin.readObject();
-            examForm.creditsInput.setText(formCachedData.creditsBinaryInput);
-            examForm.markInput.getEditor().setText(formCachedData.markBinaryInput);
-            examForm.dateInput.getEditor().setText(formCachedData.dateBinaryInput);
-            examForm.nameInput.setText(formCachedData.nameBinaryInput);
+            examForm.inputCreditiEsame.setText(formCachedData.contenutoInputCrediti);
+            examForm.inputValutazioneEsame.getEditor().setText(formCachedData.contenutoInputValutazione);
+            examForm.inputDataEsame.getEditor().setText(formCachedData.contenutoInputData);
+            examForm.inputNomeEsame.setText(formCachedData.contenutoInputNome);
         } catch(IOException | ClassNotFoundException e) {
             System.out.println("Errore nel caricare la cache form: "+e.getMessage());
         }
