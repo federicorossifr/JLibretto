@@ -23,41 +23,34 @@ public class FormCache implements Serializable {
 
     public static void salvaInCache(FormInserimentoEsame form) {
         try {
-                ObjectOutputStream toBin = new ObjectOutputStream(new FileOutputStream("cache.bin"));
-                String name,credits,mark,date;
+                ObjectOutputStream streamUscitaBinario = new ObjectOutputStream(new FileOutputStream("cache.bin"));
+                String nomeEsame,creditiEsame,votoEsame,dataEsame;
                 try {
-                    name = form.inputNomeEsame.getText();
-                } catch(Exception e) {
-                    name = "";
-                }
+                    nomeEsame = form.inputNomeEsame.getText();
+                } catch(Exception e) {nomeEsame = "";}
                 try {
-                    credits = form.inputCreditiEsame.getText();
-                } catch(Exception e) {
-                    credits = "";
-                }
+                    creditiEsame = form.inputCreditiEsame.getText();
+                } catch(Exception e) {creditiEsame = "";}
                 try {
-                    mark = form.inputValutazioneEsame.getEditor().getText();
-                } catch(Exception e) {
-                    mark = "";
-                }
+                    votoEsame = form.inputValutazioneEsame.getEditor().getText();
+                } catch(Exception e) {votoEsame = "";}
                 try {
-                    date = form.inputDataEsame.getEditor().getText();
-                } catch(Exception e) {
-                    date = "";
-                }
-                toBin.writeObject(new FormCache(name,credits,mark,date));
+                    dataEsame = form.inputDataEsame.getEditor().getText();
+                } catch(Exception e) {dataEsame = "";}
+                
+                streamUscitaBinario.writeObject(new FormCache(nomeEsame,creditiEsame,votoEsame,dataEsame));
             } catch(Exception e) {
                 System.out.println("Erore nel salvare la cache form: "+e.getMessage());
         } 
     }
     public static void caricaDaCache(FormInserimentoEsame form) {
         try {
-            ObjectInputStream fromBin = new ObjectInputStream(new FileInputStream("cache.bin"));
-            FormCache formCachedData = (FormCache)fromBin.readObject();
-            form.inputCreditiEsame.setText(formCachedData.contenutoInputCrediti);
-            form.inputValutazioneEsame.getEditor().setText(formCachedData.contenutoInputValutazione);
-            form.inputDataEsame.getEditor().setText(formCachedData.contenutoInputData);
-            form.inputNomeEsame.setText(formCachedData.contenutoInputNome);
+            ObjectInputStream streamIngressoBinario = new ObjectInputStream(new FileInputStream("cache.bin"));
+            FormCache contenutoFormCache = (FormCache)streamIngressoBinario.readObject();
+            form.inputCreditiEsame.setText(contenutoFormCache.contenutoInputCrediti);
+            form.inputValutazioneEsame.getEditor().setText(contenutoFormCache.contenutoInputValutazione);
+            form.inputDataEsame.getEditor().setText(contenutoFormCache.contenutoInputData);
+            form.inputNomeEsame.setText(contenutoFormCache.contenutoInputNome);
         } catch(IOException | ClassNotFoundException e) {
             System.out.println("Errore nel caricare la cache form: "+e.getMessage());
         }
