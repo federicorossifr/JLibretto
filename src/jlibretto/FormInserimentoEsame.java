@@ -18,7 +18,7 @@ import javafx.scene.layout.GridPane;
 public class FormInserimentoEsame extends GridPane {
     
     final TextField inputNomeEsame = new TextField();
-    final TextField inputCodiceUtente = new PasswordField();
+    private final TextField inputCodiceUtente = new PasswordField();
     final TextField inputCreditiEsame = new TextField();
     final ComboBox<Integer> inputValutazioneEsame = new ComboBox<>(Esame.listaVotiStandard);
     final DatePicker inputDataEsame = new DatePicker();
