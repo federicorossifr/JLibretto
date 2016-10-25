@@ -13,34 +13,34 @@ import javafx.collections.ObservableList;
  * @author feder
  */
 public class RisorsaListaEsami  {
-    private ObservableList<Esame> exams;
-    private static RisorsaListaEsami instance;
+    private ObservableList<Esame> listaEsami;
+    private static RisorsaListaEsami _istanza;
     
     private RisorsaListaEsami() {
-        exams = FXCollections.observableArrayList();
+        listaEsami = FXCollections.observableArrayList();
     }
     
-    public static RisorsaListaEsami getInstance() {
-        if(instance == null)
-            instance = new RisorsaListaEsami();
-        return instance;
+    public static RisorsaListaEsami getIstanza() {
+        if(_istanza == null)
+            _istanza = new RisorsaListaEsami();
+        return _istanza;
     }
     
-    public void addExam(Esame e) {
-            exams.add(e);
+    public void aggiungiEsame(Esame e) {
+            listaEsami.add(e);
     }
     
-    public ObservableList<Esame> getExams() {
-        return exams;
+    public ObservableList<Esame> getListaEsami() {
+        return listaEsami;
     }
     
-    public Esame getExam(int index) {
-        return exams.get(index);
+    public Esame prelevaEsame(int index) {
+        return listaEsami.get(index);
     }
     
-    public void notifyChangedExam(int index) {
-        Esame toBeNotified = exams.get(index);
-        exams.remove(index);
-        exams.add(index,toBeNotified);
+    public void notificaCambiamentoEsame(int index) {
+        Esame toBeNotified = listaEsami.get(index);
+        listaEsami.remove(index);
+        listaEsami.add(index,toBeNotified);
     }
 }

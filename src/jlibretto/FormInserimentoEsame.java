@@ -16,31 +16,31 @@ import javafx.scene.layout.GridPane;
 
 public class FormInserimentoEsame extends GridPane {
     
-    final TextField nameInput = new TextField();
-    final TextField creditsInput = new TextField();
-    final ComboBox<Integer> markInput = new ComboBox<>(Esame.listaVotiStandard);
-    final DatePicker dateInput = new DatePicker();
+    final TextField inputNomeEsame = new TextField();
+    final TextField inputCreditiEsame = new TextField();
+    final ComboBox<Integer> inputValutazioneEsame = new ComboBox<>(Esame.listaVotiStandard);
+    final DatePicker inputDataEsame = new DatePicker();
     
     public FormInserimentoEsame() {
         super();
-        Label examName = new Label("Exam name");
-        Label examCredits = new Label("Exam credits");
-        Label examMark = new Label("Exam mark");
-        Label examDate = new Label("Exam date");
-        markInput.setPromptText("Select mark");
-        markInput.setEditable(true);
-        Button formAction = new Button("Insert");
-        dateInput.setShowWeekNumbers(false);
-        Node[] gridContent = new Node[]{examName,examCredits,examMark,examDate,nameInput,creditsInput,markInput,dateInput,formAction};
-        setGridIndexes(gridContent,2,4);
-        centerInGridPane(gridContent);
+        Label examName = new Label("Nome esame");
+        Label examCredits = new Label("Crediti esame");
+        Label examMark = new Label("Voto esame");
+        Label examDate = new Label("Data esame");
+        inputValutazioneEsame.setPromptText("Seleziona voto");
+        inputValutazioneEsame.setEditable(true);
+        Button formAction = new Button("Inserisci");
+        inputDataEsame.setShowWeekNumbers(false);
+        Node[] gridContent = new Node[]{examName,examCredits,examMark,examDate,inputNomeEsame,inputCreditiEsame,inputValutazioneEsame,inputDataEsame,formAction};
+        impostaIndiciGriglia(gridContent,2,4);
+        centraElementiInGriglia(gridContent);
         getChildren().addAll(Arrays.asList(gridContent));
-        formAction.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e) -> insertExam());
+        formAction.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e) -> creaEsame());
     }
     
-    private Integer getMarkFromComboBox(ComboBox input) {
+    private Integer ottieniValutazione() {
         Integer mark;
-        Object tmpMark = input.getValue();
+        Object tmpMark = inputValutazioneEsame.getValue();
         if(tmpMark instanceof String) 
             mark = Integer.parseInt((String)tmpMark);
         else if(tmpMark instanceof Integer)
@@ -55,40 +55,40 @@ public class FormInserimentoEsame extends GridPane {
     
     
     
-    private void insertExam() {
+    private void creaEsame() {
         try {
             Esame insertedExam;
-            String name = nameInput.getText();
-            Integer credits = Integer.parseInt(creditsInput.getText());
-            Integer mark = getMarkFromComboBox(markInput);
-            LocalDate d = dateInput.getValue();
+            String name = inputNomeEsame.getText();
+            Integer credits = Integer.parseInt(inputCreditiEsame.getText());
+            Integer mark = ottieniValutazione();
+            LocalDate d = inputDataEsame.getValue();
             insertedExam = new Esame(name,mark,credits,d);
-            int insertedId = GestoreArchiviazioneEsami.getInstance().insertExam(insertedExam);
+            int insertedId = GestoreArchiviazioneEsami.getIstanza().inserisciEsame(insertedExam);
             if(insertedId > 0) {
                 insertedExam.setId(insertedId);
-                RisorsaListaEsami.getInstance().addExam(insertedExam);
+                RisorsaListaEsami.getIstanza().aggiungiEsame(insertedExam);
             }
-            clearForm();
+            pulisciForm();
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
     }
     
-    private void clearForm() {
-        nameInput.clear();
-        creditsInput.clear();
-        markInput.getEditor().clear();
-        dateInput.getEditor().clear();
+    private void pulisciForm() {
+        inputNomeEsame.clear();
+        inputCreditiEsame.clear();
+        inputValutazioneEsame.getEditor().clear();
+        inputDataEsame.getEditor().clear();
     }
     
-    private  static void centerInGridPane(Node[] list) {
+    private  static void centraElementiInGriglia(Node[] list) {
         for(Node n:list) {
             GridPane.setHalignment(n,HPos.CENTER);
             GridPane.setValignment(n,VPos.CENTER);
         }
     }
         
-    private static void setGridIndexes(Node[] list,int columnNum,int rowNum) {
+    private static void impostaIndiciGriglia(Node[] list,int columnNum,int rowNum) {
         for(int column = 0; column < columnNum; ++column)
             for(int row = 0; row < rowNum; ++row)
                 GridPane.setConstraints(list[row+rowNum*column],column+1,row+1);

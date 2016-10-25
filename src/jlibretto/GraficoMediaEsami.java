@@ -13,16 +13,16 @@ class GraficoMediaEsami extends LineChart {
     public GraficoMediaEsami(NumberAxis n) {
         super(new CategoryAxis(),n);
         setLegendVisible(false);
-        setTitle("Average Plot");
-        RisorsaListaEsami.getInstance().getExams().addListener((ListChangeListener.Change<? extends Esame> c) -> {
-            Double avg = update((ObservableList<Esame>) c.getList());
-            setTitle("Current average "+avg);
+        setTitle("Grafico media");
+        RisorsaListaEsami.getIstanza().getListaEsami().addListener((ListChangeListener.Change<? extends Esame> c) -> {
+            Double avg = aggiornaComponente((ObservableList<Esame>) c.getList());
+            setTitle("Grafico media, media attuale: "+avg);
             
         });
         setAnimated(false);
     }
     
-    public double update(ObservableList<Esame> exams) {
+    public double aggiornaComponente(ObservableList<Esame> exams) {
         Double sum = 0.0;
         Integer count = 0;
         Double tmp = 0.0;

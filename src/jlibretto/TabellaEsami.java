@@ -9,86 +9,82 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.NumberStringConverter;
 public class TabellaEsami extends TableView {
     
-        TableColumn colonnaNome = new TableColumn("Exam name");
-        TableColumn creditsColumn = new TableColumn("Exam credits");
-        TableColumn markColumn = new TableColumn("Exam mark");
-        TableColumn dateColumn = new TableColumn("Exam data");
+        TableColumn colonnaNome = new TableColumn("Nome esame");
+        TableColumn colonnaCrediti = new TableColumn("Crediti esame");
+        TableColumn colonnaVoti = new TableColumn("Valutazione esame");
+        TableColumn colonnaData = new TableColumn("Data esame");
         public TabellaEsami() {
             setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             colonnaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
-            creditsColumn.setCellValueFactory(new PropertyValueFactory<>("crediti"));
-            markColumn.setCellValueFactory(new PropertyValueFactory<>("voto"));
-            dateColumn.setCellValueFactory(new PropertyValueFactory<>("data"));
+            colonnaCrediti.setCellValueFactory(new PropertyValueFactory<>("crediti"));
+            colonnaVoti.setCellValueFactory(new PropertyValueFactory<>("valutazione"));
+            colonnaData.setCellValueFactory(new PropertyValueFactory<>("data"));
 
-            setupCellEditFormats();
-            setupCellEditCommits();
+            impostaFormatoModificaCelle();
+            impostaCompletamentoModificaCelle();
             
             
             colonnaNome.setSortable(false);
-            creditsColumn.setSortable(false);
-            markColumn.setSortable(false);            
-            dateColumn.setSortable(false);
-            setItems(RisorsaListaEsami.getInstance().getExams());
+            colonnaCrediti.setSortable(false);
+            colonnaVoti.setSortable(false);            
+            colonnaData.setSortable(false);
+            setItems(RisorsaListaEsami.getIstanza().getListaEsami());
             setEditable(true);
-            getColumns().addAll(colonnaNome,creditsColumn,markColumn,dateColumn);
+            getColumns().addAll(colonnaNome,colonnaCrediti,colonnaVoti,colonnaData);
         }
 
-        private void setupCellEditFormats() {
+        private void impostaFormatoModificaCelle() {
             colonnaNome.setCellFactory(TextFieldTableCell.forTableColumn());
-            creditsColumn.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));            
-            markColumn.setCellFactory(ComboBoxTableCell.forTableColumn(Esame.listaVotiStandard));            
-            dateColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+            colonnaCrediti.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));            
+            colonnaVoti.setCellFactory(ComboBoxTableCell.forTableColumn(Esame.listaVotiStandard));            
+            colonnaData.setCellFactory(TextFieldTableCell.forTableColumn());
         }
         
-        private void completeCommit(Esame e,int rowIndex) {
-            boolean result = GestoreArchiviazioneEsami.getInstance().editExam(e);
+        private void completaModifica(Esame e,int rowIndex) {
+            boolean result = GestoreArchiviazioneEsami.getIstanza().modificaEsame(e);
             System.out.println(result);
             if(result)
-                RisorsaListaEsami.getInstance().notifyChangedExam(rowIndex);
+                RisorsaListaEsami.getIstanza().notificaCambiamentoEsame(rowIndex);
         }
 
-        private void setupCellEditCommits() {
-            colonnaNome.setOnEditCommit(
-                new EventHandler<CellEditEvent<Esame, String>>() {
+        private void impostaCompletamentoModificaCelle() {
+            colonnaNome.setOnEditCommit(new EventHandler<CellEditEvent<Esame, String>>() {
                     @Override
                     public void handle(CellEditEvent<Esame, String> t) {
                         int index = t.getTablePosition().getRow();
-                        Esame edited = (RisorsaListaEsami.getInstance().getExam(index));
+                        Esame edited = (RisorsaListaEsami.getIstanza().prelevaEsame(index));
                         edited.setNome(t.getNewValue());
-                        completeCommit(edited,index);
+                        completaModifica(edited,index);
                     }
                 }
             );
-            markColumn.setOnEditCommit(
-                new EventHandler<CellEditEvent<Esame, Integer>>() {
+            colonnaVoti.setOnEditCommit(new EventHandler<CellEditEvent<Esame, Integer>>() {
                     @Override
                     public void handle(CellEditEvent<Esame, Integer> t) {
                         int index = t.getTablePosition().getRow();
-                        Esame edited = (RisorsaListaEsami.getInstance().getExam(index));                        
+                        Esame edited = (RisorsaListaEsami.getIstanza().prelevaEsame(index));                        
                         edited.setValutazione(t.getNewValue());
-                        completeCommit(edited,index);
+                        completaModifica(edited,index);
                     }
                 }
             );
-            creditsColumn.setOnEditCommit(
-                new EventHandler<CellEditEvent<Esame, Long>>() {
+            colonnaCrediti.setOnEditCommit(new EventHandler<CellEditEvent<Esame, Long>>() {
                     @Override
                     public void handle(CellEditEvent<Esame, Long> t) {
                         int index = t.getTablePosition().getRow();
-                        Esame edited = (RisorsaListaEsami.getInstance().getExam(index));                         
+                        Esame edited = (RisorsaListaEsami.getIstanza().prelevaEsame(index));                         
                         edited.setCrediti(t.getNewValue().intValue());                        
-                        completeCommit(edited,index);
+                        completaModifica(edited,index);
                     }
                 }
             );
-            dateColumn.setOnEditCommit(
-                new EventHandler<CellEditEvent<Esame, String>>() {
+            colonnaData.setOnEditCommit(new EventHandler<CellEditEvent<Esame, String>>() {
                     @Override
                     public void handle(CellEditEvent<Esame, String> t) {
                         int index = t.getTablePosition().getRow();
-                        Esame edited = (RisorsaListaEsami.getInstance().getExam(index));                                                 
+                        Esame edited = (RisorsaListaEsami.getIstanza().prelevaEsame(index));                                                 
                         edited.setData(t.getNewValue());   
-                        completeCommit(edited,index);                        
+                        completaModifica(edited,index);                        
                     }
                 }
             );   

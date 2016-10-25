@@ -11,14 +11,14 @@ import java.time.LocalDate;
 import javafx.application.Platform;
 
 public class GestoreArchiviazioneEsami{
-    private Connection dataConnection;
-    private static GestoreArchiviazioneEsami instance;
-    private final String insertExamQuery = "INSERT INTO exam(name,credits,mark,date) VALUES(?,?,?,?)";
-    private final String editExamQuery = "UPDATE exam SET name = ?,credits=?,mark=?,date=? WHERE id = ?";
-    private final String readExamsQuery = "SELECT * FROM exam";
+    private Connection connessioneDatabase;
+    private static GestoreArchiviazioneEsami _istanza;
+    private final String queryInserimentoEsame = "INSERT INTO exam(name,credits,mark,date) VALUES(?,?,?,?)";
+    private final String queryModificaEsame = "UPDATE exam SET name = ?,credits=?,mark=?,date=? WHERE id = ?";
+    private final String queryLetturaEsami = "SELECT * FROM exam";
     private GestoreArchiviazioneEsami() {
         try {
-            dataConnection = DriverManager.getConnection("jdbc:mysql://localhost:3306/prg", "root","");
+            connessioneDatabase = DriverManager.getConnection("jdbc:mysql://localhost:3306/prg", "root","");
         } catch(SQLException e) {
             System.out.println("Impossibile connettersi al database: "+e.getMessage());
             Platform.exit();
@@ -26,27 +26,27 @@ public class GestoreArchiviazioneEsami{
         }
     }
     
-    public static  GestoreArchiviazioneEsami getInstance() {
-        if(instance == null)
-            instance = new GestoreArchiviazioneEsami();
-        return instance;
+    public static  GestoreArchiviazioneEsami getIstanza() {
+        if(_istanza == null)
+            _istanza = new GestoreArchiviazioneEsami();
+        return _istanza;
     }
     
     
-    public int insertExam(Esame e) {
+    public int inserisciEsame(Esame e) {
         try {
-            PreparedStatement ips = dataConnection.prepareStatement(insertExamQuery,Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ips = connessioneDatabase.prepareStatement(queryInserimentoEsame,Statement.RETURN_GENERATED_KEYS);
             ips.setString(1, e.getNome());
             ips.setInt(2,e.getCrediti());
             ips.setInt(3,e.getValutazione());
             ips.setDate(4,Date.valueOf(LocalDate.parse(e.getData())));
             int inserted = ips.executeUpdate();
-            System.out.println("Inserted: "+inserted);
+            System.out.println("Inserite righe n.: "+inserted);
             ResultSet idResult = ips.getGeneratedKeys();
             int id = -1;
             if(idResult.next()) {
                 id = idResult.getInt(1);
-                System.out.println("Inserted: "+id);
+                System.out.println("Inserito l\'id:"+id);
             }
             return id;
         } catch (SQLException ex) {
@@ -55,16 +55,15 @@ public class GestoreArchiviazioneEsami{
         }        
     }
     
-    public void readExams() {
+    public void leggiEsami() {
         try {
-            System.out.println("Loading from database");
-            PreparedStatement ips = dataConnection.prepareStatement(readExamsQuery);
+            PreparedStatement ips = connessioneDatabase.prepareStatement(queryLetturaEsami);
             ResultSet ers = ips.executeQuery();
             Esame e;
             while(ers.next()) {
                 e = new Esame(ers.getInt("id"),ers.getString("name"),ers.getInt("mark"),ers.getInt("credits"),ers.getDate("date").toLocalDate());
                 System.out.println(e.getNome());
-                RisorsaListaEsami.getInstance().addExam(e);
+                RisorsaListaEsami.getIstanza().aggiungiEsame(e);
             }
             
         } catch(SQLException ex) {
@@ -72,9 +71,9 @@ public class GestoreArchiviazioneEsami{
         }
     }
     
-    public boolean editExam(Esame e) {
+    public boolean modificaEsame(Esame e) {
         try {
-            PreparedStatement eps = dataConnection.prepareStatement(editExamQuery);
+            PreparedStatement eps = connessioneDatabase.prepareStatement(queryModificaEsame);
             eps.setString(1, e.getNome());
             eps.setInt(2, e.getCrediti());
             eps.setInt(3, e.getValutazione());
