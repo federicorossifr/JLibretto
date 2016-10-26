@@ -1,0 +1,14 @@
+<Configurazioni>
+	<Nucleo>
+		<PortaServerLog>80</PortaServerLog>
+		<IPServerLog>127.0.0.1</IPServerLog>
+		<HostnameDatabase>127.0.0.1</HostnameDatabase>
+		<PortaDatabase>3316</PortaDatabase>
+		<UtenteDatabase>root</UtenteDatabase>
+		<PasswordDatabase></PasswordDatabase>
+	</Nucleo>
+	<Preferenze>
+		<TipoMedia>aritmetica</TipoMedia>
+	</Preferenze>
+</Configurazioni>
+  
