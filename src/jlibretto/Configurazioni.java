@@ -3,19 +3,38 @@ package jlibretto;
 import java.io.Serializable;
 
 public class Configurazioni implements Serializable {
-    public static Nucleo nucleo;
-    public static Preferenze preferenze;
+    Nucleo Nucleo;
+    Preferenze Preferenze;
+    
+    public Configurazioni(Nucleo n,Preferenze p) {
+        Nucleo = n;
+        Preferenze = p;
+    }
 }
 
-class Nucleo {
-	public static Integer PortaServerLog;
-	public static String IPServerLog;
-	public static String HostnameDatabase;
-	public static Integer PortaDatabase;
-	public static String UtenteDatabase;
-	public static String PasswordDatabase;
+class Nucleo implements Serializable {
+	public Integer PortaServerLog;
+	public String IPServerLog;
+	public String HostnameDatabase;
+	public Integer PortaDatabase;
+	public String UtenteDatabase;
+	public String PasswordDatabase;
+        
+        public Nucleo(Integer ps,String ips,String hd,Integer pd,String ud,String pwdb) {
+            PortaServerLog = ps;
+            IPServerLog = ips;
+            HostnameDatabase = hd;
+            PortaDatabase = pd;
+            UtenteDatabase = ud;
+            PasswordDatabase = pwdb;
+        }
+        
 }
 
-class Preferenze {
-	public static String TipoMedia;
+class Preferenze implements Serializable{
+	public String TipoMedia;
+        
+        public Preferenze(String tm) {
+            TipoMedia = tm;
+        }
 }

@@ -1,11 +1,7 @@
 package jlibretto;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.NumberAxis;
@@ -28,28 +24,40 @@ public class JLibrettoMain extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        caricaConfigurazioniXML();
         BorderPane mainPanel = new BorderPane();
         VBox examsContentPanel = makeExamsContentPanel();
         mainPanel.setCenter(examsContentPanel);
         StackPane root = new StackPane();
         root.getChildren().add(mainPanel);
         Scene scene = new Scene(root, 800, 600);
-        
+        impostaSalvataggioForm(primaryStage);
         primaryStage.setTitle("JLibretto");
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
-        primaryStage.setOnCloseRequest((WindowEvent we) -> {
+      
+        
+        System.out.println("Caricamento contenuto form da cache");
+        FormCache.caricaDaCache(examForm);
+       
+    }
+    
+    private void impostaSalvataggioForm(Stage stage) {
+        stage.setOnCloseRequest((WindowEvent we) -> {
            System.out.println("In fase di chiusura, salvataggio in cache del form.");
            FormCache.salvaInCache(examForm);
            System.out.println("Salvataggio completato.");
         });
-        
-        System.out.println("Caricamento contenuto form da cache");
-        FormCache.caricaDaCache(examForm);
-
     }
     
+    private void caricaConfigurazioniXML() {
+        GestoreConfigurazioniXML gcx = new GestoreConfigurazioniXML("configurazioni.xml","");
+        if(!gcx.caricaConfigurazioni()) {
+            Platform.exit();
+            System.exit(-1);
+        }
+    }
 
     private VBox makeExamsContentPanel() {
         VBox vb = new VBox();
