@@ -1,4 +1,4 @@
-<Configurazioni>
+<jlibretto.Configurazioni>
 	<Nucleo>
 		<PortaServerLog>80</PortaServerLog>
 		<IPServerLog>127.0.0.1</IPServerLog>
@@ -10,5 +10,5 @@
 	<Preferenze>
 		<TipoMedia>aritmetica</TipoMedia>
 	</Preferenze>
-</Configurazioni>
+</jlibretto.Configurazioni>
   

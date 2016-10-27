@@ -1,14 +1,34 @@
-<Configurazioni>
-	<Nucleo>
-		<PortaServerLog>80</PortaServerLog>
-		<IPServerLog>127.0.0.1</IPServerLog>
-		<HostnameDatabase>127.0.0.1</HostnameDatabase>
-		<PortaDatabase>3316</PortaDatabase>
-		<UtenteDatabase>root</UtenteDatabase>
-		<PasswordDatabase></PasswordDatabase>
-	</Nucleo>
-	<Preferenze>
-		<TipoMedia>aritmetica</TipoMedia>
-	</Preferenze>
-</Configurazioni>
-  
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="jlibretto.Configurazioni">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Nucleo">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:integer" nillable="false" minOccurs="1" maxOccurs="1" name="PortaServerLog"/>
+              <xs:element type="xs:string" nillable="false" minOccurs="1" maxOccurs="1" name="IPServerLog"/>
+              <xs:element type="xs:string" nillable="false" minOccurs="1" maxOccurs="1" name="HostnameDatabase"/>
+              <xs:element type="xs:short" nillable="false" minOccurs="1" maxOccurs="1" name="PortaDatabase"/>
+              <xs:element type="xs:string" nillable="false" minOccurs="1" maxOccurs="1" name="UtenteDatabase"/>
+              <xs:element type="xs:string" nillable="false" minOccurs="1" maxOccurs="1" name="PasswordDatabase"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Preferenze">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TipoMedia">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="aritmetica" />
+                    <xs:enumeration value="ponderata" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
