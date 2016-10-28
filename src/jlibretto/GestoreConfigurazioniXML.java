@@ -1,20 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jlibretto;
 
 import com.thoughtworks.xstream.XStream;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
+import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import org.xml.sax.SAXException;
+import org.w3c.dom.Document;
 
-/**
- *
- * @author feder
- */
 public class GestoreConfigurazioniXML {
     public static Configurazioni parametriConfigurazione;
     private final String percorsoXML;
@@ -25,15 +24,35 @@ public class GestoreConfigurazioniXML {
         percorsoSchemaXML = xsd;
     }
     
+    public boolean validaConfigurazione() {
+        try {
+            DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            Document documentoConfigurazione = db.parse(new File(percorsoXML));
+            
+            SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema schemaConfigurazione = sf.newSchema(new StreamSource(new File(percorsoSchemaXML)));
+            
+            schemaConfigurazione.newValidator().validate(new DOMSource(documentoConfigurazione));
+            return true;
+        } catch(SAXException e) {
+            System.out.println("Errore di validazione: "+e.getMessage());
+            return false;
+        } catch(Exception e) {
+            System.out.println("Errore: "+e.getMessage());
+            return false;
+        }
+    }
+    
     public boolean caricaConfigurazioni() {
         try {
+            if(!validaConfigurazione())
+                return false;
             XStream flussoXML = new XStream();
             String inputDaFileXML = new String(Files.readAllBytes(Paths.get(percorsoXML)));
-            System.out.println(inputDaFileXML);
             parametriConfigurazione = (Configurazioni) flussoXML.fromXML(inputDaFileXML);
             return true;
         } catch(Exception e) {
-            System.out.println("Impossibile caricare la configurazione: "+e.getMessage());
+            System.out.println("Impossibile caricare la configurazione");
             return false;
         }     
     }

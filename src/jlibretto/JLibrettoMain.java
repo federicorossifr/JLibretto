@@ -52,7 +52,7 @@ public class JLibrettoMain extends Application {
     }
     
     private void caricaConfigurazioniXML() {
-        GestoreConfigurazioniXML gcx = new GestoreConfigurazioniXML("configurazioni.xml","");
+        GestoreConfigurazioniXML gcx = new GestoreConfigurazioniXML("configurazioni.xml","configurazioni.xsd");
         if(!gcx.caricaConfigurazioni()) {
             Platform.exit();
             System.exit(-1);
