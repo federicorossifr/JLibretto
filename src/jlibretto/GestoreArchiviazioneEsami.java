@@ -17,8 +17,14 @@ public class GestoreArchiviazioneEsami{
     private final String queryModificaEsame = "UPDATE exam SET name = ?,credits=?,mark=?,date=? WHERE id = ?";
     private final String queryLetturaEsami = "SELECT * FROM exam WHERE usercode=?";
     private GestoreArchiviazioneEsami() {
+        int porta = GestoreConfigurazioniXML.parametriConfigurazione.Nucleo.PortaDatabase;
+        String hostname = GestoreConfigurazioniXML.parametriConfigurazione.Nucleo.HostnameDatabase;
+        String utenteDatabase = GestoreConfigurazioniXML.parametriConfigurazione.Nucleo.UtenteDatabase;
+        String passwdDatabase = GestoreConfigurazioniXML.parametriConfigurazione.Nucleo.PasswordDatabase;
+        String nomeDatabase = "prg";
+        String URI = "jdbc:mysql://"+hostname+":"+porta+"/"+nomeDatabase;
         try {
-            connessioneDatabase = DriverManager.getConnection("jdbc:mysql://localhost:3306/prg", "root","");
+            connessioneDatabase = DriverManager.getConnection(URI,utenteDatabase,passwdDatabase);
         } catch(SQLException e) {
             System.out.println("Impossibile connettersi al database: "+e.getMessage());
             Platform.exit();

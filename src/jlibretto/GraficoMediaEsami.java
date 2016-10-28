@@ -8,7 +8,7 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 
-class GraficoMediaEsami extends LineChart {
+abstract class GraficoMediaEsami extends LineChart {
     
     public GraficoMediaEsami(NumberAxis n) {
         super(new CategoryAxis(),n);
@@ -22,19 +22,22 @@ class GraficoMediaEsami extends LineChart {
         setAnimated(false);
     }
     
-    public double aggiornaComponente(ObservableList<Esame> exams) {
-        Double sum = 0.0;
-        Integer count = 0;
-        Double tmp = 0.0;
-        Series<String,Double> mobileAvg;        
-        mobileAvg = new Series<>();
-        for(Esame e:exams) {
-            sum+=e.getValutazione();
-            count++;
-            tmp = sum/count;
-            mobileAvg.getData().add(new XYChart.Data(e.getNome(),tmp));
+    public abstract Integer ottieniTermineSommatoria(Esame e);
+    public abstract Integer ottieniIncrementoContatore(Esame e);
+    
+    public double aggiornaComponente(ObservableList<Esame> esami) {
+        Double sommatoria = 0.0;
+        Integer contatore = 0;
+        Double iterazioneMediaMobile = 0.0;
+        Series<String,Double> valoriMediaMobile;        
+        valoriMediaMobile = new Series<>();
+        for(Esame e:esami) {
+            sommatoria+=ottieniTermineSommatoria(e);
+            contatore+=ottieniIncrementoContatore(e);
+            iterazioneMediaMobile = sommatoria/contatore;
+            valoriMediaMobile.getData().add(new XYChart.Data(e.getNome(),iterazioneMediaMobile));
         }
-        setData(FXCollections.observableArrayList(mobileAvg));
-        return tmp;
+        setData(FXCollections.observableArrayList(valoriMediaMobile));
+        return iterazioneMediaMobile;
     }
  }

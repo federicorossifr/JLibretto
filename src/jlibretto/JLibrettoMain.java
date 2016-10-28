@@ -67,10 +67,8 @@ public class JLibrettoMain extends Application {
         examForm.setVgap(5);
         examForm.setHgap(5);
         examForm.setAlignment(Pos.CENTER);
-        NumberAxis na = new NumberAxis();
-        na.setLowerBound(18);
-        na.setUpperBound(33);
-        mobileAvg = new GraficoMediaEsami(na);
+
+        mobileAvg = creaGraficoEsami();
         HBox.setHgrow(examForm,Priority.ALWAYS);
         HBox.setHgrow(mobileAvg,Priority.ALWAYS);
         hb.getChildren().addAll(examForm,mobileAvg);
@@ -78,6 +76,18 @@ public class JLibrettoMain extends Application {
         VBox.setVgrow(examTable, Priority.ALWAYS);
         vb.getChildren().addAll(examTable,hb);
         return vb;
+    }
+    
+    private GraficoMediaEsami creaGraficoEsami() {
+        NumberAxis na = new NumberAxis();
+        na.setLowerBound(18);
+        na.setUpperBound(33);
+        String tipoMedia = GestoreConfigurazioniXML.parametriConfigurazione.Preferenze.TipoMedia;
+        switch(tipoMedia) {
+            case "aritmetica": return new GraficoMediaAritmetica(na);
+            case "ponderata": return new GraficoMediaPonderata(na);
+            default: return new GraficoMediaAritmetica(na);
+        }
     }
     
     private FormInserimentoEsame makeExamForm() {

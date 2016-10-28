@@ -2,7 +2,7 @@ package jlibretto;
 
 import java.io.Serializable;
 
-public class Configurazioni implements Serializable {
+class Configurazioni implements Serializable {
     Nucleo Nucleo;
     Preferenze Preferenze;
     

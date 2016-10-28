@@ -2,11 +2,13 @@ package jlibretto;
 
 import com.thoughtworks.xstream.XStream;
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
@@ -37,7 +39,7 @@ public class GestoreConfigurazioniXML {
         } catch(SAXException e) {
             System.out.println("Errore di validazione: "+e.getMessage());
             return false;
-        } catch(Exception e) {
+        } catch(ParserConfigurationException | IOException e) {
             System.out.println("Errore: "+e.getMessage());
             return false;
         }
