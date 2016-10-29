@@ -13,7 +13,7 @@ import javafx.collections.ObservableList;
  * @author feder
  */
 public class RisorsaListaEsami  {
-    private ObservableList<Esame> listaEsami;
+    private final ObservableList<Esame> listaEsami;
     private static RisorsaListaEsami _istanza;
     
     private RisorsaListaEsami() {

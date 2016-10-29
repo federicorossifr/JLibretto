@@ -15,7 +15,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-public class JLibrettoMain extends Application {
+public class JLibrettoAvvio extends Application {
     TabellaEsami examTable;
     FormInserimentoEsame examForm;
     GraficoMediaEsami mobileAvg;
