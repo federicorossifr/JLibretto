@@ -2,13 +2,21 @@ package jlibretto;
 
 import java.io.Serializable;
 
-class Configurazioni implements Serializable {
+public class Configurazioni implements Serializable {
     Nucleo Nucleo;
     Preferenze Preferenze;
     
     public Configurazioni(Nucleo n,Preferenze p) {
         Nucleo = n;
         Preferenze = p;
+    }
+    
+    public String getIPServerLog() {
+        return Nucleo.IPServerLog;
+    }
+    
+    public Integer getPortaServerLog() {
+        return Nucleo.PortaServerLog;
     }
     
 }

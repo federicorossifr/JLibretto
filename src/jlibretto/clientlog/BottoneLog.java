@@ -30,6 +30,8 @@ public class BottoneLog extends Button implements Loggable {
     @Override
     public void inviaAttivita(AttivitaXML attivita) {
         //crea client e invia
+        ClientLogAttivitaXML client = new ClientLogAttivitaXML(attivita);
+        (new Thread(client)).start();
         System.out.println(attivita.serializzaInXML());
     }
 }

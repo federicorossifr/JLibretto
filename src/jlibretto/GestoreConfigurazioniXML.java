@@ -26,13 +26,13 @@ public class GestoreConfigurazioniXML {
         percorsoSchemaXML = xsd;
     }
     
-    public boolean validaConfigurazione() {
+    public static boolean validaConfigurazione(String xml,String xsd) {
         try {
             DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document documentoConfigurazione = db.parse(new File(percorsoXML));
+            Document documentoConfigurazione = db.parse(new File(xml));
             
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema schemaConfigurazione = sf.newSchema(new StreamSource(new File(percorsoSchemaXML)));
+            Schema schemaConfigurazione = sf.newSchema(new StreamSource(new File(xsd)));
             
             schemaConfigurazione.newValidator().validate(new DOMSource(documentoConfigurazione));
             return true;
@@ -47,7 +47,7 @@ public class GestoreConfigurazioniXML {
     
     public boolean caricaConfigurazioni() {
         try {
-            if(!validaConfigurazione())
+            if(!validaConfigurazione(percorsoXML,percorsoSchemaXML))
                 return false;
             XStream flussoXML = new XStream();
             String inputDaFileXML = new String(Files.readAllBytes(Paths.get(percorsoXML)));
