@@ -14,6 +14,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import jlibretto.clientlog.BottoneLog;
 
 public class FormInserimentoEsame extends GridPane {
     
@@ -22,8 +23,8 @@ public class FormInserimentoEsame extends GridPane {
     final TextField inputCreditiEsame = new TextField();
     final ComboBox<Integer> inputValutazioneEsame = new ComboBox<>(Esame.listaVotiStandard);
     final DatePicker inputDataEsame = new DatePicker();
-    final Button pulsanteInvioForm = new Button("Inserisci");
-    final Button pulsanteApplicaCodiceUtente = new Button("Applica");
+    final Button pulsanteInvioForm = new BottoneLog("Inserisci");
+    final Button pulsanteApplicaCodiceUtente = new BottoneLog("Applica");
     
     public FormInserimentoEsame() {
         super();
