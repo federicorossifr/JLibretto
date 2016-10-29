@@ -16,6 +16,7 @@ public class GestoreArchiviazioneEsami{
     private final String queryInserimentoEsame = "INSERT INTO exam(name,credits,mark,date,usercode) VALUES(?,?,?,?,?)";
     private final String queryModificaEsame = "UPDATE exam SET name = ?,credits=?,mark=?,date=? WHERE id = ?";
     private final String queryLetturaEsami = "SELECT * FROM exam WHERE usercode=?";
+    
     private GestoreArchiviazioneEsami() {
         int porta = GestoreConfigurazioniXML.parametriConfigurazione.Nucleo.PortaDatabase;
         String hostname = GestoreConfigurazioniXML.parametriConfigurazione.Nucleo.HostnameDatabase;

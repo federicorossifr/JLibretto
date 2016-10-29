@@ -10,6 +10,7 @@ class Configurazioni implements Serializable {
         Nucleo = n;
         Preferenze = p;
     }
+    
 }
 
 class Nucleo implements Serializable {

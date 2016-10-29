@@ -54,7 +54,7 @@ public class GestoreConfigurazioniXML {
             parametriConfigurazione = (Configurazioni) flussoXML.fromXML(inputDaFileXML);
             return true;
         } catch(Exception e) {
-            System.out.println("Impossibile caricare la configurazione");
+            System.out.println("Impossibile caricare la configurazione: "+e.getMessage());
             return false;
         }     
     }
