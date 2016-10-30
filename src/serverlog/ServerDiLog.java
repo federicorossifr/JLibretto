@@ -6,13 +6,12 @@
 package serverlog;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketAddress;
 import jlibretto.GestoreConfigurazioniXML;
 /**
  *
  * @author feder
  */
-public class ServerDiLog implements Runnable {
+public class ServerDiLog {
     ServerSocket socketServerDiLog;
     Integer portaServer;
     String indirizzoServer;
@@ -23,13 +22,13 @@ public class ServerDiLog implements Runnable {
         indirizzoServer = gcx.parametriConfigurazione.getIPServerLog();
     }
 
-    @Override
-    public void run() {
+    public void esegui() {
         try {
             System.out.println("In ascolto su: "+portaServer+ " "+indirizzoServer);
             socketServerDiLog = new ServerSocket(portaServer);
         } catch(Exception e) {
             System.out.println("Errore di avvio server: "+e.getMessage());
+            return;
         }
         while(true) {
             try {
@@ -38,6 +37,7 @@ public class ServerDiLog implements Runnable {
                 (new ServerThread(clientConnesso)).start();
             } catch(Exception e) {
                 System.out.println("Errore di avvio server: "+e.getMessage());
+                return;
             }
         }
         
@@ -45,7 +45,7 @@ public class ServerDiLog implements Runnable {
     
     public static void main(String[] args) {
         ServerDiLog sdl = new ServerDiLog();
-        (new Thread(sdl)).start();
+        sdl.esegui();
     }
     
 }

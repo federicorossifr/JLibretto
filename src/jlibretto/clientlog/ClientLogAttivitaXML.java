@@ -33,6 +33,7 @@ public class ClientLogAttivitaXML implements Runnable {
             System.out.println("Socket connesso: "+socketInvioXML.getInetAddress()+" "+socketInvioXML.getPort());
             OutputStream streamUscitaAlServer = new BufferedOutputStream(socketInvioXML.getOutputStream());
             OutputStreamWriter scrittoreXMLAServer = new OutputStreamWriter(streamUscitaAlServer);
+            attivita.indirizzoIPClient = socketInvioXML.getLocalAddress().toString();
             scrittoreXMLAServer.write(attivita.serializzaInXML());
             scrittoreXMLAServer.flush();
         } catch(Exception e) {

@@ -9,6 +9,8 @@ public class AttivitaXML implements Serializable {
     public String nomeComponente;
     public String indirizzoIPClient;
     public String istante;
+    public static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
+    
     
     public AttivitaXML(TipoAttivita tA,String nomeC,String indirizzo) {
         tipo = tA;
@@ -22,12 +24,12 @@ public class AttivitaXML implements Serializable {
         XStream xs = new XStream();
         xs.alias("Attività", AttivitaXML.class);
         xs.useAttributeFor(AttivitaXML.class, "tipo");
-        stringaXml = xs.toXML(this);
+        stringaXml = XML_HEADER+System.lineSeparator()+xs.toXML(this);
         return stringaXml;
     }
     
     public static void main(String[] args) {
         AttivitaXML a = new AttivitaXML(TipoAttivita.CLICK_BOTTONE,"Inserisci","127.0.0.1");
-        a.serializzaInXML();
+        System.out.println(a.serializzaInXML());
     }
 }
