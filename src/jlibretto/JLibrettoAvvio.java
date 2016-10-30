@@ -14,8 +14,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import jlibretto.clientlog.AttivitaXML;
+import jlibretto.clientlog.ClientLogAttivitaXML;
+import jlibretto.clientlog.Loggable;
+import jlibretto.clientlog.TipoAttivita;
 
-public class JLibrettoAvvio extends Application {
+public class JLibrettoAvvio extends Application implements Loggable {
     TabellaEsami examTable;
     FormInserimentoEsame examForm;
     GraficoMediaEsami mobileAvg;
@@ -31,7 +35,7 @@ public class JLibrettoAvvio extends Application {
         StackPane root = new StackPane();
         root.getChildren().add(mainPanel);
         Scene scene = new Scene(root, 800, 600);
-        impostaSalvataggioForm(primaryStage);
+        impostaAzioniChiusuraApplicazione(primaryStage);
         primaryStage.setTitle("JLibretto");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -40,14 +44,15 @@ public class JLibrettoAvvio extends Application {
         
         System.out.println("Caricamento contenuto form da cache");
         FormCache.caricaDaCache(examForm);
-       
+        produciAttivita(TipoAttivita.AVVIO_APPLICAZIONE);
     }
     
-    private void impostaSalvataggioForm(Stage stage) {
+    private void impostaAzioniChiusuraApplicazione(Stage stage) {
         stage.setOnCloseRequest((WindowEvent we) -> {
            System.out.println("In fase di chiusura, salvataggio in cache del form.");
            FormCache.salvaInCache(examForm);
            System.out.println("Salvataggio completato.");
+           produciAttivita(TipoAttivita.CHIUSURA_APPLICAZIONE);
         });
     }
     
@@ -99,6 +104,20 @@ public class JLibrettoAvvio extends Application {
         System.out.println("Avvio applicazione...");
         launch(args);
         
+    }
+
+    @Override
+    public AttivitaXML produciAttivita(TipoAttivita tipo) {
+        AttivitaXML attivita = new AttivitaXML(tipo,"JLibretto","");
+        inviaAttivita(attivita);
+        return attivita;
+    }
+
+    @Override
+    public void inviaAttivita(AttivitaXML attivita) {
+        ClientLogAttivitaXML client = new ClientLogAttivitaXML(attivita);
+        (new Thread(client)).start();
+        System.out.println(attivita.serializzaInXML());
     }
 
     

@@ -28,7 +28,9 @@ public class ClientLogAttivitaXML implements Runnable {
         try {
             String indirizzoServerLog = GestoreConfigurazioniXML.parametriConfigurazione.getIPServerLog();
             Integer portaServerLog = GestoreConfigurazioniXML.parametriConfigurazione.getPortaServerLog();
+            System.out.println("Connessione: "+indirizzoServerLog+" "+portaServerLog);           
             socketInvioXML = new Socket(indirizzoServerLog,portaServerLog);
+            System.out.println("Socket connesso: "+socketInvioXML.getInetAddress()+" "+socketInvioXML.getPort());
             OutputStream streamUscitaAlServer = new BufferedOutputStream(socketInvioXML.getOutputStream());
             OutputStreamWriter scrittoreXMLAServer = new OutputStreamWriter(streamUscitaAlServer);
             scrittoreXMLAServer.write(attivita.serializzaInXML());

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jlibretto.Configurazioni>
 	<Nucleo>
-		<PortaServerLog>80</PortaServerLog>
-		<IPServerLog>127.0.0.1</IPServerLog>
+		<PortaServerLog>8080</PortaServerLog>
+		<IPServerLog>192.168.1.105</IPServerLog>
 		<HostnameDatabase>localhost</HostnameDatabase>
 		<PortaDatabase>3306</PortaDatabase>
 		<UtenteDatabase>root</UtenteDatabase>

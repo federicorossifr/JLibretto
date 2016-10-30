@@ -49,6 +49,7 @@ public class GestoreConfigurazioniXML {
         try {
             if(!validaConfigurazione(percorsoXML,percorsoSchemaXML))
                 return false;
+            System.out.println("Valida");
             XStream flussoXML = new XStream();
             String inputDaFileXML = new String(Files.readAllBytes(Paths.get(percorsoXML)));
             parametriConfigurazione = (Configurazioni) flussoXML.fromXML(inputDaFileXML);
