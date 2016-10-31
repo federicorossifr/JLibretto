@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package jlibretto.clientlog;
 
 import java.io.Serializable;
 
-/**
- *
- * @author feder
- */
 public enum TipoAttivita implements Serializable {
     CLICK_BOTTONE,AVVIO_APPLICAZIONE,CHIUSURA_APPLICAZIONE;
 

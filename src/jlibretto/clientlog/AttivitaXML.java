@@ -27,9 +27,4 @@ public class AttivitaXML implements Serializable {
         stringaXml = XML_HEADER+System.lineSeparator()+xs.toXML(this);
         return stringaXml;
     }
-    
-    public static void main(String[] args) {
-        AttivitaXML a = new AttivitaXML(TipoAttivita.CLICK_BOTTONE,"Inserisci","127.0.0.1");
-        System.out.println(a.serializzaInXML());
-    }
 }

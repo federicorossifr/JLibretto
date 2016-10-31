@@ -1,4 +1,5 @@
 package jlibretto;
+import javafx.collections.FXCollections;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.event.EventHandler;
@@ -13,6 +14,7 @@ public class TabellaEsami extends TableView {
         TableColumn colonnaCrediti = new TableColumn("Crediti esame");
         TableColumn colonnaVoti = new TableColumn("Valutazione esame");
         TableColumn colonnaData = new TableColumn("Data esame");
+        TableColumn colonnaElimina = new TableColumn("Azione");
         public TabellaEsami() {
             setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             colonnaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -22,14 +24,14 @@ public class TabellaEsami extends TableView {
 
             impostaFormatoModificaCelle();
             impostaCompletamentoModificaCelle();
-            
+            impostaEliminazione();
             colonnaNome.setSortable(false);
             colonnaCrediti.setSortable(false);
             colonnaVoti.setSortable(false);            
             colonnaData.setSortable(false);
             setItems(RisorsaListaEsami.getIstanza().getListaEsami());
             setEditable(true);
-            getColumns().addAll(colonnaNome,colonnaCrediti,colonnaVoti,colonnaData);
+            getColumns().addAll(colonnaNome,colonnaCrediti,colonnaVoti,colonnaData,colonnaElimina);
         }
 
         private void impostaFormatoModificaCelle() {
@@ -37,6 +39,7 @@ public class TabellaEsami extends TableView {
             colonnaCrediti.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));            
             colonnaVoti.setCellFactory(ComboBoxTableCell.forTableColumn(Esame.listaVotiStandard));            
             colonnaData.setCellFactory(TextFieldTableCell.forTableColumn());
+            colonnaElimina.setCellFactory(ComboBoxTableCell.forTableColumn(FXCollections.observableArrayList("Elimina")));
         }
         
         private void completaModifica(Esame e,int rowIndex) {
@@ -44,6 +47,20 @@ public class TabellaEsami extends TableView {
             System.out.println(result);
             if(result)
                 RisorsaListaEsami.getIstanza().notificaCambiamentoEsame(rowIndex);
+        }
+        
+        private void impostaEliminazione() {
+            colonnaElimina.setOnEditCommit(new EventHandler<CellEditEvent<Esame, String>>() {
+                    @Override
+                    public void handle(CellEditEvent<Esame, String> t) {
+                        int indiceRiga = t.getTablePosition().getRow();
+                        Esame daRimuovere = (RisorsaListaEsami.getIstanza().prelevaEsame(indiceRiga));
+                        boolean risultato = GestoreArchiviazioneEsami.getIstanza().rimuoviEsame(daRimuovere.getId());
+                        if(risultato) {
+                            RisorsaListaEsami.getIstanza().getListaEsami().remove(indiceRiga);
+                        }
+                    }
+            });
         }
 
         private void impostaCompletamentoModificaCelle() {
@@ -86,6 +103,7 @@ public class TabellaEsami extends TableView {
                         completaModifica(edited,index);                        
                     }
                 }
-            );   
+            ); 
+
         }
 }

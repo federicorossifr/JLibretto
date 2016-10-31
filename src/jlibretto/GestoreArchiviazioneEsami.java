@@ -16,6 +16,7 @@ public class GestoreArchiviazioneEsami{
     private final String queryInserimentoEsame = "INSERT INTO exam(name,credits,mark,date,usercode) VALUES(?,?,?,?,?)";
     private final String queryModificaEsame = "UPDATE exam SET name = ?,credits=?,mark=?,date=? WHERE id = ?";
     private final String queryLetturaEsami = "SELECT * FROM exam WHERE usercode=?";
+    private final String queryRimozioneEsame = "DELETE FROM exam WHERE id = ?";
     
     private GestoreArchiviazioneEsami() {
         int porta = GestoreConfigurazioniXML.parametriConfigurazione.Nucleo.PortaDatabase;
@@ -95,6 +96,18 @@ public class GestoreArchiviazioneEsami{
             return affectedRows > 0;
         } catch(SQLException ex) {
             System.out.println("Impossibile modificare l\'esame: "+ex.getMessage());
+            return false;
+        }
+    }
+    
+    public boolean rimuoviEsame(int indice) {
+        try {
+            PreparedStatement rps = connessioneDatabase.prepareStatement(queryRimozioneEsame);
+            rps.setInt(1,indice);
+            int righeRimosse = rps.executeUpdate();
+            return righeRimosse > 0;
+        } catch(SQLException ex) {
+            System.out.println("Impossibile rimuovere l\'esame: "+ex.getMessage());
             return false;
         }
     }
