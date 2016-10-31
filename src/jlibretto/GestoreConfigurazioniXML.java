@@ -3,6 +3,7 @@ package jlibretto;
 import com.thoughtworks.xstream.XStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import javax.xml.XMLConstants;
@@ -15,6 +16,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import org.xml.sax.SAXException;
 import org.w3c.dom.Document;
+import org.xml.sax.InputSource;
 
 public class GestoreConfigurazioniXML {
     public static Configurazioni parametriConfigurazione;
@@ -26,10 +28,11 @@ public class GestoreConfigurazioniXML {
         percorsoSchemaXML = xsd;
     }
     
-    public static boolean validaConfigurazione(String xml,String xsd) {
+    public static boolean validaConfigurazione(String contenutoXML,String xsd) {
         try {
             DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document documentoConfigurazione = db.parse(new File(xml));
+            InputSource inputContenutoXML = new InputSource(new StringReader(contenutoXML));
+            Document documentoConfigurazione = db.parse(inputContenutoXML);
             
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schemaConfigurazione = sf.newSchema(new StreamSource(new File(xsd)));
@@ -47,11 +50,11 @@ public class GestoreConfigurazioniXML {
     
     public boolean caricaConfigurazioni() {
         try {
-            if(!validaConfigurazione(percorsoXML,percorsoSchemaXML))
-                return false;
-            System.out.println("Valida");
             XStream flussoXML = new XStream();
             String inputDaFileXML = new String(Files.readAllBytes(Paths.get(percorsoXML)));
+            if(!validaConfigurazione(inputDaFileXML,percorsoSchemaXML))
+                return false;
+            System.out.println("Valida");
             parametriConfigurazione = (Configurazioni) flussoXML.fromXML(inputDaFileXML);
             return true;
         } catch(Exception e) {
