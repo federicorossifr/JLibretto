@@ -20,9 +20,7 @@ import jlibretto.clientlog.Loggable;
 import jlibretto.clientlog.TipoAttivita;
 
 public class JLibrettoAvvio extends Application implements Loggable {
-    TabellaEsami examTable;
-    FormInserimentoEsame examForm;
-    GraficoMediaEsami mobileAvg;
+    FormInserimentoEsame formEsami;
     static Font bolder = Font.font(Font.getDefault().getFamily(),FontWeight.BOLD,Font.getDefault().getSize());
     static Font greater = Font.font(Font.getDefault().getFamily(),FontWeight.BOLD,Font.getDefault().getSize()+3);
 
@@ -40,17 +38,16 @@ public class JLibrettoAvvio extends Application implements Loggable {
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
-      
         
         System.out.println("Caricamento contenuto form da cache");
-        FormCache.caricaDaCache(examForm);
+        FormCache.caricaDaCache(formEsami);
         produciAttivita(TipoAttivita.AVVIO_APPLICAZIONE);
     }
     
     private void impostaAzioniChiusuraApplicazione(Stage stage) {
         stage.setOnCloseRequest((WindowEvent we) -> {
            System.out.println("In fase di chiusura, salvataggio in cache del form.");
-           FormCache.salvaInCache(examForm);
+           FormCache.salvaInCache(formEsami);
            System.out.println("Salvataggio completato.");
            produciAttivita(TipoAttivita.CHIUSURA_APPLICAZIONE);
         });
@@ -66,20 +63,20 @@ public class JLibrettoAvvio extends Application implements Loggable {
 
     private VBox makeExamsContentPanel() {
         VBox vb = new VBox();
-        examTable = new TabellaEsami();
+        TabellaEsami tabellaEsami = new TabellaEsami();
         HBox hb = new HBox();
-        examForm = makeExamForm();
-        examForm.setVgap(5);
-        examForm.setHgap(5);
-        examForm.setAlignment(Pos.CENTER);
+        formEsami = makeExamForm();
+        formEsami.setVgap(5);
+        formEsami.setHgap(5);
+        formEsami.setAlignment(Pos.CENTER);
 
-        mobileAvg = creaGraficoEsami();
-        HBox.setHgrow(examForm,Priority.ALWAYS);
-        HBox.setHgrow(mobileAvg,Priority.ALWAYS);
-        hb.getChildren().addAll(examForm,mobileAvg);
+        GraficoMediaEsami graficoMediaMobile = creaGraficoEsami();
+        HBox.setHgrow(formEsami,Priority.ALWAYS);
+        HBox.setHgrow(graficoMediaMobile,Priority.ALWAYS);
+        hb.getChildren().addAll(formEsami,graficoMediaMobile);
         VBox.setVgrow(hb, Priority.ALWAYS);
-        VBox.setVgrow(examTable, Priority.ALWAYS);
-        vb.getChildren().addAll(examTable,hb);
+        VBox.setVgrow(tabellaEsami, Priority.ALWAYS);
+        vb.getChildren().addAll(tabellaEsami,hb);
         return vb;
     }
     
@@ -119,6 +116,4 @@ public class JLibrettoAvvio extends Application implements Loggable {
         (new Thread(client)).start();
         System.out.println(attivita.serializzaInXML());
     }
-
-    
 }

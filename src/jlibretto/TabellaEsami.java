@@ -23,7 +23,6 @@ public class TabellaEsami extends TableView {
             impostaFormatoModificaCelle();
             impostaCompletamentoModificaCelle();
             
-            
             colonnaNome.setSortable(false);
             colonnaCrediti.setSortable(false);
             colonnaVoti.setSortable(false);            
