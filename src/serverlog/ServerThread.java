@@ -5,9 +5,7 @@
  */
 package serverlog;
 
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.DataInputStream;
 import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -19,12 +17,13 @@ import jlibretto.GestoreConfigurazioniXML;
  * @author feder
  */
 public class ServerThread extends Thread {
-    private Socket client;
+    private final Socket client;
     public ServerThread(Socket cl) {
         client = cl;
     }
     
     private void appendiAFile(String xml) {
+        System.out.println(xml);
         if(!GestoreConfigurazioniXML.validaConfigurazione(xml, "attivita.xsd")) {
             return;
         }
@@ -41,14 +40,12 @@ public class ServerThread extends Thread {
         }
     }
     
+    @Override
     public void run() {
         try {
-            InputStream flussoIngressoClient = new BufferedInputStream(client.getInputStream());
-            InputStreamReader lettoreFlussoIngresso = new InputStreamReader(flussoIngressoClient);
-            char[] buffer = new char[8192];
+            DataInputStream flussoIngressoClient = new DataInputStream(client.getInputStream());
             System.out.println("Ricezione xml");
-            lettoreFlussoIngresso.read(buffer);
-            String attivitaXML = (new String(buffer)).trim();
+            String attivitaXML = (String)flussoIngressoClient.readUTF();
             appendiAFile(attivitaXML);
         } catch(Exception e) {
             System.out.println("Errore di ricezione: "+e.getMessage());

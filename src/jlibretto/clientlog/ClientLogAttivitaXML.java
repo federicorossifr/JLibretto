@@ -5,9 +5,7 @@
  */
 package jlibretto.clientlog;
 
-import java.io.BufferedOutputStream;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
+import java.io.DataOutputStream;
 import java.net.Socket;
 import jlibretto.GestoreConfigurazioniXML;
 
@@ -28,14 +26,14 @@ public class ClientLogAttivitaXML implements Runnable {
         try {
             String indirizzoServerLog = GestoreConfigurazioniXML.parametriConfigurazione.getIPServerLog();
             Integer portaServerLog = GestoreConfigurazioniXML.parametriConfigurazione.getPortaServerLog();
-            System.out.println("Connessione: "+indirizzoServerLog+" "+portaServerLog);           
+            System.out.println("Connessione: "+indirizzoServerLog+" "+portaServerLog);  
+            
             socketInvioXML = new Socket(indirizzoServerLog,portaServerLog);
             System.out.println("Socket connesso: "+socketInvioXML.getInetAddress()+" "+socketInvioXML.getPort());
-            OutputStream streamUscitaAlServer = new BufferedOutputStream(socketInvioXML.getOutputStream());
-            OutputStreamWriter scrittoreXMLAServer = new OutputStreamWriter(streamUscitaAlServer);
+            
+            DataOutputStream streamUscitaAlServer = new DataOutputStream(socketInvioXML.getOutputStream());
             attivita.indirizzoIPClient = socketInvioXML.getLocalAddress().toString();
-            scrittoreXMLAServer.write(attivita.serializzaInXML());
-            scrittoreXMLAServer.flush();
+            streamUscitaAlServer.writeUTF(attivita.serializzaInXML());
         } catch(Exception e) {
             System.out.println("Errore di connessione al server di log: "+e.getMessage());
         }
