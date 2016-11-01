@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package jlibretto.clientlog;
-
 import java.io.DataOutputStream;
 import java.net.Socket;
 import configurazione.GestoreConfigurazioniXML;
@@ -26,7 +25,7 @@ public class ClientLogAttivitaXML implements Runnable {
         try {
             String indirizzoServerLog = GestoreConfigurazioniXML.parametriConfigurazione.getIPServerLog();
             Integer portaServerLog = GestoreConfigurazioniXML.parametriConfigurazione.getPortaServerLog();
-            System.out.println("Connessione: "+indirizzoServerLog+" "+portaServerLog);  
+            System.out.println("Tentativo di connessione: "+indirizzoServerLog+" "+portaServerLog);  
             
             socketInvioXML = new Socket(indirizzoServerLog,portaServerLog);
             System.out.println("Socket connesso: "+socketInvioXML.getInetAddress()+" "+socketInvioXML.getPort());

@@ -44,7 +44,6 @@ public class TabellaEsami extends TableView {
         
         private void completaModifica(Esame e,int rowIndex) {
             boolean result = GestoreArchiviazioneEsami.getIstanza().modificaEsame(e);
-            System.out.println(result);
             if(result)
                 RisorsaListaEsami.getIstanza().notificaCambiamentoEsame(rowIndex);
         }
@@ -53,54 +52,58 @@ public class TabellaEsami extends TableView {
             colonnaElimina.setOnEditCommit(new EventHandler<CellEditEvent<Esame, String>>() {
                     @Override
                     public void handle(CellEditEvent<Esame, String> t) {
-                        int indiceRiga = t.getTablePosition().getRow();
-                        Esame daRimuovere = (RisorsaListaEsami.getIstanza().prelevaEsame(indiceRiga));
+                        Esame daRimuovere = ottieniElementoModificato(t);
                         boolean risultato = GestoreArchiviazioneEsami.getIstanza().rimuoviEsame(daRimuovere.getId());
                         if(risultato) {
-                            RisorsaListaEsami.getIstanza().getListaEsami().remove(indiceRiga);
+                            RisorsaListaEsami.getIstanza().getListaEsami().remove(ottieniRigaCella(t));
                         }
                     }
             });
+        }
+        
+        private int ottieniRigaCella(CellEditEvent<Esame, ?> cella) {
+            return cella.getTablePosition().getRow();
+        }
+        
+        private Esame ottieniElementoModificato(CellEditEvent<Esame, ?> cellaModificata) {
+            int indice = ottieniRigaCella(cellaModificata);
+            return RisorsaListaEsami.getIstanza().prelevaEsame(indice);
         }
 
         private void impostaCompletamentoModificaCelle() {
             colonnaNome.setOnEditCommit(new EventHandler<CellEditEvent<Esame, String>>() {
                     @Override
                     public void handle(CellEditEvent<Esame, String> t) {
-                        int index = t.getTablePosition().getRow();
-                        Esame edited = (RisorsaListaEsami.getIstanza().prelevaEsame(index));
+                        Esame edited = ottieniElementoModificato(t);
                         edited.setNome(t.getNewValue());
-                        completaModifica(edited,index);
+                        completaModifica(edited,ottieniRigaCella(t));
                     }
                 }
             );
             colonnaVoti.setOnEditCommit(new EventHandler<CellEditEvent<Esame, Integer>>() {
                     @Override
                     public void handle(CellEditEvent<Esame, Integer> t) {
-                        int index = t.getTablePosition().getRow();
-                        Esame edited = (RisorsaListaEsami.getIstanza().prelevaEsame(index));                        
+                        Esame edited = ottieniElementoModificato(t);
                         edited.setValutazione(t.getNewValue());
-                        completaModifica(edited,index);
+                        completaModifica(edited,ottieniRigaCella(t));
                     }
                 }
             );
             colonnaCrediti.setOnEditCommit(new EventHandler<CellEditEvent<Esame, Long>>() {
                     @Override
                     public void handle(CellEditEvent<Esame, Long> t) {
-                        int index = t.getTablePosition().getRow();
-                        Esame edited = (RisorsaListaEsami.getIstanza().prelevaEsame(index));                         
+                        Esame edited = ottieniElementoModificato(t);
                         edited.setCrediti(t.getNewValue().intValue());                        
-                        completaModifica(edited,index);
+                        completaModifica(edited,ottieniRigaCella(t));
                     }
                 }
             );
             colonnaData.setOnEditCommit(new EventHandler<CellEditEvent<Esame, String>>() {
                     @Override
                     public void handle(CellEditEvent<Esame, String> t) {
-                        int index = t.getTablePosition().getRow();
-                        Esame edited = (RisorsaListaEsami.getIstanza().prelevaEsame(index));                                                 
+                        Esame edited = ottieniElementoModificato(t);                                              
                         edited.setData(t.getNewValue());   
-                        completaModifica(edited,index);                        
+                        completaModifica(edited,ottieniRigaCella(t));
                     }
                 }
             ); 
