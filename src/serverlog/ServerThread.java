@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import jlibretto.GestoreConfigurazioniXML;
+import configurazione.GestoreConfigurazioniXML;
 
 /**
  *
@@ -24,7 +24,7 @@ public class ServerThread extends Thread {
     
     private void appendiAFile(String xml) {
         System.out.println(xml);
-        if(!GestoreConfigurazioniXML.validaConfigurazione(xml, "attivita.xsd")) {
+        if(!GestoreConfigurazioniXML.validaContenutoXML(xml, "attivita.xsd")) {
             return;
         }
         System.out.println("Valida");

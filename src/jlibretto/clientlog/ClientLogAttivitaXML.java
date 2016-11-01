@@ -7,7 +7,7 @@ package jlibretto.clientlog;
 
 import java.io.DataOutputStream;
 import java.net.Socket;
-import jlibretto.GestoreConfigurazioniXML;
+import configurazione.GestoreConfigurazioniXML;
 
 /**
  *

@@ -1,5 +1,6 @@
 package jlibretto;
 
+import configurazione.GestoreConfigurazioniXML;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.geometry.Pos;
@@ -84,7 +85,7 @@ public class JLibrettoAvvio extends Application implements Loggable {
         NumberAxis na = new NumberAxis();
         na.setLowerBound(18);
         na.setUpperBound(33);
-        String tipoMedia = GestoreConfigurazioniXML.parametriConfigurazione.Preferenze.TipoMedia;
+        String tipoMedia = GestoreConfigurazioniXML.parametriConfigurazione.getTipoMedia();
         switch(tipoMedia) {
             case "aritmetica": return new GraficoMediaAritmetica(na);
             case "ponderata": return new GraficoMediaPonderata(na);

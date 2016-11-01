@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jlibretto.Configurazioni>
+<Configurazioni>
 	<Nucleo>
 		<PortaServerLog>8080</PortaServerLog>
 		<IPServerLog>192.168.1.105</IPServerLog>
@@ -11,4 +11,4 @@
 	<Preferenze>
 		<TipoMedia>ponderata</TipoMedia>
 	</Preferenze>
-</jlibretto.Configurazioni>
+</Configurazioni>

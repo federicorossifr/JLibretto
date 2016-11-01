@@ -1,5 +1,6 @@
 package jlibretto;
 
+import configurazione.GestoreConfigurazioniXML;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -19,10 +20,10 @@ public class GestoreArchiviazioneEsami{
     private final String queryRimozioneEsame = "DELETE FROM exam WHERE id = ?";
     
     private GestoreArchiviazioneEsami() {
-        int porta = GestoreConfigurazioniXML.parametriConfigurazione.Nucleo.PortaDatabase;
-        String hostname = GestoreConfigurazioniXML.parametriConfigurazione.Nucleo.HostnameDatabase;
-        String utenteDatabase = GestoreConfigurazioniXML.parametriConfigurazione.Nucleo.UtenteDatabase;
-        String passwdDatabase = GestoreConfigurazioniXML.parametriConfigurazione.Nucleo.PasswordDatabase;
+        int porta = GestoreConfigurazioniXML.parametriConfigurazione.getPortaDatabase();
+        String hostname = GestoreConfigurazioniXML.parametriConfigurazione.getHostnameDatabase();
+        String utenteDatabase = GestoreConfigurazioniXML.parametriConfigurazione.getUtenteDatabase();
+        String passwdDatabase = GestoreConfigurazioniXML.parametriConfigurazione.getPasswordDatabase();
         String nomeDatabase = "prg";
         String URI = "jdbc:mysql://"+hostname+":"+porta+"/"+nomeDatabase;
         try {

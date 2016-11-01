@@ -6,7 +6,7 @@
 package serverlog;
 import java.net.ServerSocket;
 import java.net.Socket;
-import jlibretto.GestoreConfigurazioniXML;
+import configurazione.GestoreConfigurazioniXML;
 /**
  *
  * @author feder

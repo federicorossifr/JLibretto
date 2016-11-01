@@ -1,4 +1,4 @@
-package jlibretto;
+package configurazione;
 
 import com.thoughtworks.xstream.XStream;
 import java.io.File;
@@ -28,14 +28,14 @@ public class GestoreConfigurazioniXML {
         percorsoSchemaXML = xsd;
     }
     
-    public static boolean validaConfigurazione(String contenutoXML,String xsd) {
+    public static boolean validaContenutoXML(String contenutoXML,String fileSchemaXSD) {
         try {
             DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             InputSource inputContenutoXML = new InputSource(new StringReader(contenutoXML));
             Document documentoConfigurazione = db.parse(inputContenutoXML);
             
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema schemaConfigurazione = sf.newSchema(new StreamSource(new File(xsd)));
+            Schema schemaConfigurazione = sf.newSchema(new StreamSource(new File(fileSchemaXSD)));
             
             schemaConfigurazione.newValidator().validate(new DOMSource(documentoConfigurazione));
             return true;
@@ -51,8 +51,9 @@ public class GestoreConfigurazioniXML {
     public boolean caricaConfigurazioni() {
         try {
             XStream flussoXML = new XStream();
+            flussoXML.alias("Configurazioni", configurazione.Configurazioni.class);
             String inputDaFileXML = new String(Files.readAllBytes(Paths.get(percorsoXML)));
-            if(!validaConfigurazione(inputDaFileXML,percorsoSchemaXML))
+            if(!validaContenutoXML(inputDaFileXML,percorsoSchemaXML))
                 return false;
             System.out.println("Valida");
             parametriConfigurazione = (Configurazioni) flussoXML.fromXML(inputDaFileXML);
