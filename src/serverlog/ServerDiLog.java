@@ -16,10 +16,9 @@ public class ServerDiLog {
     Integer portaServer;
     String indirizzoServer;
     public ServerDiLog() {
-        GestoreConfigurazioniXML gcx = new GestoreConfigurazioniXML("configurazioni.xml","configurazioni.xsd");
-        gcx.caricaConfigurazioni();
-        portaServer = GestoreConfigurazioniXML.parametriConfigurazione.getPortaServerLog();
-        indirizzoServer = GestoreConfigurazioniXML.parametriConfigurazione.getIPServerLog();
+        GestoreConfigurazioniXML.caricaConfigurazioni("configurazioni.xml","configurazioni.xsd");
+        portaServer = GestoreConfigurazioniXML.ParametriConfigurazione.getPortaServerLog();
+        indirizzoServer = GestoreConfigurazioniXML.ParametriConfigurazione.getIPServerLog();
     }
 
     public void esegui() {

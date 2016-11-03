@@ -23,8 +23,8 @@ public class ClientLogAttivitaXML implements Runnable {
     public void run() {
         
         try {
-            String indirizzoServerLog = GestoreConfigurazioniXML.parametriConfigurazione.getIPServerLog();
-            Integer portaServerLog = GestoreConfigurazioniXML.parametriConfigurazione.getPortaServerLog();
+            String indirizzoServerLog = GestoreConfigurazioniXML.ParametriConfigurazione.getIPServerLog();
+            Integer portaServerLog = GestoreConfigurazioniXML.ParametriConfigurazione.getPortaServerLog();
             System.out.println("Tentativo di connessione: "+indirizzoServerLog+" "+portaServerLog);  
             
             socketInvioXML = new Socket(indirizzoServerLog,portaServerLog);

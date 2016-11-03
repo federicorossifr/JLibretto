@@ -55,8 +55,7 @@ public class JLibrettoAvvio extends Application implements Loggable {
     }
     
     private void caricaConfigurazioniXML() {
-        GestoreConfigurazioniXML gcx = new GestoreConfigurazioniXML("configurazioni.xml","configurazioni.xsd");
-        if(!gcx.caricaConfigurazioni()) {
+        if(!GestoreConfigurazioniXML.caricaConfigurazioni("configurazioni.xml","configurazioni.xsd")) {
             Platform.exit();
             System.exit(-1);
         }
@@ -85,7 +84,7 @@ public class JLibrettoAvvio extends Application implements Loggable {
         NumberAxis na = new NumberAxis();
         na.setLowerBound(18);
         na.setUpperBound(33);
-        String tipoMedia = GestoreConfigurazioniXML.parametriConfigurazione.getTipoMedia();
+        String tipoMedia = GestoreConfigurazioniXML.ParametriConfigurazione.getTipoMedia();
         switch(tipoMedia) {
             case "aritmetica": return new GraficoMediaAritmetica(na);
             case "ponderata": return new GraficoMediaPonderata(na);

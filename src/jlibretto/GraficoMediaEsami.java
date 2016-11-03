@@ -1,5 +1,6 @@
 package jlibretto;
 
+import configurazione.GestoreConfigurazioniXML;
 import java.text.DecimalFormat;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -17,9 +18,14 @@ abstract class GraficoMediaEsami extends LineChart {
         setTitle("Grafico media");
         RisorsaListaEsami.getIstanza().getListaEsami().addListener((ListChangeListener.Change<? extends Esame> c) -> {
             Double mediaFinale = aggiornaComponente((ObservableList<Esame>) c.getList());
+                        
+            String tipoMedia = GestoreConfigurazioniXML.ParametriConfigurazione.getTipoMedia();
+            String titoloGrafico = "Grafico media ("+tipoMedia+")";
             DecimalFormat formattatoreMedia = new DecimalFormat("#.##");
             String mediaFormattata = formattatoreMedia.format(mediaFinale);
-            setTitle("Grafico media, media attuale: "+mediaFormattata);   
+            if(mediaFinale > 0)
+                titoloGrafico+= ", media attuale: "+mediaFormattata;
+            setTitle(titoloGrafico);   
         });
         setAnimated(false);
     }
@@ -27,7 +33,7 @@ abstract class GraficoMediaEsami extends LineChart {
     public abstract Integer ottieniTermineSommatoria(Esame e);
     public abstract Integer ottieniIncrementoContatore(Esame e);
     
-    public double aggiornaComponente(ObservableList<Esame> esami) {
+    public final double aggiornaComponente(ObservableList<Esame> esami) {
         Double sommatoria = 0.0;
         Integer contatore = 0;
         Double iterazioneMediaMobile = 0.0;

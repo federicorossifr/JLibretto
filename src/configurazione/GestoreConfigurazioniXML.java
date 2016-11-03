@@ -19,14 +19,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 public class GestoreConfigurazioniXML {
-    public static Configurazioni parametriConfigurazione;
-    private final String percorsoXML;
-    private final String percorsoSchemaXML;
-    
-    public GestoreConfigurazioniXML(String xml,String xsd) {
-        percorsoXML = xml;
-        percorsoSchemaXML = xsd;
-    }
+    public static Configurazioni ParametriConfigurazione;
     
     public static boolean validaContenutoXML(String contenutoXML,String fileSchemaXSD) {
         try {
@@ -48,7 +41,9 @@ public class GestoreConfigurazioniXML {
         }
     }
     
-    public boolean caricaConfigurazioni() {
+    public static boolean caricaConfigurazioni(String percorsoXML,String percorsoSchemaXML) {
+        if(ParametriConfigurazione != null)
+            return true;
         try {
             XStream flussoXML = new XStream();
             flussoXML.alias("Configurazioni", configurazione.Configurazioni.class);
@@ -56,7 +51,7 @@ public class GestoreConfigurazioniXML {
             if(!validaContenutoXML(inputDaFileXML,percorsoSchemaXML))
                 return false;
             System.out.println("Valida");
-            parametriConfigurazione = (Configurazioni) flussoXML.fromXML(inputDaFileXML);
+            ParametriConfigurazione = (Configurazioni) flussoXML.fromXML(inputDaFileXML);
             return true;
         } catch(Exception e) {
             System.out.println("Impossibile caricare la configurazione: "+e.getMessage());

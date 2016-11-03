@@ -20,10 +20,10 @@ public class GestoreArchiviazioneEsami{
     private final String queryRimozioneEsame = "DELETE FROM exam WHERE id = ?";
     
     private GestoreArchiviazioneEsami() {
-        int porta = GestoreConfigurazioniXML.parametriConfigurazione.getPortaDatabase();
-        String hostname = GestoreConfigurazioniXML.parametriConfigurazione.getHostnameDatabase();
-        String utenteDatabase = GestoreConfigurazioniXML.parametriConfigurazione.getUtenteDatabase();
-        String passwdDatabase = GestoreConfigurazioniXML.parametriConfigurazione.getPasswordDatabase();
+        int porta = GestoreConfigurazioniXML.ParametriConfigurazione.getPortaDatabase();
+        String hostname = GestoreConfigurazioniXML.ParametriConfigurazione.getHostnameDatabase();
+        String utenteDatabase = GestoreConfigurazioniXML.ParametriConfigurazione.getUtenteDatabase();
+        String passwdDatabase = GestoreConfigurazioniXML.ParametriConfigurazione.getPasswordDatabase();
         String nomeDatabase = "prg";
         String URI = "jdbc:mysql://"+hostname+":"+porta+"/"+nomeDatabase;
         try {
