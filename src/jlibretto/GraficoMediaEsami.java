@@ -1,5 +1,6 @@
 package jlibretto;
 
+import java.text.DecimalFormat;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -16,7 +17,9 @@ abstract class GraficoMediaEsami extends LineChart {
         setTitle("Grafico media");
         RisorsaListaEsami.getIstanza().getListaEsami().addListener((ListChangeListener.Change<? extends Esame> c) -> {
             Double avg = aggiornaComponente((ObservableList<Esame>) c.getList());
-            setTitle("Grafico media, media attuale: "+avg);
+            DecimalFormat df = new DecimalFormat("#.##");
+            String avgFrmtd = df.format(avg);
+            setTitle("Grafico media, media attuale: "+avgFrmtd);
             
         });
         setAnimated(false);
