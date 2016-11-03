@@ -16,11 +16,10 @@ abstract class GraficoMediaEsami extends LineChart {
         setLegendVisible(false);
         setTitle("Grafico media");
         RisorsaListaEsami.getIstanza().getListaEsami().addListener((ListChangeListener.Change<? extends Esame> c) -> {
-            Double avg = aggiornaComponente((ObservableList<Esame>) c.getList());
-            DecimalFormat df = new DecimalFormat("#.##");
-            String avgFrmtd = df.format(avg);
-            setTitle("Grafico media, media attuale: "+avgFrmtd);
-            
+            Double mediaFinale = aggiornaComponente((ObservableList<Esame>) c.getList());
+            DecimalFormat formattatoreMedia = new DecimalFormat("#.##");
+            String mediaFormattata = formattatoreMedia.format(mediaFinale);
+            setTitle("Grafico media, media attuale: "+mediaFormattata);   
         });
         setAnimated(false);
     }
