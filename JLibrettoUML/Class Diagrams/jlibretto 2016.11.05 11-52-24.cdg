@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="jlibretto">
+  <ClassDiagramComponents>
+    <Class name="Esame" package="jlibretto" visibility="public" xPosition="966.0" yPosition="411.0">
+      <Fields>
+        <Field name="id" type="int" visibility="private"/>
+        <Field name="codiceUtente" type="String" visibility="private"/>
+        <Field name="nome" type="SimpleStringProperty" visibility="private"/>
+        <Field name="valutazione" type="SimpleIntegerProperty" visibility="private"/>
+        <Field name="crediti" type="SimpleIntegerProperty" visibility="private"/>
+        <Field name="data" type="SimpleStringProperty" visibility="private"/>
+        <Field name="listaVotiStandard" type="ObservableList&lt;Integer&gt;" visibility="public" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="int" name="i"/>
+          <Argument type="String" name="n"/>
+          <Argument type="Integer" name="m"/>
+          <Argument type="Integer" name="c"/>
+          <Argument type="LocalDate" name="d"/>
+          <Argument type="String" name="cu"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="String" name="n"/>
+          <Argument type="Integer" name="m"/>
+          <Argument type="Integer" name="c"/>
+          <Argument type="LocalDate" name="d"/>
+          <Argument type="String" name="cu"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getNome" returnType="String" visibility="public"/>
+        <Method name="setNome" returnType="void" visibility="public">
+          <Argument type="String" name="n"/>
+        </Method>
+        <Method name="getValutazione" returnType="Integer" visibility="public"/>
+        <Method name="setValutazione" returnType="void" visibility="public">
+          <Argument type="Integer" name="m"/>
+        </Method>
+        <Method name="getCrediti" returnType="Integer" visibility="public"/>
+        <Method name="setCrediti" returnType="void" visibility="public">
+          <Argument type="Integer" name="c"/>
+        </Method>
+        <Method name="getData" returnType="String" visibility="public"/>
+        <Method name="setData" returnType="void" visibility="public">
+          <Argument type="String" name="d"/>
+        </Method>
+        <Method name="getId" returnType="int" visibility="public"/>
+        <Method name="setId" returnType="void" visibility="public">
+          <Argument type="int" name="i"/>
+        </Method>
+        <Method name="getCodiceUtente" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="FormCache" package="jlibretto" visibility="public" xPosition="483.0" yPosition="988.0">
+      <Fields>
+        <Field name="contenutoInputNome" type="String" visibility="package"/>
+        <Field name="contenutoInputCrediti" type="String" visibility="package"/>
+        <Field name="contenutoInputValutazione" type="String" visibility="package"/>
+        <Field name="contenutoInputData" type="String" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="n"/>
+          <Argument type="String" name="c"/>
+          <Argument type="String" name="m"/>
+          <Argument type="String" name="d"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="salvaInCache" returnType="void" visibility="public" isStatic="true">
+          <Argument type="FormInserimentoEsame" name="form"/>
+        </Method>
+        <Method name="caricaDaCache" returnType="void" visibility="public" isStatic="true">
+          <Argument type="FormInserimentoEsame" name="form"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="FormInserimentoEsame" package="jlibretto" visibility="public" xPosition="966.0" yPosition="922.0">
+      <Fields>
+        <Field name="inputNomeEsame" type="TextField" visibility="package" isFinal="true"/>
+        <Field name="inputCodiceUtente" type="TextField" visibility="private" isFinal="true"/>
+        <Field name="inputCreditiEsame" type="TextField" visibility="package" isFinal="true"/>
+        <Field name="inputValutazioneEsame" type="ComboBox&lt;Integer&gt;" visibility="package" isFinal="true"/>
+        <Field name="inputDataEsame" type="DatePicker" visibility="package" isFinal="true"/>
+        <Field name="pulsanteInvioForm" type="Button" visibility="package" isFinal="true"/>
+        <Field name="pulsanteApplicaCodiceUtente" type="Button" visibility="package" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="ottieniValutazione" returnType="Integer" visibility="private"/>
+        <Method name="creaEsame" returnType="void" visibility="private"/>
+        <Method name="applicaCodiceUtente" returnType="void" visibility="private"/>
+        <Method name="pulisciForm" returnType="void" visibility="private"/>
+        <Method name="centraElementiInGriglia" returnType="void" visibility="private" isStatic="true">
+          <Argument type="Node[]" name="list"/>
+        </Method>
+        <Method name="impostaIndiciGriglia" returnType="void" visibility="private" isStatic="true">
+          <Argument type="Node[]" name="list"/>
+          <Argument type="int" name="columnNum"/>
+          <Argument type="int" name="rowNum"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="GestoreArchiviazioneEsami" package="jlibretto" visibility="public" xPosition="966.0" yPosition="47.0">
+      <Fields>
+        <Field name="connessioneDatabase" type="Connection" visibility="private"/>
+        <Field name="_istanza" type="GestoreArchiviazioneEsami" visibility="private" isStatic="true"/>
+        <Field name="queryInserimentoEsame" type="String" visibility="private" isFinal="true"/>
+        <Field name="queryModificaEsame" type="String" visibility="private" isFinal="true"/>
+        <Field name="queryLetturaEsami" type="String" visibility="private" isFinal="true"/>
+        <Field name="queryRimozioneEsame" type="String" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private"/>
+      </Constructors>
+      <Methods>
+        <Method name="getIstanza" returnType="GestoreArchiviazioneEsami" visibility="public" isStatic="true"/>
+        <Method name="inserisciEsame" returnType="int" visibility="public">
+          <Argument type="Esame" name="e"/>
+        </Method>
+        <Method name="leggiEsami" returnType="void" visibility="public">
+          <Argument type="String" name="codiceUtente"/>
+        </Method>
+        <Method name="modificaEsame" returnType="boolean" visibility="public">
+          <Argument type="Esame" name="e"/>
+        </Method>
+        <Method name="rimuoviEsame" returnType="boolean" visibility="public">
+          <Argument type="int" name="indice"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="GraficoMediaAritmetica" package="jlibretto" visibility="public" xPosition="1647.0" yPosition="516.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="NumberAxis" name="n"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="ottieniTermineSommatoria" returnType="Integer" visibility="public">
+          <Argument type="Esame" name="e"/>
+        </Method>
+        <Method name="ottieniIncrementoContatore" returnType="Integer" visibility="public">
+          <Argument type="Esame" name="e"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="GraficoMediaEsami" package="jlibretto" visibility="public" isAbstract="true" xPosition="1647.0" yPosition="745.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="NumberAxis" name="n"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="ottieniTermineSommatoria" returnType="Integer" visibility="public" isAbstract="true">
+          <Argument type="Esame" name="e"/>
+        </Method>
+        <Method name="ottieniIncrementoContatore" returnType="Integer" visibility="public" isAbstract="true">
+          <Argument type="Esame" name="e"/>
+        </Method>
+        <Method name="aggiornaComponente" returnType="double" visibility="public" isFinal="true">
+          <Argument type="ObservableList&lt;Esame&gt;" name="esami"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="GraficoMediaPonderata" package="jlibretto" visibility="public" xPosition="1647.0" yPosition="345.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="NumberAxis" name="n"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="ottieniTermineSommatoria" returnType="Integer" visibility="public">
+          <Argument type="Esame" name="e"/>
+        </Method>
+        <Method name="ottieniIncrementoContatore" returnType="Integer" visibility="public">
+          <Argument type="Esame" name="e"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="JLibrettoAvvio" package="jlibretto" visibility="public" xPosition="1652.0" yPosition="979.0">
+      <Fields>
+        <Field name="formEsami" type="FormInserimentoEsame" visibility="package"/>
+        <Field name="fontGrassetto" type="Font" visibility="package" isStatic="true"/>
+        <Field name="fontGrande" type="Font" visibility="package" isStatic="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="start" returnType="void" visibility="public">
+          <Argument type="Stage" name="primaryStage"/>
+        </Method>
+        <Method name="impostaAzioniChiusuraApplicazione" returnType="void" visibility="private">
+          <Argument type="Stage" name="stage"/>
+        </Method>
+        <Method name="caricaConfigurazioniXML" returnType="void" visibility="private"/>
+        <Method name="costruisciPannelloEsamiPrincipale" returnType="VBox" visibility="private"/>
+        <Method name="creaGraficoEsami" returnType="GraficoMediaEsami" visibility="private"/>
+        <Method name="costruisciFormInserimentoEsame" returnType="FormInserimentoEsame" visibility="private"/>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+        <Method name="produciAttivita" returnType="AttivitaXML" visibility="public">
+          <Argument type="TipoAttivita" name="tipo"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="RisorsaListaEsami" package="jlibretto" visibility="public" xPosition="468.0" yPosition="516.0">
+      <Fields>
+        <Field name="listaEsami" type="ObservableList&lt;Esame&gt;" visibility="private" isFinal="true"/>
+        <Field name="_istanza" type="RisorsaListaEsami" visibility="private" isStatic="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="private"/>
+      </Constructors>
+      <Methods>
+        <Method name="getIstanza" returnType="RisorsaListaEsami" visibility="public" isStatic="true"/>
+        <Method name="aggiungiEsame" returnType="void" visibility="public">
+          <Argument type="Esame" name="e"/>
+        </Method>
+        <Method name="getListaEsami" returnType="ObservableList&lt;Esame&gt;" visibility="public"/>
+        <Method name="prelevaEsame" returnType="Esame" visibility="public">
+          <Argument type="int" name="index"/>
+        </Method>
+        <Method name="notificaCambiamentoEsame" returnType="void" visibility="public">
+          <Argument type="int" name="index"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="TabellaEsami" package="jlibretto" visibility="public" xPosition="468.0" yPosition="47.0">
+      <Fields>
+        <Field name="colonnaNome" type="TableColumn" visibility="package"/>
+        <Field name="colonnaCrediti" type="TableColumn" visibility="package"/>
+        <Field name="colonnaVoti" type="TableColumn" visibility="package"/>
+        <Field name="colonnaData" type="TableColumn" visibility="package"/>
+        <Field name="colonnaElimina" type="TableColumn" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="impostaFormatoModificaCelle" returnType="void" visibility="private"/>
+        <Method name="completaModifica" returnType="void" visibility="private">
+          <Argument type="Esame" name="e"/>
+          <Argument type="int" name="rowIndex"/>
+        </Method>
+        <Method name="impostaEliminazione" returnType="void" visibility="private"/>
+        <Method name="ottieniRigaCella" returnType="int" visibility="private">
+          <Argument type="CellEditEvent&lt;Esame, ?&gt;" name="cella"/>
+        </Method>
+        <Method name="ottieniElementoModificato" returnType="Esame" visibility="private">
+          <Argument type="CellEditEvent&lt;Esame, ?&gt;" name="cellaModificata"/>
+        </Method>
+        <Method name="impostaCompletamentoModificaCelle" returnType="void" visibility="private"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <IsRelation name="is" source="jlibretto.GraficoMediaPonderata" target="jlibretto.GraficoMediaEsami"/>
+    <IsRelation name="is" source="jlibretto.GraficoMediaAritmetica" target="jlibretto.GraficoMediaEsami"/>
+    <UseRelation source="jlibretto.FormCache" target="jlibretto.FormInserimentoEsame" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="jlibretto.GraficoMediaAritmetica" target="jlibretto.Esame" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="jlibretto.RisorsaListaEsami" target="jlibretto.Esame" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="jlibretto.GraficoMediaPonderata" target="jlibretto.Esame" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="jlibretto.GestoreArchiviazioneEsami" target="jlibretto.GestoreArchiviazioneEsami" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="jlibretto.JLibrettoAvvio" target="jlibretto.FormInserimentoEsame" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="jlibretto.GestoreArchiviazioneEsami" target="jlibretto.Esame" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="jlibretto.GraficoMediaEsami" target="jlibretto.Esame" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="_istanza" source="jlibretto.RisorsaListaEsami" target="jlibretto.RisorsaListaEsami" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <UseRelation source="jlibretto.JLibrettoAvvio" target="jlibretto.GraficoMediaEsami" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation name="" source="jlibretto.RisorsaListaEsami" target="jlibretto.RisorsaListaEsami" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="formEsami" source="jlibretto.JLibrettoAvvio" target="jlibretto.FormInserimentoEsame" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="jlibretto.TabellaEsami" target="jlibretto.Esame" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="listaEsami" source="jlibretto.RisorsaListaEsami" target="jlibretto.Esame" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="ObservableList&lt;Esame&gt;"/>
+    <HasRelation name="_istanza" source="jlibretto.GestoreArchiviazioneEsami" target="jlibretto.GestoreArchiviazioneEsami" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="configurazione">
+  <ClassDiagramComponents>
+    <Class name="Configurazioni" package="configurazione" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields>
+        <Field name="Nucleo" type="Nucleo" visibility="private" isFinal="true"/>
+        <Field name="Preferenze" type="Preferenze" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Nucleo" name="n"/>
+          <Argument type="Preferenze" name="p"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getIPServerLog" returnType="String" visibility="public"/>
+        <Method name="getPortaServerLog" returnType="Integer" visibility="public"/>
+        <Method name="getHostnameDatabase" returnType="String" visibility="public"/>
+        <Method name="getPortaDatabase" returnType="Integer" visibility="public"/>
+        <Method name="getUtenteDatabase" returnType="String" visibility="public"/>
+        <Method name="getPasswordDatabase" returnType="String" visibility="public"/>
+        <Method name="getTipoMedia" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Nucleo" package="configurazione" visibility="public" xPosition="567.0" yPosition="48.0">
+      <Fields>
+        <Field name="PortaServerLog" type="Integer" visibility="public"/>
+        <Field name="IPServerLog" type="String" visibility="public"/>
+        <Field name="HostnameDatabase" type="String" visibility="public"/>
+        <Field name="PortaDatabase" type="Integer" visibility="public"/>
+        <Field name="UtenteDatabase" type="String" visibility="public"/>
+        <Field name="PasswordDatabase" type="String" visibility="public"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Integer" name="ps"/>
+          <Argument type="String" name="ips"/>
+          <Argument type="String" name="hd"/>
+          <Argument type="Integer" name="pd"/>
+          <Argument type="String" name="ud"/>
+          <Argument type="String" name="pwdb"/>
+        </Constructor>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="Preferenze" package="configurazione" visibility="public" xPosition="395.0" yPosition="20.0">
+      <Fields>
+        <Field name="TipoMedia" type="String" visibility="public"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="tm"/>
+        </Constructor>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="GestoreConfigurazioniXML" package="configurazione" visibility="public" xPosition="333.0" yPosition="293.0">
+      <Fields>
+        <Field name="ParametriConfigurazione" type="Configurazioni" visibility="public" isStatic="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="validaContenutoXML" returnType="boolean" visibility="public" isStatic="true">
+          <Argument type="String" name="contenutoXML"/>
+          <Argument type="String" name="fileSchemaXSD"/>
+        </Method>
+        <Method name="caricaConfigurazioni" returnType="boolean" visibility="public" isStatic="true">
+          <Argument type="String" name="percorsoXML"/>
+          <Argument type="String" name="percorsoSchemaXML"/>
+        </Method>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="Nucleo" source="configurazione.Configurazioni" target="configurazione.Nucleo" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="ParametriConfigurazione" source="configurazione.GestoreConfigurazioniXML" target="configurazione.Configurazioni" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="Preferenze" source="configurazione.Configurazioni" target="configurazione.Preferenze" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

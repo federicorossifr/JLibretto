@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="serverlog">
+  <ClassDiagramComponents>
+    <Class name="ServerDiLog" package="serverlog" visibility="public" xPosition="126.0" yPosition="20.0">
+      <Fields>
+        <Field name="socketServerDiLog" type="ServerSocket" visibility="package"/>
+        <Field name="portaServer" type="Integer" visibility="package"/>
+        <Field name="indirizzoServer" type="String" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="esegui" returnType="void" visibility="public"/>
+        <Method name="main" returnType="void" visibility="public" isStatic="true">
+          <Argument type="String[]" name="args"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ServerThread" package="serverlog" visibility="public" xPosition="362.0" yPosition="20.0">
+      <Fields>
+        <Field name="client" type="Socket" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Socket" name="cl"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="appendiAFile" returnType="void" visibility="private">
+          <Argument type="String" name="xml"/>
+        </Method>
+        <Method name="run" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations/>
+</ClassDiagram>
