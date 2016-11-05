@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="clientlog">
+  <ClassDiagramComponents>
+    <Class name="AttivitaXML" package="clientlog" visibility="public" xPosition="646.0" yPosition="482.0">
+      <Fields>
+        <Field name="tipo" type="TipoAttivita" visibility="public"/>
+        <Field name="nomeApplicazione" type="String" visibility="public"/>
+        <Field name="nomeComponente" type="String" visibility="public"/>
+        <Field name="indirizzoIPClient" type="String" visibility="public"/>
+        <Field name="istante" type="String" visibility="public"/>
+        <Field name="XML_HEADER" type="String" visibility="public" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="nomeA"/>
+          <Argument type="TipoAttivita" name="tA"/>
+          <Argument type="String" name="nomeC"/>
+          <Argument type="String" name="indirizzo"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="serializzaInXML" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="BottoneLog" package="clientlog" visibility="public" xPosition="1084.0" yPosition="310.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="contenuto"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="produciAttivita" returnType="AttivitaXML" visibility="public">
+          <Argument type="TipoAttivita" name="tipo"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ClientLogAttivitaXML" package="clientlog" visibility="public" xPosition="265.0" yPosition="510.0">
+      <Fields>
+        <Field name="attivita" type="AttivitaXML" visibility="package"/>
+        <Field name="socketInvioXML" type="Socket" visibility="package"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Loggable" name="l"/>
+          <Argument type="TipoAttivita" name="a"/>
+        </Constructor>
+        <Constructor visibility="public">
+          <Argument type="Loggable" name="l"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="run" returnType="void" visibility="public"/>
+      </Methods>
+    </Class>
+    <Interface name="Loggable" package="clientlog" visibility="public" xPosition="1084.0" yPosition="117.0">
+      <Methods>
+        <Method name="produciAttivita" returnType="AttivitaXML" visibility="public">
+          <Argument type="TipoAttivita" name="tipo"/>
+        </Method>
+      </Methods>
+    </Interface>
+    <Enum name="TipoAttivita" package="clientlog" visibility="public" xPosition="763.0" yPosition="117.0">
+      <Literals>
+        <Literal name="CLICK_BOTTONE"/>
+        <Literal name="AVVIO_APPLICAZIONE"/>
+        <Literal name="CHIUSURA_APPLICAZIONE"/>
+      </Literals>
+    </Enum>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <HasRelation name="attivita" source="clientlog.ClientLogAttivitaXML" target="clientlog.AttivitaXML" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="tipo" source="clientlog.AttivitaXML" target="clientlog.TipoAttivita" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="clientlog.BottoneLog" target="clientlog.TipoAttivita" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="clientlog.Loggable" target="clientlog.TipoAttivita" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="clientlog.BottoneLog" target="clientlog.Loggable"/>
+  </ClassDiagramRelations>
+</ClassDiagram>
