@@ -14,7 +14,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import jlibretto.clientlog.BottoneLog;
+import clientlog.BottoneLog;
 
 public class FormInserimentoEsame extends GridPane {
     

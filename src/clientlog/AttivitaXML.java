@@ -1,4 +1,4 @@
-package jlibretto.clientlog;
+package clientlog;
 
 import com.thoughtworks.xstream.XStream;
 import configurazione.GestoreConfigurazioniXML;

@@ -15,21 +15,21 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import jlibretto.clientlog.AttivitaXML;
-import jlibretto.clientlog.ClientLogAttivitaXML;
-import jlibretto.clientlog.Loggable;
-import jlibretto.clientlog.TipoAttivita;
+import clientlog.AttivitaXML;
+import clientlog.ClientLogAttivitaXML;
+import clientlog.Loggable;
+import clientlog.TipoAttivita;
 
 public class JLibrettoAvvio extends Application implements Loggable {
     FormInserimentoEsame formEsami;
-    static Font bolder = Font.font(Font.getDefault().getFamily(),FontWeight.BOLD,Font.getDefault().getSize());
-    static Font greater = Font.font(Font.getDefault().getFamily(),FontWeight.BOLD,Font.getDefault().getSize()+3);
+    static Font fontGrassetto = Font.font(Font.getDefault().getFamily(),FontWeight.BOLD,Font.getDefault().getSize());
+    static Font fontGrande = Font.font(Font.getDefault().getFamily(),FontWeight.BOLD,Font.getDefault().getSize()+3);
 
     @Override
     public void start(Stage primaryStage) {
         caricaConfigurazioniXML();
         BorderPane mainPanel = new BorderPane();
-        VBox examsContentPanel = makeExamsContentPanel();
+        VBox examsContentPanel = costruisciPannelloEsamiPrincipale();
         mainPanel.setCenter(examsContentPanel);
         StackPane root = new StackPane();
         root.getChildren().add(mainPanel);
@@ -61,11 +61,11 @@ public class JLibrettoAvvio extends Application implements Loggable {
         }
     }
 
-    private VBox makeExamsContentPanel() {
+    private VBox costruisciPannelloEsamiPrincipale() {
         VBox vb = new VBox();
         TabellaEsami tabellaEsami = new TabellaEsami();
         HBox hb = new HBox();
-        formEsami = makeExamForm();
+        formEsami = costruisciFormInserimentoEsame();
         formEsami.setVgap(5);
         formEsami.setHgap(5);
         formEsami.setAlignment(Pos.CENTER);
@@ -92,7 +92,7 @@ public class JLibrettoAvvio extends Application implements Loggable {
         }
     }
     
-    private FormInserimentoEsame makeExamForm() {
+    private FormInserimentoEsame costruisciFormInserimentoEsame() {
         FormInserimentoEsame gp = new FormInserimentoEsame();
         return gp;
     }
