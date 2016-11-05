@@ -2,7 +2,7 @@
 <Configurazioni>
 	<Nucleo>
 		<PortaServerLog>8080</PortaServerLog>
-		<IPServerLog>192.168.1.105</IPServerLog>
+		<IPServerLog>localhost</IPServerLog>
 		<HostnameDatabase>localhost</HostnameDatabase>
 		<PortaDatabase>3306</PortaDatabase>
 		<UtenteDatabase>root</UtenteDatabase>

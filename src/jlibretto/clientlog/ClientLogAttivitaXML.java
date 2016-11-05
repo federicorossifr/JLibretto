@@ -12,13 +12,15 @@ import configurazione.GestoreConfigurazioniXML;
  *
  * @author feder
  */
-public class ClientLogAttivitaXML implements Runnable {
+public class ClientLogAttivitaXML extends Thread {
     AttivitaXML attivita;
     Socket socketInvioXML;
-    public ClientLogAttivitaXML(AttivitaXML a) {
-        attivita = a;
+    public ClientLogAttivitaXML(Loggable l,TipoAttivita a) {
+        attivita = l.produciAttivita(a);
     }
-    
+    public ClientLogAttivitaXML(Loggable l) {
+        attivita = l.produciAttivita(null);
+    }
     @Override
     public void run() {
         

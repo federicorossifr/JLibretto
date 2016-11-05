@@ -17,21 +17,13 @@ public class BottoneLog extends Button implements Loggable {
     public BottoneLog(String contenuto) {
         super(contenuto);
         this.addEventHandler(MouseEvent.MOUSE_CLICKED,
-                (MouseEvent e) -> produciAttivita(TipoAttivita.CLICK_BOTTONE));
+                (MouseEvent e) -> (new ClientLogAttivitaXML(this)).start());
     }
 
     @Override
     public AttivitaXML produciAttivita(TipoAttivita tipo) {
-        AttivitaXML a = new AttivitaXML(tipo,this.getText(),"");
-        inviaAttivita(a);
+        AttivitaXML a = new AttivitaXML(TipoAttivita.CLICK_BOTTONE,this.getText(),"");
         return a;
     }
 
-    @Override
-    public void inviaAttivita(AttivitaXML attivita) {
-        //crea client e invia
-        ClientLogAttivitaXML client = new ClientLogAttivitaXML(attivita);
-        (new Thread(client)).start();
-        System.out.println(attivita.serializzaInXML());
-    }
 }

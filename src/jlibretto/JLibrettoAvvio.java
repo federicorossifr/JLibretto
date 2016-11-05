@@ -42,7 +42,7 @@ public class JLibrettoAvvio extends Application implements Loggable {
         
         System.out.println("Caricamento contenuto form da cache");
         FormCache.caricaDaCache(formEsami);
-        produciAttivita(TipoAttivita.AVVIO_APPLICAZIONE);
+        (new ClientLogAttivitaXML(this,TipoAttivita.AVVIO_APPLICAZIONE)).start();
     }
     
     private void impostaAzioniChiusuraApplicazione(Stage stage) {
@@ -50,7 +50,7 @@ public class JLibrettoAvvio extends Application implements Loggable {
            System.out.println("In fase di chiusura, salvataggio in cache del form.");
            FormCache.salvaInCache(formEsami);
            System.out.println("Salvataggio completato.");
-           produciAttivita(TipoAttivita.CHIUSURA_APPLICAZIONE);
+            (new ClientLogAttivitaXML(this,TipoAttivita.CHIUSURA_APPLICAZIONE)).start();
         });
     }
     
@@ -106,14 +106,7 @@ public class JLibrettoAvvio extends Application implements Loggable {
     @Override
     public AttivitaXML produciAttivita(TipoAttivita tipo) {
         AttivitaXML attivita = new AttivitaXML(tipo,"JLibretto","");
-        inviaAttivita(attivita);
         return attivita;
     }
 
-    @Override
-    public void inviaAttivita(AttivitaXML attivita) {
-        ClientLogAttivitaXML client = new ClientLogAttivitaXML(attivita);
-        (new Thread(client)).start();
-        System.out.println(attivita.serializzaInXML());
-    }
 }

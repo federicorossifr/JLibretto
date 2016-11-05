@@ -13,5 +13,5 @@ package jlibretto.clientlog;
 public interface Loggable {
     
     public AttivitaXML produciAttivita(TipoAttivita tipo);
-    public void inviaAttivita(AttivitaXML attivita);
+    
 }
