@@ -22,7 +22,7 @@ public class BottoneLog extends Button implements Loggable {
 
     @Override
     public AttivitaXML produciAttivita(TipoAttivita tipo) {
-        AttivitaXML a = new AttivitaXML(TipoAttivita.CLICK_BOTTONE,this.getText(),"");
+        AttivitaXML a = new AttivitaXML("JLibretto",TipoAttivita.CLICK_BOTTONE,this.getText(),"");
         return a;
     }
 

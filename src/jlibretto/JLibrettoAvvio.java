@@ -105,7 +105,7 @@ public class JLibrettoAvvio extends Application implements Loggable {
 
     @Override
     public AttivitaXML produciAttivita(TipoAttivita tipo) {
-        AttivitaXML attivita = new AttivitaXML(tipo,"JLibretto","");
+        AttivitaXML attivita = new AttivitaXML("JLibretto",tipo,null,"");
         return attivita;
     }
 

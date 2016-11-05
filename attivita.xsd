@@ -3,9 +3,10 @@
   <xs:element name="Attività">
     <xs:complexType>
       <xs:sequence>
-        <xs:element type="xs:string" name="nomeComponente"/>
-        <xs:element type="xs:string" name="indirizzoIPClient"/>
-        <xs:element type="xs:dateTime" name="istante"/>
+      	<xs:element type="xs:string" name="nomeApplicazione" minOccurs="1" maxOccurs="1" />
+        <xs:element type="xs:string" name="nomeComponente" minOccurs="0" maxOccurs="1" />
+        <xs:element type="xs:string" name="indirizzoIPClient" minOccurs="1" maxOccurs="1" />
+        <xs:element type="xs:dateTime" name="istante" minOccurs="1" maxOccurs="1" />
       </xs:sequence>
       <xs:attribute type="xs:string" name="tipo"/>
     </xs:complexType>

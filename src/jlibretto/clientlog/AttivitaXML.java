@@ -1,19 +1,22 @@
 package jlibretto.clientlog;
 
 import com.thoughtworks.xstream.XStream;
+import configurazione.GestoreConfigurazioniXML;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class AttivitaXML implements Serializable {
     public TipoAttivita tipo;
+    public String nomeApplicazione;
     public String nomeComponente;
     public String indirizzoIPClient;
     public String istante;
     public static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
     
     
-    public AttivitaXML(TipoAttivita tA,String nomeC,String indirizzo) {
+    public AttivitaXML(String nomeA,TipoAttivita tA,String nomeC,String indirizzo) {
         tipo = tA;
+        nomeApplicazione = nomeA;
         nomeComponente = nomeC;
         indirizzoIPClient = indirizzo;
         istante = LocalDateTime.now().toString();
