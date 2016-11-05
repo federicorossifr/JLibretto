@@ -1,4 +1,4 @@
-package jlibretto;
+package jlibretto.modellodati;
 
 import java.time.LocalDate;
 import javafx.beans.property.SimpleIntegerProperty;

@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package serverlog;
+package server;
 
 import java.io.DataInputStream;
 import java.net.Socket;
@@ -12,10 +7,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import configurazione.GestoreConfigurazioniXML;
 
-/**
- *
- * @author feder
- */
 public class ServerThread extends Thread {
     private final Socket client;
     public ServerThread(Socket cl) {

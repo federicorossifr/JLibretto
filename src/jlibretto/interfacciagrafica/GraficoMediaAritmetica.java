@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jlibretto;
+package jlibretto.interfacciagrafica;
 
 import javafx.scene.chart.NumberAxis;
+import jlibretto.modellodati.Esame;
 
 /**
  *
  * @author feder
  */
-public class GraficoMediaAritmetica extends GraficoMediaEsami {
+class GraficoMediaAritmetica extends GraficoMediaEsami {
 
     public GraficoMediaAritmetica(NumberAxis n) {
         super(n);

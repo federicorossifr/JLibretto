@@ -1,4 +1,4 @@
-package jlibretto;
+package jlibretto.controllo;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;

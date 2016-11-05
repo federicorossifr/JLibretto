@@ -1,4 +1,4 @@
-package jlibretto;
+package jlibretto.controllo;
 import javafx.collections.FXCollections;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -8,6 +8,9 @@ import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.NumberStringConverter;
+import jlibretto.modellodati.Esame;
+import jlibretto.modellodati.GestoreArchiviazioneEsami;
+import jlibretto.modellodati.RisorsaListaEsami;
 public class TabellaEsami extends TableView {
     
         TableColumn colonnaNome = new TableColumn("Nome esame");

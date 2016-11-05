@@ -1,4 +1,4 @@
-package clientlog;
+package jlibretto.client;
 
 import java.io.Serializable;
 
