@@ -1,4 +1,4 @@
-package jlibretto.controllo;
+ package jlibretto.interfacciagrafica;
 import javafx.collections.FXCollections;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -7,11 +7,16 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.input.MouseEvent;
 import javafx.util.converter.NumberStringConverter;
+import jlibretto.clientlog.AttivitaXML;
+import jlibretto.clientlog.ClientLogAttivitaXML;
+import jlibretto.clientlog.Loggable;
+import jlibretto.clientlog.TipoAttivita;
 import jlibretto.modellodati.Esame;
 import jlibretto.modellodati.GestoreArchiviazioneEsami;
 import jlibretto.modellodati.RisorsaListaEsami;
-public class TabellaEsami extends TableView {
+class TabellaEsami extends TableView implements Loggable {
     
         TableColumn colonnaNome = new TableColumn("Nome esame");
         TableColumn colonnaCrediti = new TableColumn("Crediti esame");
@@ -35,6 +40,9 @@ public class TabellaEsami extends TableView {
             setItems(RisorsaListaEsami.getIstanza().getListaEsami());
             setEditable(true);
             getColumns().addAll(colonnaNome,colonnaCrediti,colonnaVoti,colonnaData,colonnaElimina);
+            this.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)-> {
+                (new ClientLogAttivitaXML(this)).start();
+            });
         }
 
         private void impostaFormatoModificaCelle() {
@@ -112,4 +120,10 @@ public class TabellaEsami extends TableView {
             ); 
 
         }
+
+    @Override
+    public AttivitaXML produciAttivita(TipoAttivita tipo) {
+        AttivitaXML a = new AttivitaXML("JLibretto",TipoAttivita.CLICK_BOTTONE,"TabellaEsami","");
+        return a;
+    }
 }

@@ -1,5 +1,5 @@
 
-package jlibretto.controllo;
+package jlibretto.interfacciagrafica;
 
 import java.time.LocalDate;
 import javafx.geometry.HPos;
@@ -13,12 +13,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import jlibretto.client.BottoneLog;
-import jlibretto.modellodati.Esame;
-import jlibretto.modellodati.GestoreArchiviazioneEsami;
-import jlibretto.modellodati.RisorsaListaEsami;
+import jlibretto.clientlog.BottoneLog;
+import jlibretto.modellodati.*;
 
-public class FormInserimentoEsame extends GridPane {
+class FormInserimentoEsame extends GridPane {
     
     final TextField inputNomeEsame = new TextField();
     private final TextField inputCodiceUtente = new PasswordField();

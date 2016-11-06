@@ -1,4 +1,4 @@
-package jlibretto.controllo;
+package jlibretto.interfacciagrafica;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -8,7 +8,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 
-public class FormCache implements Serializable {
+class FormCache implements Serializable {
     String contenutoInputNome;
     String contenutoInputCrediti;
     String contenutoInputValutazione;

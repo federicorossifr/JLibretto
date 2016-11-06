@@ -1,7 +1,9 @@
 package jlibretto.interfacciagrafica;
 
-import jlibretto.controllo.TabellaEsami;
-import jlibretto.controllo.FormInserimentoEsame;
+import jlibretto.clientlog.TipoAttivita;
+import jlibretto.clientlog.AttivitaXML;
+import jlibretto.clientlog.ClientLogAttivitaXML;
+import jlibretto.clientlog.Loggable;
 import configurazione.GestoreConfigurazioniXML;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -17,11 +19,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import jlibretto.client.AttivitaXML;
-import jlibretto.client.ClientLogAttivitaXML;
-import jlibretto.client.Loggable;
-import jlibretto.client.TipoAttivita;
-import jlibretto.controllo.FormCache;
 
 public class JLibrettoAvvio extends Application implements Loggable {
     FormInserimentoEsame formEsami;
