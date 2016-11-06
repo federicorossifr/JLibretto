@@ -1,5 +1,5 @@
 
-package server;
+package serverlog;
 import java.net.ServerSocket;
 import java.net.Socket;
 import configurazione.GestoreConfigurazioniXML;

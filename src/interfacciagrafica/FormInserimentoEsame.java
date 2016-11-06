@@ -1,6 +1,9 @@
 
-package jlibretto.interfacciagrafica;
+package interfacciagrafica;
 
+import modellodati.GestoreArchiviazioneEsami;
+import modellodati.Esame;
+import modellodati.RisorsaListaEsami;
 import java.time.LocalDate;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
@@ -13,8 +16,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import jlibretto.clientlog.BottoneLog;
-import jlibretto.modellodati.*;
+import clientlog.BottoneLog;
 
 class FormInserimentoEsame extends GridPane {
     
@@ -111,19 +113,19 @@ class FormInserimentoEsame extends GridPane {
         inputDataEsame.getEditor().clear();
     }
     
-    private  static void centraElementiInGriglia(Node[] list) {
-        for(Node n:list) {
+    private  static void centraElementiInGriglia(Node[] lista) {
+        for(Node n:lista) {
             if(n == null) continue;
             GridPane.setHalignment(n,HPos.CENTER);
             GridPane.setValignment(n,VPos.CENTER);
         }
     }
         
-    private static void impostaIndiciGriglia(Node[] list,int columnNum,int rowNum) {
-        for(int column = 0; column < columnNum; ++column) {
-            for(int row = 0; row < rowNum; ++row) {
-                if(list[row+rowNum*column]==null) continue;
-                GridPane.setConstraints(list[row+rowNum*column],column+1,row+1);
+    private static void impostaIndiciGriglia(Node[] lista,int numeroColonne,int numeroRighe) {
+        for(int column = 0; column < numeroColonne; ++column) {
+            for(int row = 0; row < numeroRighe; ++row) {
+                if(lista[row+numeroRighe*column]==null) continue;
+                GridPane.setConstraints(lista[row+numeroRighe*column],column+1,row+1);
             }
         }
     } 

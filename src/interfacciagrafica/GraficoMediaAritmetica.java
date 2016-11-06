@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jlibretto.interfacciagrafica;
+package interfacciagrafica;
 
 import javafx.scene.chart.NumberAxis;
-import jlibretto.modellodati.Esame;
+import modellodati.Esame;
 
 /**
  *

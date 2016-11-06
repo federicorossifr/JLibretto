@@ -1,4 +1,4 @@
-package jlibretto.modellodati;
+package modellodati;
 
 import configurazione.GestoreConfigurazioniXML;
 import java.sql.Connection;

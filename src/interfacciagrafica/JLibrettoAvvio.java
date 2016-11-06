@@ -1,9 +1,9 @@
-package jlibretto.interfacciagrafica;
+package interfacciagrafica;
 
-import jlibretto.clientlog.TipoAttivita;
-import jlibretto.clientlog.AttivitaXML;
-import jlibretto.clientlog.ClientLogAttivitaXML;
-import jlibretto.clientlog.Loggable;
+import clientlog.TipoAttivita;
+import clientlog.AttivitaXML;
+import clientlog.ClientLogAttivitaXML;
+import clientlog.Loggable;
 import configurazione.GestoreConfigurazioniXML;
 import javafx.application.Application;
 import javafx.application.Platform;

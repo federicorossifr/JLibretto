@@ -1,4 +1,4 @@
-package jlibretto.interfacciagrafica;
+package interfacciagrafica;
 
 import configurazione.GestoreConfigurazioniXML;
 import java.text.DecimalFormat;
@@ -9,8 +9,8 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import jlibretto.modellodati.Esame;
-import jlibretto.modellodati.RisorsaListaEsami;
+import modellodati.Esame;
+import modellodati.RisorsaListaEsami;
 
 abstract class GraficoMediaEsami extends LineChart {
     

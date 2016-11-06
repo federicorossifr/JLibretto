@@ -1,4 +1,4 @@
- package jlibretto.interfacciagrafica;
+ package interfacciagrafica;
 import javafx.collections.FXCollections;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -9,25 +9,25 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.util.converter.NumberStringConverter;
-import jlibretto.clientlog.AttivitaXML;
-import jlibretto.clientlog.ClientLogAttivitaXML;
-import jlibretto.clientlog.Loggable;
-import jlibretto.clientlog.TipoAttivita;
-import jlibretto.modellodati.Esame;
-import jlibretto.modellodati.GestoreArchiviazioneEsami;
-import jlibretto.modellodati.RisorsaListaEsami;
+import clientlog.AttivitaXML;
+import clientlog.ClientLogAttivitaXML;
+import clientlog.Loggable;
+import clientlog.TipoAttivita;
+import modellodati.Esame;
+import modellodati.GestoreArchiviazioneEsami;
+import modellodati.RisorsaListaEsami;
 class TabellaEsami extends TableView implements Loggable {
     
-        TableColumn colonnaNome = new TableColumn("Nome esame");
-        TableColumn colonnaCrediti = new TableColumn("Crediti esame");
-        TableColumn colonnaVoti = new TableColumn("Valutazione esame");
-        TableColumn colonnaData = new TableColumn("Data esame");
-        TableColumn colonnaElimina = new TableColumn("Azione");
+        private TableColumn colonnaNome = new TableColumn("Nome esame");
+        private TableColumn colonnaCrediti = new TableColumn("Crediti esame");
+        private TableColumn colonnaValutazione = new TableColumn("Valutazione esame");
+        private TableColumn colonnaData = new TableColumn("Data esame");
+        private TableColumn colonnaElimina = new TableColumn("Azione");
         public TabellaEsami() {
             setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             colonnaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
             colonnaCrediti.setCellValueFactory(new PropertyValueFactory<>("crediti"));
-            colonnaVoti.setCellValueFactory(new PropertyValueFactory<>("valutazione"));
+            colonnaValutazione.setCellValueFactory(new PropertyValueFactory<>("valutazione"));
             colonnaData.setCellValueFactory(new PropertyValueFactory<>("data"));
 
             impostaFormatoModificaCelle();
@@ -35,11 +35,11 @@ class TabellaEsami extends TableView implements Loggable {
             impostaEliminazione();
             colonnaNome.setSortable(false);
             colonnaCrediti.setSortable(false);
-            colonnaVoti.setSortable(false);            
+            colonnaValutazione.setSortable(false);            
             colonnaData.setSortable(false);
             setItems(RisorsaListaEsami.getIstanza().getListaEsami());
             setEditable(true);
-            getColumns().addAll(colonnaNome,colonnaCrediti,colonnaVoti,colonnaData,colonnaElimina);
+            getColumns().addAll(colonnaNome,colonnaCrediti,colonnaValutazione,colonnaData,colonnaElimina);
             this.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)-> {
                 (new ClientLogAttivitaXML(this)).start();
             });
@@ -48,15 +48,15 @@ class TabellaEsami extends TableView implements Loggable {
         private void impostaFormatoModificaCelle() {
             colonnaNome.setCellFactory(TextFieldTableCell.forTableColumn());
             colonnaCrediti.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));            
-            colonnaVoti.setCellFactory(ComboBoxTableCell.forTableColumn(Esame.listaVotiStandard));            
+            colonnaValutazione.setCellFactory(ComboBoxTableCell.forTableColumn(Esame.listaVotiStandard));            
             colonnaData.setCellFactory(TextFieldTableCell.forTableColumn());
             colonnaElimina.setCellFactory(ComboBoxTableCell.forTableColumn(FXCollections.observableArrayList("Elimina")));
         }
         
-        private void completaModifica(Esame e,int rowIndex) {
+        private void completaModifica(Esame e,int indiceRiga) {
             boolean result = GestoreArchiviazioneEsami.getIstanza().modificaEsame(e);
             if(result)
-                RisorsaListaEsami.getIstanza().notificaCambiamentoEsame(rowIndex);
+                RisorsaListaEsami.getIstanza().notificaCambiamentoEsame(indiceRiga);
         }
         
         private void impostaEliminazione() {
@@ -91,7 +91,7 @@ class TabellaEsami extends TableView implements Loggable {
                     }
                 }
             );
-            colonnaVoti.setOnEditCommit(new EventHandler<CellEditEvent<Esame, Integer>>() {
+            colonnaValutazione.setOnEditCommit(new EventHandler<CellEditEvent<Esame, Integer>>() {
                     @Override
                     public void handle(CellEditEvent<Esame, Integer> t) {
                         Esame edited = ottieniElementoModificato(t);

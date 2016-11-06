@@ -1,4 +1,4 @@
-package jlibretto.interfacciagrafica;
+package interfacciagrafica;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
