@@ -1,5 +1,6 @@
 package modellodati;
 
+import configurazione.ConfigurazioniNonDisponibiliException;
 import configurazione.GestoreConfigurazioniXML;
 import java.sql.Connection;
 import java.sql.Date;
@@ -20,15 +21,19 @@ public class GestoreArchiviazioneEsami{
     private final String queryRimozioneEsame = "DELETE FROM exam WHERE id = ?";
     
     private GestoreArchiviazioneEsami() {
-        int porta = GestoreConfigurazioniXML.ParametriConfigurazione.getPortaDatabase();
-        String hostname = GestoreConfigurazioniXML.ParametriConfigurazione.getHostnameDatabase();
-        String utenteDatabase = GestoreConfigurazioniXML.ParametriConfigurazione.getUtenteDatabase();
-        String passwdDatabase = GestoreConfigurazioniXML.ParametriConfigurazione.getPasswordDatabase();
+        int porta;
+        String hostname;
+        String utenteDatabase;
+        String passwdDatabase;
         String nomeDatabase = "prg";
-        String URI = "jdbc:mysql://"+hostname+":"+porta+"/"+nomeDatabase;
         try {
+            porta = GestoreConfigurazioniXML.getIstanza().getPortaDatabase();  
+            hostname = GestoreConfigurazioniXML.getIstanza().getHostnameDatabase();
+            utenteDatabase = GestoreConfigurazioniXML.getIstanza().getUtenteDatabase();
+            passwdDatabase = GestoreConfigurazioniXML.getIstanza().getPasswordDatabase();            
+            String URI = "jdbc:mysql://"+hostname+":"+porta+"/"+nomeDatabase;
             connessioneDatabase = DriverManager.getConnection(URI,utenteDatabase,passwdDatabase);
-        } catch(SQLException e) {
+        } catch(ConfigurazioniNonDisponibiliException | SQLException e) {
             System.out.println("Impossibile connettersi al database: "+e.getMessage());
             Platform.exit();
             System.exit(-1);

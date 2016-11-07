@@ -15,7 +15,7 @@ import modellodati.Esame;
 class GraficoMediaPonderata extends GraficoMediaEsami {
 
     public GraficoMediaPonderata(NumberAxis n) {
-        super(n);
+        super(n,"ponderata");
     }
     @Override
     public Integer ottieniTermineSommatoria(Esame e) {

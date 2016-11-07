@@ -1,7 +1,9 @@
 package interfacciagrafica;
 
+import configurazione.ConfigurazioniNonDisponibiliException;
 import configurazione.GestoreConfigurazioniXML;
 import java.text.DecimalFormat;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -13,15 +15,15 @@ import modellodati.Esame;
 import modellodati.RisorsaListaEsami;
 
 abstract class GraficoMediaEsami extends LineChart {
-    
-    public GraficoMediaEsami(NumberAxis n) {
+    private final String tipoMedia = "";
+    public GraficoMediaEsami(NumberAxis n,String tipoM) {
         super(new CategoryAxis(),n);
         setLegendVisible(false);
-        setTitle("Grafico media");
+        setTitle("Grafico media");            
         RisorsaListaEsami.getIstanza().getListaEsami().addListener((ListChangeListener.Change<? extends Esame> c) -> {
             Double mediaFinale = aggiornaComponente((ObservableList<Esame>) c.getList());
                         
-            String tipoMedia = GestoreConfigurazioniXML.ParametriConfigurazione.getTipoMedia();
+
             String titoloGrafico = "Grafico media ("+tipoMedia+")";
             DecimalFormat formattatoreMedia = new DecimalFormat("#.##");
             String mediaFormattata = formattatoreMedia.format(mediaFinale);

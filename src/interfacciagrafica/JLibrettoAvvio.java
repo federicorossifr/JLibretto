@@ -4,6 +4,7 @@ import clientlog.TipoAttivita;
 import clientlog.AttivitaXML;
 import clientlog.ClientLogAttivitaXML;
 import clientlog.Loggable;
+import configurazione.ConfigurazioniNonDisponibiliException;
 import configurazione.GestoreConfigurazioniXML;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -27,7 +28,6 @@ public class JLibrettoAvvio extends Application implements Loggable {
 
     @Override
     public void start(Stage primaryStage) {
-        caricaConfigurazioniXML();
         BorderPane mainPanel = new BorderPane();
         VBox examsContentPanel = costruisciPannelloEsamiPrincipale();
         mainPanel.setCenter(examsContentPanel);
@@ -53,13 +53,6 @@ public class JLibrettoAvvio extends Application implements Loggable {
             (new ClientLogAttivitaXML(this,TipoAttivita.CHIUSURA_APPLICAZIONE)).start();
         });
     }
-    
-    private void caricaConfigurazioniXML() {
-        if(!GestoreConfigurazioniXML.caricaConfigurazioni("configurazioni.xml","configurazioni.xsd")) {
-            Platform.exit();
-            System.exit(-1);
-        }
-    }
 
     private VBox costruisciPannelloEsamiPrincipale() {
         VBox vb = new VBox();
@@ -84,7 +77,14 @@ public class JLibrettoAvvio extends Application implements Loggable {
         NumberAxis na = new NumberAxis();
         na.setLowerBound(18);
         na.setUpperBound(33);
-        String tipoMedia = GestoreConfigurazioniXML.ParametriConfigurazione.getTipoMedia();
+        String tipoMedia = "";
+        try {
+            tipoMedia = GestoreConfigurazioniXML.getIstanza().getTipoMedia();
+        } catch(ConfigurazioniNonDisponibiliException e) {
+            System.out.println("Errore nel caricamento delle configurazioni");
+            Platform.exit();
+            System.exit(1);
+        }
         switch(tipoMedia) {
             case "aritmetica": return new GraficoMediaAritmetica(na);
             case "ponderata": return new GraficoMediaPonderata(na);

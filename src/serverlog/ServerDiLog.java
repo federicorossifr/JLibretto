@@ -1,5 +1,6 @@
 
 package serverlog;
+import configurazione.ConfigurazioniNonDisponibiliException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import configurazione.GestoreConfigurazioniXML;
@@ -9,10 +10,9 @@ public class ServerDiLog {
     ServerSocket socketServerDiLog;
     Integer portaServer;
     String indirizzoServer;
-    public ServerDiLog() {
-        GestoreConfigurazioniXML.caricaConfigurazioni("configurazioni.xml","configurazioni.xsd");
-        portaServer = GestoreConfigurazioniXML.ParametriConfigurazione.getPortaServerLog();
-        indirizzoServer = GestoreConfigurazioniXML.ParametriConfigurazione.getIPServerLog();
+    public ServerDiLog() throws ConfigurazioniNonDisponibiliException {
+        portaServer = GestoreConfigurazioniXML.getIstanza().getPortaServerLog();
+        indirizzoServer = GestoreConfigurazioniXML.getIstanza().getIPServerLog();
     }
 
     public void esegui() {
@@ -29,7 +29,7 @@ public class ServerDiLog {
                 System.out.println("Nuova connessione da: "+clientConnesso.getInetAddress());
                 (new ServerThread(clientConnesso)).start();
             } catch(Exception e) {
-                System.out.println("Errore di avvio server: "+e.getMessage());
+                System.out.println("Errore di avvio server thread: "+e.getMessage());
                 return;
             }
         }
@@ -37,8 +37,13 @@ public class ServerDiLog {
     }
     
     public static void main(String[] args) {
-        ServerDiLog sdl = new ServerDiLog();
-        sdl.esegui();
+        try {
+            ServerDiLog sdl = new ServerDiLog();
+            sdl.esegui();
+        } catch(Exception e) {
+            System.out.println("Errore nel caricamento delle configurazioni");
+            System.exit(0);
+        }
     }
     
 }

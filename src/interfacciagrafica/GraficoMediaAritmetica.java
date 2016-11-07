@@ -15,7 +15,7 @@ import modellodati.Esame;
 class GraficoMediaAritmetica extends GraficoMediaEsami {
 
     public GraficoMediaAritmetica(NumberAxis n) {
-        super(n);
+        super(n,"aritmetica");
     }
     @Override
     public Integer ottieniTermineSommatoria(Esame e) {

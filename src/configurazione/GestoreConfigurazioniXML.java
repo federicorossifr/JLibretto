@@ -19,7 +19,20 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 public class GestoreConfigurazioniXML {
-    public static Configurazioni ParametriConfigurazione;
+    private Configurazioni ParametriConfigurazione;
+    public static GestoreConfigurazioniXML _istanza;
+    
+    private GestoreConfigurazioniXML() throws ConfigurazioniNonDisponibiliException {
+        boolean risultatoCaricamento = caricaConfigurazioni("configurazioni.xml","configurazioni.xsd");
+        if(!risultatoCaricamento)
+            throw new ConfigurazioniNonDisponibiliException();
+    }
+    
+    public static GestoreConfigurazioniXML getIstanza() throws ConfigurazioniNonDisponibiliException {
+        if(_istanza == null) 
+            _istanza = new GestoreConfigurazioniXML();
+        return _istanza;
+    }
     
     public static boolean validaContenutoXML(String contenutoXML,String fileSchemaXSD) {
         try {
@@ -40,8 +53,7 @@ public class GestoreConfigurazioniXML {
             return false;
         }
     }
-    
-    public static boolean caricaConfigurazioni(String percorsoXML,String percorsoSchemaXML) {
+    private boolean caricaConfigurazioni(String percorsoXML,String percorsoSchemaXML) {
         if(ParametriConfigurazione != null)
             return true;
         try {
@@ -58,4 +70,12 @@ public class GestoreConfigurazioniXML {
             return false;
         }     
     }
+    
+    public String getIPServerLog() {return ParametriConfigurazione.Nucleo.IPServerLog;}
+    public Integer getPortaServerLog() {return ParametriConfigurazione.Nucleo.PortaServerLog;}
+    public String getHostnameDatabase() {return ParametriConfigurazione.Nucleo.HostnameDatabase;}
+    public Integer getPortaDatabase() {return ParametriConfigurazione.Nucleo.PortaDatabase;}
+    public String getUtenteDatabase() {return ParametriConfigurazione.Nucleo.UtenteDatabase;}
+    public String getPasswordDatabase() {return ParametriConfigurazione.Nucleo.PasswordDatabase;}
+    public String getTipoMedia() {return ParametriConfigurazione.Preferenze.TipoMedia;}
 }
