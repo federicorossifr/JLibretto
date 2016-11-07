@@ -12,7 +12,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import javafx.application.Platform;
 
-public class GestoreArchiviazioneEsami{
+class GestoreArchiviazioneEsami{
     private Connection connessioneDatabase;
     private static GestoreArchiviazioneEsami _istanza;
     private final String queryInserimentoEsame = "INSERT INTO exam(name,credits,mark,date,usercode) VALUES(?,?,?,?,?)";
@@ -84,7 +84,6 @@ public class GestoreArchiviazioneEsami{
                 System.out.println(e.getNome());
                 RisorsaListaEsami.getIstanza().aggiungiEsame(e);
             }
-            
         } catch(SQLException ex) {
             System.out.println("Impossibile recuperare gli esami: "+ex.getMessage());
         }

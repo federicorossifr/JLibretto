@@ -1,8 +1,6 @@
 
 package interfacciagrafica;
 
-import modellodati.GestoreArchiviazioneEsami;
-import modellodati.Esame;
 import modellodati.RisorsaListaEsami;
 import java.time.LocalDate;
 import javafx.geometry.HPos;
@@ -17,16 +15,24 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import clientlog.BottoneLog;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 class FormInserimentoEsame extends GridPane {
     
     final TextField inputNomeEsame = new TextField();
     private final TextField inputCodiceUtente = new PasswordField();
     final TextField inputCreditiEsame = new TextField();
-    final ComboBox<Integer> inputValutazioneEsame = new ComboBox<>(Esame.listaVotiStandard);
+    final ComboBox<Integer> inputValutazioneEsame = new ComboBox<>(listaVotiStandard);
     final DatePicker inputDataEsame = new DatePicker();
     final Button pulsanteInvioForm = new BottoneLog("Inserisci");
     final Button pulsanteApplicaCodiceUtente = new BottoneLog("Applica");
+    static final ObservableList<Integer> listaVotiStandard;
+    static {
+        listaVotiStandard = FXCollections.observableArrayList();
+        for(int mm = 18; mm<=33; ++mm)
+            listaVotiStandard.add(mm);
+    }
     
     public FormInserimentoEsame() {
         super();
@@ -73,18 +79,12 @@ class FormInserimentoEsame extends GridPane {
     
     private void creaEsame() {
         try {
-            Esame insertedExam;
             String name = inputNomeEsame.getText();
             Integer credits = Integer.parseInt(inputCreditiEsame.getText());
             Integer mark = ottieniValutazione();
             LocalDate d = inputDataEsame.getValue();
             String codiceUtente = inputCodiceUtente.getText();
-            insertedExam = new Esame(name,mark,credits,d,codiceUtente);
-            int insertedId = GestoreArchiviazioneEsami.getIstanza().inserisciEsame(insertedExam);
-            if(insertedId > 0) {
-                insertedExam.setId(insertedId);
-                RisorsaListaEsami.getIstanza().aggiungiEsame(insertedExam);
-            }
+            RisorsaListaEsami.getIstanza().creaEsame(name, mark, credits, d, codiceUtente);
             pulisciForm();
         } catch(Exception e) {
             System.out.println(e.getMessage());
@@ -99,8 +99,8 @@ class FormInserimentoEsame extends GridPane {
             inputCodiceUtente.setEditable(false);
             pulsanteInvioForm.setDisable(false);
             pulsanteApplicaCodiceUtente.setDisable(true);
+            RisorsaListaEsami.getIstanza().popolaEsami(codice);
             pulisciForm();
-            GestoreArchiviazioneEsami.getIstanza().leggiEsami(codice);
         } catch(Exception e) {
             System.out.println("Errore nella compilazione del codice utente: "+e.getMessage());
         }

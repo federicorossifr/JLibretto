@@ -13,13 +13,7 @@ public class Esame {
     private SimpleIntegerProperty valutazione;
     private SimpleIntegerProperty crediti;
     private SimpleStringProperty data;
-    public static final ObservableList<Integer> listaVotiStandard;
-    static {
-        listaVotiStandard = FXCollections.observableArrayList();
-        for(int mm = 18; mm<=33; ++mm)
-            listaVotiStandard.add(mm);
-    }
-    
+
     public Esame(int i,String n,Integer m,Integer c,LocalDate d,String cu) {
         id = i;
         nome = new SimpleStringProperty(n);

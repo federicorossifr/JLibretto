@@ -14,15 +14,14 @@ import clientlog.ClientLogAttivitaXML;
 import clientlog.Loggable;
 import clientlog.TipoAttivita;
 import modellodati.Esame;
-import modellodati.GestoreArchiviazioneEsami;
 import modellodati.RisorsaListaEsami;
 class TabellaEsami extends TableView implements Loggable {
     
-        private TableColumn colonnaNome = new TableColumn("Nome esame");
-        private TableColumn colonnaCrediti = new TableColumn("Crediti esame");
-        private TableColumn colonnaValutazione = new TableColumn("Valutazione esame");
-        private TableColumn colonnaData = new TableColumn("Data esame");
-        private TableColumn colonnaElimina = new TableColumn("Azione");
+        private final TableColumn colonnaNome = new TableColumn("Nome esame");
+        private final TableColumn colonnaCrediti = new TableColumn("Crediti esame");
+        private final TableColumn colonnaValutazione = new TableColumn("Valutazione esame");
+        private final TableColumn colonnaData = new TableColumn("Data esame");
+        private final TableColumn colonnaElimina = new TableColumn("Azione");
         public TabellaEsami() {
             setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             colonnaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -48,26 +47,20 @@ class TabellaEsami extends TableView implements Loggable {
         private void impostaFormatoModificaCelle() {
             colonnaNome.setCellFactory(TextFieldTableCell.forTableColumn());
             colonnaCrediti.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));            
-            colonnaValutazione.setCellFactory(ComboBoxTableCell.forTableColumn(Esame.listaVotiStandard));            
+            colonnaValutazione.setCellFactory(ComboBoxTableCell.forTableColumn(FormInserimentoEsame.listaVotiStandard));            
             colonnaData.setCellFactory(TextFieldTableCell.forTableColumn());
             colonnaElimina.setCellFactory(ComboBoxTableCell.forTableColumn(FXCollections.observableArrayList("Elimina")));
         }
         
         private void completaModifica(Esame e,int indiceRiga) {
-            boolean result = GestoreArchiviazioneEsami.getIstanza().modificaEsame(e);
-            if(result)
-                RisorsaListaEsami.getIstanza().notificaCambiamentoEsame(indiceRiga);
+             RisorsaListaEsami.getIstanza().modificaEsame(e, indiceRiga);
         }
         
         private void impostaEliminazione() {
             colonnaElimina.setOnEditCommit(new EventHandler<CellEditEvent<Esame, String>>() {
                     @Override
                     public void handle(CellEditEvent<Esame, String> t) {
-                        Esame daRimuovere = ottieniElementoModificato(t);
-                        boolean risultato = GestoreArchiviazioneEsami.getIstanza().rimuoviEsame(daRimuovere.getId());
-                        if(risultato) {
-                            RisorsaListaEsami.getIstanza().getListaEsami().remove(ottieniRigaCella(t));
-                        }
+                        RisorsaListaEsami.getIstanza().eliminaEsame(ottieniRigaCella(t));
                     }
             });
         }
@@ -123,7 +116,7 @@ class TabellaEsami extends TableView implements Loggable {
 
     @Override
     public AttivitaXML produciAttivita(TipoAttivita tipo) {
-        AttivitaXML a = new AttivitaXML("JLibretto",TipoAttivita.CLICK_BOTTONE,"TabellaEsami","");
+        AttivitaXML a = new AttivitaXML("JLibretto",TipoAttivita.CLICK_TABELLA,"TabellaEsami","");
         return a;
     }
 }
