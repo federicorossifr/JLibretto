@@ -1,21 +1,13 @@
- package interfacciagrafica;
+package interfacciagrafica;
 import javafx.collections.FXCollections;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.event.EventHandler;
-import javafx.scene.control.TableColumn.CellEditEvent;
-import javafx.scene.control.cell.ComboBoxTableCell;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.control.*;
+import javafx.scene.control.TableColumn.*;
+import javafx.scene.control.cell.*;
 import javafx.scene.input.MouseEvent;
 import javafx.util.converter.NumberStringConverter;
-import clientlog.AttivitaXML;
-import clientlog.ClientLogAttivitaXML;
-import clientlog.Loggable;
-import clientlog.TipoAttivita;
+import clientlog.*;
 import javafx.event.Event;
-import modellodati.Esame;
-import modellodati.RisorsaListaEsami;
+import modellodati.*;
 class TabellaEsami extends TableView implements Loggable {
     
         private final TableColumn colonnaNome = new TableColumn("Nome esame");
