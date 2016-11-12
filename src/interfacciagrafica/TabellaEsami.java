@@ -13,6 +13,7 @@ import clientlog.AttivitaXML;
 import clientlog.ClientLogAttivitaXML;
 import clientlog.Loggable;
 import clientlog.TipoAttivita;
+import javafx.event.Event;
 import modellodati.Esame;
 import modellodati.RisorsaListaEsami;
 class TabellaEsami extends TableView implements Loggable {
@@ -57,60 +58,42 @@ class TabellaEsami extends TableView implements Loggable {
         }
         
         private void impostaEliminazione() {
-            colonnaElimina.setOnEditCommit(new EventHandler<CellEditEvent<Esame, String>>() {
-                    @Override
-                    public void handle(CellEditEvent<Esame, String> t) {
-                        RisorsaListaEsami.getIstanza().eliminaEsame(ottieniRigaCella(t));
-                    }
+            colonnaElimina.setOnEditCommit(event -> {
+                RisorsaListaEsami.getIstanza().eliminaEsame(ottieniRigaCella(event));
             });
         }
         
-        private int ottieniRigaCella(CellEditEvent<Esame, ?> cella) {
-            return cella.getTablePosition().getRow();
+        private int ottieniRigaCella(Event cella) {
+            CellEditEvent<Esame,?> c = (CellEditEvent<Esame, ?>) cella;
+            return c.getTablePosition().getRow();
         }
         
-        private Esame ottieniElementoModificato(CellEditEvent<Esame, ?> cellaModificata) {
+        private Esame ottieniElementoModificato(Event cellaModificata) {
             int indice = ottieniRigaCella(cellaModificata);
             return RisorsaListaEsami.getIstanza().prelevaEsame(indice);
         }
 
         private void impostaCompletamentoModificaCelle() {
-            colonnaNome.setOnEditCommit(new EventHandler<CellEditEvent<Esame, String>>() {
-                    @Override
-                    public void handle(CellEditEvent<Esame, String> t) {
-                        Esame edited = ottieniElementoModificato(t);
-                        edited.setNome(t.getNewValue());
-                        completaModifica(edited,ottieniRigaCella(t));
-                    }
-                }
-            );
-            colonnaValutazione.setOnEditCommit(new EventHandler<CellEditEvent<Esame, Integer>>() {
-                    @Override
-                    public void handle(CellEditEvent<Esame, Integer> t) {
-                        Esame edited = ottieniElementoModificato(t);
-                        edited.setValutazione(t.getNewValue());
-                        completaModifica(edited,ottieniRigaCella(t));
-                    }
-                }
-            );
-            colonnaCrediti.setOnEditCommit(new EventHandler<CellEditEvent<Esame, Long>>() {
-                    @Override
-                    public void handle(CellEditEvent<Esame, Long> t) {
-                        Esame edited = ottieniElementoModificato(t);
-                        edited.setCrediti(t.getNewValue().intValue());                        
-                        completaModifica(edited,ottieniRigaCella(t));
-                    }
-                }
-            );
-            colonnaData.setOnEditCommit(new EventHandler<CellEditEvent<Esame, String>>() {
-                    @Override
-                    public void handle(CellEditEvent<Esame, String> t) {
-                        Esame edited = ottieniElementoModificato(t);                                              
-                        edited.setData(t.getNewValue());   
-                        completaModifica(edited,ottieniRigaCella(t));
-                    }
-                }
-            ); 
+            colonnaNome.setOnEditCommit(event -> {
+                Esame edited = ottieniElementoModificato(event);
+                edited.setNome(((CellEditEvent<Esame,String>)event).getNewValue());
+                completaModifica(edited,ottieniRigaCella(event));
+            });
+            colonnaValutazione.setOnEditCommit(event -> {
+                Esame edited = ottieniElementoModificato(event);
+                edited.setValutazione(((CellEditEvent<Esame,Integer>)event).getNewValue());
+                completaModifica(edited,ottieniRigaCella(event));
+            });
+            colonnaCrediti.setOnEditCommit(event -> {
+                Esame edited = ottieniElementoModificato(event);
+                edited.setCrediti(((CellEditEvent<Esame,Long>)event).getNewValue().intValue());
+                completaModifica(edited,ottieniRigaCella(event));
+            });
+            colonnaData.setOnEditCommit(event -> {
+                Esame edited = ottieniElementoModificato(event);
+                edited.setData(((CellEditEvent<Esame,String>)event).getNewValue());
+                completaModifica(edited,ottieniRigaCella(event));
+            }); 
 
         }
 

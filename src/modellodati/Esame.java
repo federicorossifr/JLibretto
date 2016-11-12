@@ -1,6 +1,7 @@
 package modellodati;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -35,8 +36,13 @@ public class Esame {
     public void setCrediti(Integer c) { crediti = new SimpleIntegerProperty(c); }    
     public String getData() {return data.get();}
     public void setData(String d) {
-        LocalDate tmpDate = LocalDate.parse(d);
-        data = new SimpleStringProperty(tmpDate.toString());
+        String vecchiaData = getData();
+        try {
+            LocalDate tmpDate = LocalDate.parse(d);
+            data = new SimpleStringProperty(tmpDate.toString());
+        } catch(DateTimeParseException e) {
+            data = new SimpleStringProperty(vecchiaData);
+        }
     }
     public int getId() {return id;}
     public void setId(int i) {id = i;}
