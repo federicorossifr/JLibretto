@@ -5,7 +5,7 @@
 		<IPServerLog>localhost</IPServerLog>
 		<HostnameDatabase>localhost</HostnameDatabase>
 		<PortaDatabase>3306</PortaDatabase>
-		<UtenteDatabase>rrwjkhrwjkhjkhwoot</UtenteDatabase>
+		<UtenteDatabase>root</UtenteDatabase>
 		<PasswordDatabase></PasswordDatabase>
 	</Nucleo>
 	<Preferenze>
