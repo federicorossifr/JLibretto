@@ -2,8 +2,7 @@
 package modellodati;
 
 import java.time.LocalDate;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.*;
 
 public class RisorsaListaEsami  {
     private ObservableList<Esame> listaEsami;

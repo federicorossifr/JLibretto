@@ -1,22 +1,15 @@
 package configurazione;
 
 import com.thoughtworks.xstream.XStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.StringReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.*;
+import java.nio.file.*;
 import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import org.xml.sax.SAXException;
+import javax.xml.validation.*;
+import org.xml.sax.*;
 import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
 
 public class GestoreConfigurazioniXML {
     private Configurazioni ParametriConfigurazione;
@@ -34,15 +27,12 @@ public class GestoreConfigurazioniXML {
         return _istanza;
     }
     
-    public static boolean validaContenutoXML(String contenutoXML,String fileSchemaXSD) {
+    public static boolean validaConfigurazioniXML(String fileXML,String fileSchemaXSD) {
         try {
             DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            InputSource inputContenutoXML = new InputSource(new StringReader(contenutoXML));
-            Document documentoConfigurazione = db.parse(inputContenutoXML);
-            
+            Document documentoConfigurazione = db.parse(new File(fileXML));
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schemaConfigurazione = sf.newSchema(new StreamSource(new File(fileSchemaXSD)));
-            
             schemaConfigurazione.newValidator().validate(new DOMSource(documentoConfigurazione));
             return true;
         } catch(SAXException e) {
@@ -54,15 +44,13 @@ public class GestoreConfigurazioniXML {
         }
     }
     private boolean caricaConfigurazioni(String percorsoXML,String percorsoSchemaXML) {
-        if(ParametriConfigurazione != null)
-            return true;
         try {
             XStream flussoXML = new XStream();
             flussoXML.alias("Configurazioni", configurazione.Configurazioni.class);
-            String inputDaFileXML = new String(Files.readAllBytes(Paths.get(percorsoXML)));
-            if(!validaContenutoXML(inputDaFileXML,percorsoSchemaXML))
+            if(!validaConfigurazioniXML(percorsoXML,percorsoSchemaXML))
                 return false;
             System.out.println("Valida");
+            String inputDaFileXML = new String(Files.readAllBytes(Paths.get(percorsoXML)));            
             ParametriConfigurazione = (Configurazioni) flussoXML.fromXML(inputDaFileXML);
             return true;
         } catch(Exception e) {

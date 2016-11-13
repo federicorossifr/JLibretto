@@ -1,15 +1,9 @@
 package interfacciagrafica;
 
 import java.text.DecimalFormat;
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import modellodati.Esame;
-import modellodati.RisorsaListaEsami;
+import javafx.collections.*;
+import javafx.scene.chart.*;
+import modellodati.*;
 
 abstract class GraficoMediaEsami extends LineChart {
     private final String tipoMedia;
@@ -20,8 +14,6 @@ abstract class GraficoMediaEsami extends LineChart {
         setTitle("Grafico media ("+tipoMedia+")");            
         RisorsaListaEsami.getIstanza().getListaEsami().addListener((ListChangeListener.Change<? extends Esame> c) -> {
             Double mediaFinale = aggiornaComponente((ObservableList<Esame>) c.getList());
-                        
-
             String titoloGrafico = "Grafico media ("+tipoMedia+")";
             DecimalFormat formattatoreMedia = new DecimalFormat("#.##");
             String mediaFormattata = formattatoreMedia.format(mediaFinale);

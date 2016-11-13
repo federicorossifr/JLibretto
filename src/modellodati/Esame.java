@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class Esame {
     private int id;

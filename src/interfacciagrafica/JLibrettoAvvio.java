@@ -1,25 +1,14 @@
 package interfacciagrafica;
 
-import clientlog.TipoAttivita;
-import clientlog.AttivitaXML;
-import clientlog.ClientLogAttivitaXML;
-import clientlog.Loggable;
-import configurazione.ConfigurazioniNonDisponibiliException;
-import configurazione.GestoreConfigurazioniXML;
-import javafx.application.Application;
-import javafx.application.Platform;
+import clientlog.*;
+import configurazione.*;
+import javafx.application.*;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+import javafx.scene.layout.*;
+import javafx.scene.text.*;
+import javafx.stage.*;
 
 public class JLibrettoAvvio extends Application implements Loggable {
     FormInserimentoEsame formEsami;
