@@ -1,10 +1,6 @@
-/JLibretto/nbproject/private/
-/nbproject/private/
-/nbproject/configs/Run_in_Browser.properties
-/nbproject/jfx-impl.xml
-/nbproject/genfiles.properties
-/nbproject/build-impl.xml
+/nbproject/*
 /build.xml
 /manifest.mf
-/nbproject/configs/Run_as_WebStart.properties
-/nbproject/project.xml
+/cache.bin
+/build/*
+/dist/*
