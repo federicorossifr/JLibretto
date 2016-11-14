@@ -20,6 +20,11 @@ class FormInserimentoEsame extends GridPane {
     final DatePicker inputDataEsame = new DatePicker();
     final Button pulsanteInvioForm = new BottoneLog("Inserisci");
     final Button pulsanteApplicaCodiceUtente = new BottoneLog("Applica");
+    Label etichettaInputCodiceUtente = new Label("Codice utente");
+    Label etichettaInputNomeEsame = new Label("Nome esame");
+    Label etichettaInputCreditiEsame = new Label("Crediti esame");
+    Label etichettaInputValutazioneEsame = new Label("Valutazione esame");
+    Label etichettaInputDataEsame = new Label("Data esame");
     static final ObservableList<Integer> listaVotiStandard;
     static {
         listaVotiStandard = FXCollections.observableArrayList();
@@ -29,11 +34,6 @@ class FormInserimentoEsame extends GridPane {
     
     public FormInserimentoEsame() {
         super();
-        Label etichettaInputCodiceUtente = new Label("Codice utente");
-        Label etichettaInputNomeEsame = new Label("Nome esame");
-        Label etichettaInputCreditiEsame = new Label("Crediti esame");
-        Label etichettaInputValutazioneEsame = new Label("Valutazione esame");
-        Label etichettaInputDataEsame = new Label("Data esame");
         inputValutazioneEsame.setPromptText("Seleziona voto");
         inputValutazioneEsame.setEditable(true);
         inputDataEsame.setShowWeekNumbers(false);

@@ -5,15 +5,13 @@ import configurazione.*;
 import javafx.application.*;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.layout.*;
-import javafx.scene.text.*;
 import javafx.stage.*;
 
 public class JLibrettoAvvio extends Application implements Loggable {
     FormInserimentoEsame formEsami;
-    static Font fontGrassetto = Font.font(Font.getDefault().getFamily(),FontWeight.BOLD,Font.getDefault().getSize());
-    static Font fontGrande = Font.font(Font.getDefault().getFamily(),FontWeight.BOLD,Font.getDefault().getSize()+3);
+    GraficoMediaEsami graficoMediaMobileEsami;
+    TabellaEsami tabellaEsami;
 
     @Override
     public void start(Stage primaryStage) {
@@ -45,17 +43,17 @@ public class JLibrettoAvvio extends Application implements Loggable {
 
     private VBox costruisciPannelloEsamiPrincipale() {
         VBox vb = new VBox();
-        TabellaEsami tabellaEsami = new TabellaEsami();
+        tabellaEsami = new TabellaEsami();
         HBox hb = new HBox();
         formEsami = costruisciFormInserimentoEsame();
         formEsami.setVgap(5);
         formEsami.setHgap(5);
         formEsami.setAlignment(Pos.CENTER);
 
-        GraficoMediaEsami graficoMediaMobile = creaGraficoEsami();
+        graficoMediaMobileEsami = creaGraficoEsami();
         HBox.setHgrow(formEsami,Priority.ALWAYS);
-        HBox.setHgrow(graficoMediaMobile,Priority.ALWAYS);
-        hb.getChildren().addAll(formEsami,graficoMediaMobile);
+        HBox.setHgrow(graficoMediaMobileEsami,Priority.ALWAYS);
+        hb.getChildren().addAll(formEsami,graficoMediaMobileEsami);
         VBox.setVgrow(hb, Priority.ALWAYS);
         VBox.setVgrow(tabellaEsami, Priority.ALWAYS);
         vb.getChildren().addAll(tabellaEsami,hb);
@@ -63,9 +61,6 @@ public class JLibrettoAvvio extends Application implements Loggable {
     }
     
     private GraficoMediaEsami creaGraficoEsami() {
-        NumberAxis na = new NumberAxis();
-        na.setLowerBound(18);
-        na.setUpperBound(33);
         String tipoMedia = "";
         try {
             tipoMedia = GestoreConfigurazioniXML.getIstanza().getTipoMedia();
@@ -75,9 +70,9 @@ public class JLibrettoAvvio extends Application implements Loggable {
             System.exit(1);
         }
         switch(tipoMedia) {
-            case "aritmetica": return new GraficoMediaAritmetica(na);
-            case "ponderata": return new GraficoMediaPonderata(na);
-            default: return new GraficoMediaAritmetica(na);
+            case "aritmetica": return new GraficoMediaAritmetica();
+            case "ponderata": return new GraficoMediaPonderata();
+            default: return new GraficoMediaAritmetica();
         }
     }
     

@@ -1,21 +1,17 @@
 package interfacciagrafica;
-
-import javafx.scene.chart.NumberAxis;
-import modellodati.Esame;
-
 class GraficoMediaPonderata extends GraficoMediaEsami {
 
-    public GraficoMediaPonderata(NumberAxis n) {
-        super(n,"ponderata");
-    }
-    @Override
-    public Integer ottieniTermineSommatoria(Esame e) {
-        return e.getCrediti()*e.getValutazione();
+    public GraficoMediaPonderata() {
+        super("ponderata");
     }
 
     @Override
-    public Integer ottieniIncrementoContatore(Esame e) {
-        return e.getCrediti();
+    public Integer ottieniTermineSommatoria(int valutazione, int crediti) {
+        return valutazione*crediti;
     }
-    
+
+    @Override
+    public Integer ottieniIncrementoContatore(int valutazione, int crediti) {
+        return crediti;
+    }
 }

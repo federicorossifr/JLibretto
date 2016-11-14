@@ -1,20 +1,18 @@
 package interfacciagrafica;
 
-import javafx.scene.chart.NumberAxis;
-import modellodati.Esame;
-
 class GraficoMediaAritmetica extends GraficoMediaEsami {
 
-    public GraficoMediaAritmetica(NumberAxis n) {
-        super(n,"aritmetica");
-    }
-    @Override
-    public Integer ottieniTermineSommatoria(Esame e) {
-        return e.getValutazione();
+    public GraficoMediaAritmetica() {
+        super("aritmetica");
     }
 
     @Override
-    public Integer ottieniIncrementoContatore(Esame e) {
+    public Integer ottieniTermineSommatoria(int valutazione, int crediti) {
+        return valutazione;
+    }
+
+    @Override
+    public Integer ottieniIncrementoContatore(int valutazione, int crediti) {
         return 1;
     }
     

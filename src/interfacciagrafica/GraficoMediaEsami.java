@@ -7,8 +7,8 @@ import modellodati.*;
 
 abstract class GraficoMediaEsami extends LineChart {
     private final String tipoMedia;
-    public GraficoMediaEsami(NumberAxis n,String tipoM) {
-        super(new CategoryAxis(),n);
+    public GraficoMediaEsami(String tipoM) {
+        super(new CategoryAxis(),(new NumberAxis()));
         tipoMedia = tipoM;        
         setLegendVisible(false);
         setTitle("Grafico media ("+tipoMedia+")");            
@@ -24,8 +24,8 @@ abstract class GraficoMediaEsami extends LineChart {
         setAnimated(false);
     }
     
-    public abstract Integer ottieniTermineSommatoria(Esame e);
-    public abstract Integer ottieniIncrementoContatore(Esame e);
+    public abstract Integer ottieniTermineSommatoria(int valutazione,int crediti);
+    public abstract Integer ottieniIncrementoContatore(int valutazione,int crediti);
     
     public final double aggiornaComponente(ObservableList<Esame> esami) {
         Double sommatoria = 0.0;
@@ -34,8 +34,8 @@ abstract class GraficoMediaEsami extends LineChart {
         Series<String,Double> valoriMediaMobile;        
         valoriMediaMobile = new Series<>();
         for(Esame e:esami) {
-            sommatoria+=ottieniTermineSommatoria(e);
-            contatore+=ottieniIncrementoContatore(e);
+            sommatoria+=ottieniTermineSommatoria(e.getValutazione(),e.getCrediti());
+            contatore+=ottieniIncrementoContatore(e.getValutazione(),e.getCrediti());
             iterazioneMediaMobile = sommatoria/contatore;
             valoriMediaMobile.getData().add(new XYChart.Data(e.getNome(),iterazioneMediaMobile));
         }
