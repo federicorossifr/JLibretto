@@ -15,7 +15,6 @@ public class ClientLogAttivitaXML extends Thread {
     }
     @Override
     public void run() {
-        
         try {
             String indirizzoServerLog;
             Integer portaServerLog;
