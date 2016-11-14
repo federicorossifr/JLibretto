@@ -34,7 +34,7 @@ class GestoreArchiviazioneEsami{
             String URI = "jdbc:mysql://"+hostname+":"+porta+"/"+nomeDatabase;
             connessioneDatabase = DriverManager.getConnection(URI,utenteDatabase,passwdDatabase);
         } catch(ConfigurazioniNonDisponibiliException | SQLException e) {
-            System.out.println("Impossibile connettersi al database: "+e.getMessage());
+            System.out.println("Impossibile connettersi al database: "+e.getLocalizedMessage());
             Platform.exit();
             System.exit(-1);
         }
@@ -63,7 +63,7 @@ class GestoreArchiviazioneEsami{
             }
             return id;
         } catch (SQLException ex) {
-            System.out.println("Impossibile inserire l\'esame: "+ex.getMessage());
+            System.out.println("Impossibile inserire l\'esame: "+ex.getLocalizedMessage());
             return -1;
         }        
     }
@@ -85,7 +85,7 @@ class GestoreArchiviazioneEsami{
                 RisorsaListaEsami.getIstanza().aggiungiEsame(e);
             }
         } catch(SQLException ex) {
-            System.out.println("Impossibile recuperare gli esami: "+ex.getMessage());
+            System.out.println("Impossibile recuperare gli esami: "+ex.getLocalizedMessage());
         }
     }
     
@@ -100,7 +100,7 @@ class GestoreArchiviazioneEsami{
             int affectedRows = eps.executeUpdate();
             return affectedRows > 0;
         } catch(SQLException ex) {
-            System.out.println("Impossibile modificare l\'esame: "+ex.getMessage());
+            System.out.println("Impossibile modificare l\'esame: "+ex.getLocalizedMessage());
             return false;
         }
     }
@@ -112,7 +112,7 @@ class GestoreArchiviazioneEsami{
             int righeRimosse = rps.executeUpdate();
             return righeRimosse > 0;
         } catch(SQLException ex) {
-            System.out.println("Impossibile rimuovere l\'esame: "+ex.getMessage());
+            System.out.println("Impossibile rimuovere l\'esame: "+ex.getLocalizedMessage());
             return false;
         }
     }

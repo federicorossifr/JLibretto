@@ -80,7 +80,7 @@ class FormInserimentoEsame extends GridPane {
             RisorsaListaEsami.getIstanza().creaEsame(name, mark, credits, d, codiceUtente);
             pulisciForm();
         } catch(Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.getLocalizedMessage());
         }
     }
     
@@ -95,7 +95,7 @@ class FormInserimentoEsame extends GridPane {
             RisorsaListaEsami.getIstanza().popolaEsami(codice);
             pulisciForm();
         } catch(Exception e) {
-            System.out.println("Errore nella compilazione del codice utente: "+e.getMessage());
+            System.out.println("Errore nella compilazione del codice utente: "+e.getLocalizedMessage());
         }
         
     }
