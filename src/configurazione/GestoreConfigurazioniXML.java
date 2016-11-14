@@ -36,10 +36,10 @@ public class GestoreConfigurazioniXML {
             schemaConfigurazione.newValidator().validate(new DOMSource(documentoConfigurazione));
             return true;
         } catch(SAXException e) {
-            System.out.println("Errore di validazione: "+e.getMessage());
+            System.out.println("Errore di validazione: "+e.getLocalizedMessage());
             return false;
         } catch(ParserConfigurationException | IOException e) {
-            System.out.println("Errore: "+e.getMessage());
+            System.out.println("Errore: "+e.getLocalizedMessage());
             return false;
         }
     }
@@ -54,7 +54,7 @@ public class GestoreConfigurazioniXML {
             ParametriConfigurazione = (Configurazioni) flussoXML.fromXML(inputDaFileXML);
             return true;
         } catch(Exception e) {
-            System.out.println("Impossibile caricare la configurazione: "+e.getMessage());
+            System.out.println("Impossibile caricare la configurazione: "+e.getLocalizedMessage());
             return false;
         }     
     }

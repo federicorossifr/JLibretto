@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package clientlog;
 import configurazione.ConfigurazioniNonDisponibiliException;
 import java.io.DataOutputStream;
 import java.net.Socket;
 import configurazione.GestoreConfigurazioniXML;
 
-/**
- *
- * @author feder
- */
 public class ClientLogAttivitaXML extends Thread {
     AttivitaXML attivita;
     Socket socketInvioXML;
@@ -43,7 +34,7 @@ public class ClientLogAttivitaXML extends Thread {
             System.out.println("Errore nel caricamento della configurazione");
         } 
         catch(Exception e) {
-            System.out.println("Errore di connessione al server di log: "+e.getMessage());
+            System.out.println("Errore di connessione al server di log: "+e.getLocalizedMessage());
         }
     }
     
