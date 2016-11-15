@@ -18,7 +18,7 @@
         <xs:element name="Preferenze">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="TipoMedia">
+              <xs:element minOccurs="1" maxOccurs="1" name="TipoMedia">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:enumeration value="aritmetica" />
@@ -26,6 +26,8 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element type="xs:integer" minOccurs="1" maxOccurs="1" name="MinValutazione" />
+              <xs:element type="xs:integer" minOccurs="1" maxOccurs="1" name="MaxValutazione" />              
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -10,5 +10,7 @@
 	</Nucleo>
 	<Preferenze>
 		<TipoMedia>ponderata</TipoMedia>
+		<MinValutazione>18</MinValutazione>
+		<MaxValutazione>33</MaxValutazione>
 	</Preferenze>
 </Configurazioni>

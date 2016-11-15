@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 
-public class JLibrettoAvvio extends Application implements Loggable {
+public class JLibrettoAvvio extends Application{
     FormInserimentoEsame formEsami;
     GraficoMediaEsami graficoMediaMobileEsami;
     TabellaEsami tabellaEsami;
@@ -29,7 +29,7 @@ public class JLibrettoAvvio extends Application implements Loggable {
         
         System.out.println("Caricamento contenuto form da cache");
         FormCache.caricaDaCache(formEsami);
-        (new ClientLogAttivitaXML(this,TipoAttivita.AVVIO_APPLICAZIONE)).start();
+        ClientLogAttivitaXML.inviaLogEventoApplicazione("JLibretto",0);
     }
     
     private void impostaAzioniChiusuraApplicazione(Stage stage) {
@@ -37,7 +37,7 @@ public class JLibrettoAvvio extends Application implements Loggable {
            System.out.println("In fase di chiusura, salvataggio in cache del form.");
            FormCache.salvaInCache(formEsami);
            System.out.println("Salvataggio completato.");
-            (new ClientLogAttivitaXML(this,TipoAttivita.CHIUSURA_APPLICAZIONE)).start();
+           ClientLogAttivitaXML.inviaLogEventoApplicazione("JLibretto",1);       
         });
     }
 
@@ -86,11 +86,4 @@ public class JLibrettoAvvio extends Application implements Loggable {
         launch(args);
         
     }
-
-    @Override
-    public AttivitaXML produciAttivita(TipoAttivita tipo) {
-        AttivitaXML attivita = new AttivitaXML("JLibretto",tipo,null,"");
-        return attivita;
-    }
-
 }

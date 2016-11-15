@@ -1,7 +1,6 @@
 
 package interfacciagrafica;
 
-import clientlog.BottoneLog;
 import modellodati.RisorsaListaEsami;
 import java.time.LocalDate;
 import javafx.geometry.*;

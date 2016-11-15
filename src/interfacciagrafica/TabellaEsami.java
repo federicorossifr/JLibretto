@@ -8,7 +8,7 @@ import javafx.util.converter.NumberStringConverter;
 import clientlog.*;
 import javafx.event.Event;
 import modellodati.*;
-class TabellaEsami extends TableView implements Loggable {
+class TabellaEsami extends TableView {
     
         private final TableColumn colonnaNome = new TableColumn("Nome esame");
         private final TableColumn colonnaCrediti = new TableColumn("Crediti esame");
@@ -32,8 +32,8 @@ class TabellaEsami extends TableView implements Loggable {
             setItems(RisorsaListaEsami.getIstanza().getListaEsami());
             setEditable(true);
             getColumns().addAll(colonnaNome,colonnaCrediti,colonnaValutazione,colonnaData,colonnaElimina);
-            this.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e)-> {
-                (new ClientLogAttivitaXML(this)).start();
+            addEventHandler(MouseEvent.MOUSE_CLICKED,event -> {
+                ClientLogAttivitaXML.inviaLogClickTabella("TabellaEsami", "JLibretto");
             });
         }
 
@@ -88,10 +88,4 @@ class TabellaEsami extends TableView implements Loggable {
             }); 
 
         }
-
-    @Override
-    public AttivitaXML produciAttivita(TipoAttivita tipo) {
-        AttivitaXML a = new AttivitaXML("JLibretto",TipoAttivita.CLICK_TABELLA,"TabellaEsami","");
-        return a;
-    }
 }

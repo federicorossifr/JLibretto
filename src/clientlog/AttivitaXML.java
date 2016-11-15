@@ -4,7 +4,7 @@ import com.thoughtworks.xstream.XStream;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class AttivitaXML implements Serializable {
+class AttivitaXML implements Serializable {
     private final TipoAttivita tipo;
     private final String nomeApplicazione;
     private final String nomeComponente;
