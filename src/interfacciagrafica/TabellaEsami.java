@@ -1,5 +1,5 @@
 package interfacciagrafica;
-import javafx.collections.FXCollections;
+import javafx.collections.*;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.*;
 import javafx.scene.control.cell.*;
@@ -15,7 +15,9 @@ class TabellaEsami extends TableView {
         private final TableColumn colonnaValutazione = new TableColumn("Valutazione esame");
         private final TableColumn colonnaData = new TableColumn("Data esame");
         private final TableColumn colonnaElimina = new TableColumn("Azione");
-        public TabellaEsami() {
+        private final ObservableList<Integer> listaVoti;
+        public TabellaEsami(ObservableList<Integer> lv) {
+            listaVoti = lv;
             setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             colonnaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
             colonnaCrediti.setCellValueFactory(new PropertyValueFactory<>("crediti"));
@@ -40,7 +42,7 @@ class TabellaEsami extends TableView {
         private void impostaFormatoModificaCelle() {
             colonnaNome.setCellFactory(TextFieldTableCell.forTableColumn());
             colonnaCrediti.setCellFactory(TextFieldTableCell.forTableColumn(new NumberStringConverter()));            
-            colonnaValutazione.setCellFactory(ComboBoxTableCell.forTableColumn(FormInserimentoEsame.listaVotiStandard));            
+            colonnaValutazione.setCellFactory(ComboBoxTableCell.forTableColumn(listaVoti));            
             colonnaData.setCellFactory(TextFieldTableCell.forTableColumn());
             colonnaElimina.setCellFactory(ComboBoxTableCell.forTableColumn(FXCollections.observableArrayList("Elimina")));
         }

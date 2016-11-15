@@ -3,6 +3,8 @@ package configurazione;
 import com.thoughtworks.xstream.XStream;
 import java.io.*;
 import java.nio.file.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.*;
 import javax.xml.transform.dom.DOMSource;
@@ -13,7 +15,7 @@ import org.w3c.dom.Document;
 
 public class GestoreConfigurazioniXML {
     private Configurazioni ParametriConfigurazione;
-    public static GestoreConfigurazioniXML _istanza;
+    private static GestoreConfigurazioniXML _istanza;
     
     private GestoreConfigurazioniXML() throws ConfigurazioniNonDisponibiliException {
         boolean risultatoCaricamento = caricaConfigurazioni("configurazioni.xml","configurazioni.xsd");
@@ -66,4 +68,13 @@ public class GestoreConfigurazioniXML {
     public String getUtenteDatabase() {return ParametriConfigurazione.Nucleo.UtenteDatabase;}
     public String getPasswordDatabase() {return ParametriConfigurazione.Nucleo.PasswordDatabase;}
     public String getTipoMedia() {return ParametriConfigurazione.Preferenze.TipoMedia;}
+    public Integer getMinValutazione() { return ParametriConfigurazione.Preferenze.MinValutazione;}
+    public Integer getMaxValutazione() { return ParametriConfigurazione.Preferenze.MaxValutazione;}
+    public ObservableList<Integer> getListaVotiDiponibili() {
+        ObservableList<Integer> lv = FXCollections.observableArrayList();
+        int vMax = getMaxValutazione();
+        for(int vScorri = getMinValutazione();vScorri<=vMax;++vScorri) 
+            lv.add(vScorri);
+        return lv;
+    }
 }

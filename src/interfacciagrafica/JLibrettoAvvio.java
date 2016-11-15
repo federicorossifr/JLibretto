@@ -3,7 +3,7 @@ package interfacciagrafica;
 import clientlog.*;
 import configurazione.*;
 import javafx.application.*;
-import javafx.geometry.Pos;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.*;
@@ -42,13 +42,16 @@ public class JLibrettoAvvio extends Application{
     }
 
     private VBox costruisciPannelloEsamiPrincipale() {
+        try {
+            ObservableList<Integer> listaVoti = GestoreConfigurazioniXML.getIstanza().getListaVotiDiponibili();
+            tabellaEsami = new TabellaEsami(listaVoti);
+            formEsami = costruisciFormInserimentoEsame(listaVoti);
+        } catch(Exception e) {
+            Platform.exit();
+            System.exit(-1);
+        }
         VBox vb = new VBox();
-        tabellaEsami = new TabellaEsami();
         HBox hb = new HBox();
-        formEsami = costruisciFormInserimentoEsame();
-        formEsami.setVgap(5);
-        formEsami.setHgap(5);
-        formEsami.setAlignment(Pos.CENTER);
 
         graficoMediaMobileEsami = creaGraficoEsami();
         HBox.setHgrow(formEsami,Priority.ALWAYS);
@@ -76,8 +79,8 @@ public class JLibrettoAvvio extends Application{
         }
     }
     
-    private FormInserimentoEsame costruisciFormInserimentoEsame() {
-        FormInserimentoEsame gp = new FormInserimentoEsame();
+    private FormInserimentoEsame costruisciFormInserimentoEsame(ObservableList<Integer> listaVoti) {
+        FormInserimentoEsame gp = new FormInserimentoEsame(listaVoti);
         return gp;
     }
 

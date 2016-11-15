@@ -15,26 +15,21 @@ class FormInserimentoEsame extends GridPane {
     final TextField inputNomeEsame = new TextField();
     private final TextField inputCodiceUtente = new PasswordField();
     final TextField inputCreditiEsame = new TextField();
-    final ComboBox<Integer> inputValutazioneEsame = new ComboBox<>(listaVotiStandard);
+    final ComboBox<Integer> inputValutazioneEsame = new ComboBox<>();
     final DatePicker inputDataEsame = new DatePicker();
-    final Button pulsanteInvioForm = new BottoneLog("Inserisci");
-    final Button pulsanteApplicaCodiceUtente = new BottoneLog("Applica");
-    Label etichettaInputCodiceUtente = new Label("Codice utente");
-    Label etichettaInputNomeEsame = new Label("Nome esame");
-    Label etichettaInputCreditiEsame = new Label("Crediti esame");
-    Label etichettaInputValutazioneEsame = new Label("Valutazione esame");
-    Label etichettaInputDataEsame = new Label("Data esame");
-    static final ObservableList<Integer> listaVotiStandard;
-    static {
-        listaVotiStandard = FXCollections.observableArrayList();
-        for(int mm = 18; mm<=33; ++mm)
-            listaVotiStandard.add(mm);
-    }
+    private final Button pulsanteInvioForm = new BottoneLog("Inserisci");
+    private final Button pulsanteApplicaCodiceUtente = new BottoneLog("Applica");
+    private Label etichettaInputCodiceUtente = new Label("Codice utente");
+    private Label etichettaInputNomeEsame = new Label("Nome esame");
+    private Label etichettaInputCreditiEsame = new Label("Crediti esame");
+    private Label etichettaInputValutazioneEsame = new Label("Valutazione esame");
+    private Label etichettaInputDataEsame = new Label("Data esame");
     
-    public FormInserimentoEsame() {
+    public FormInserimentoEsame(ObservableList<Integer> listaVoti) {
         super();
         inputValutazioneEsame.setPromptText("Seleziona voto");
         inputValutazioneEsame.setEditable(true);
+        inputValutazioneEsame.setItems(listaVoti);
         inputDataEsame.setShowWeekNumbers(false);
         Node[] gridContent = new Node[]{etichettaInputCodiceUtente,null,etichettaInputNomeEsame,
                                         etichettaInputCreditiEsame,etichettaInputValutazioneEsame,etichettaInputDataEsame,
@@ -50,6 +45,9 @@ class FormInserimentoEsame extends GridPane {
         pulsanteInvioForm.setDisable(true);
         pulsanteInvioForm.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e) -> creaEsame());
         pulsanteApplicaCodiceUtente.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e) -> applicaCodiceUtente());
+        setVgap(5);
+        setHgap(5);
+        setAlignment(Pos.CENTER);
     }
     
     private Integer ottieniValutazione() {
