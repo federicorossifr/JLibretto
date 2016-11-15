@@ -59,7 +59,7 @@ class FormInserimentoEsame extends GridPane {
             mark = (Integer)tmpMark;
         else
             throw new NumberFormatException();
-        if(mark >=18 && mark<=33)
+        if(inputValutazioneEsame.getItems().indexOf(mark) != -1)
             return mark;
         else
             throw new NumberFormatException();
