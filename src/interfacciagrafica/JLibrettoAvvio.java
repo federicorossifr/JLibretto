@@ -9,9 +9,9 @@ import javafx.scene.layout.*;
 import javafx.stage.*;
 
 public class JLibrettoAvvio extends Application{
-    FormInserimentoEsame formEsami;
-    GraficoMediaEsami graficoMediaMobileEsami;
-    TabellaEsami tabellaEsami;
+    private FormInserimentoEsame formEsami;
+    private GraficoMediaEsami graficoMediaMobileEsami;
+    private TabellaEsami tabellaEsami;
 
     @Override
     public void start(Stage primaryStage) {
@@ -35,7 +35,7 @@ public class JLibrettoAvvio extends Application{
     private void impostaAzioniChiusuraApplicazione(Stage stage) {
         stage.setOnCloseRequest((WindowEvent we) -> {
            System.out.println("In fase di chiusura, salvataggio in cache del form.");
-           FormCache.salvaInCache(formEsami);
+           formEsami.salvaContenuto();
            System.out.println("Salvataggio completato.");
            ClientLogAttivitaXML.inviaLogEventoApplicazione("JLibretto",1);       
         });

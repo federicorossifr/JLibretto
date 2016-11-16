@@ -11,12 +11,11 @@ import javafx.scene.layout.GridPane;
 import javafx.collections.*;
 
 class FormInserimentoEsame extends GridPane {
-    
     final TextField inputNomeEsame = new TextField();
-    private final TextField inputCodiceUtente = new PasswordField();
     final TextField inputCreditiEsame = new TextField();
     final ComboBox<Integer> inputValutazioneEsame = new ComboBox<>();
-    final DatePicker inputDataEsame = new DatePicker();
+    final DatePicker inputDataEsame = new DatePicker();    
+    private final TextField inputCodiceUtente = new PasswordField();    
     private final Button pulsanteInvioForm = new BottoneLog("Inserisci");
     private final Button pulsanteApplicaCodiceUtente = new BottoneLog("Applica");
     private Label etichettaInputCodiceUtente = new Label("Codice utente");
@@ -48,6 +47,15 @@ class FormInserimentoEsame extends GridPane {
         setVgap(5);
         setHgap(5);
         setAlignment(Pos.CENTER);
+        caricaContenuto();
+    }
+    
+    void salvaContenuto() {
+        FormCache.salvaInCache(this);
+    }
+    
+    private void caricaContenuto() {
+        FormCache.caricaDaCache(this);
     }
     
     private Integer ottieniValutazione() {
@@ -63,9 +71,7 @@ class FormInserimentoEsame extends GridPane {
             return mark;
         else
             throw new NumberFormatException();
-    }
-    
-    
+    } 
     
     private void creaEsame() {
         try {
@@ -81,7 +87,6 @@ class FormInserimentoEsame extends GridPane {
         }
     }
     
- 
     private void applicaCodiceUtente() {
         try {
             String codice = inputCodiceUtente.getText();
@@ -93,9 +98,9 @@ class FormInserimentoEsame extends GridPane {
             pulisciForm();
         } catch(Exception e) {
             System.out.println("Errore nella compilazione del codice utente: "+e.getLocalizedMessage());
-        }
-        
+        }   
     }
+    
     private void pulisciForm() {
         inputNomeEsame.clear();
         inputCreditiEsame.clear();
