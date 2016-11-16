@@ -26,9 +26,7 @@ public class JLibrettoAvvio extends Application{
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
-        
         System.out.println("Caricamento contenuto form da cache");
-        FormCache.caricaDaCache(formEsami);
         ClientLogAttivitaXML.inviaLogEventoApplicazione("JLibretto",0);
     }
     
@@ -50,9 +48,9 @@ public class JLibrettoAvvio extends Application{
             Platform.exit();
             System.exit(-1);
         }
+        
         VBox vb = new VBox();
         HBox hb = new HBox();
-
         graficoMediaMobileEsami = creaGraficoEsami();
         HBox.setHgrow(formEsami,Priority.ALWAYS);
         HBox.setHgrow(graficoMediaMobileEsami,Priority.ALWAYS);

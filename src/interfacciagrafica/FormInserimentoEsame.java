@@ -1,4 +1,3 @@
-
 package interfacciagrafica;
 
 import modellodati.RisorsaListaEsami;

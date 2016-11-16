@@ -1,14 +1,7 @@
 package modellodati;
 
-import configurazione.ConfigurazioniNonDisponibiliException;
-import configurazione.GestoreConfigurazioniXML;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import configurazione.*;
+import java.sql.*;
 import java.time.LocalDate;
 import javafx.application.Platform;
 
