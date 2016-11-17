@@ -4,14 +4,15 @@ import configurazione.*;
 import java.sql.*;
 import java.time.LocalDate;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 
 class GestoreArchiviazioneEsami{
     private Connection connessioneDatabase;
     private static GestoreArchiviazioneEsami _istanza;
-    private final String queryInserimentoEsame = "INSERT INTO exam(name,credits,mark,date,usercode) VALUES(?,?,?,?,?)";
-    private final String queryModificaEsame = "UPDATE exam SET name = ?,credits=?,mark=?,date=? WHERE id = ?";
-    private final String queryLetturaEsami = "SELECT * FROM exam WHERE usercode=?";
-    private final String queryRimozioneEsame = "DELETE FROM exam WHERE id = ?";
+    private final String queryInserimentoEsame = "INSERT INTO esame(nome,crediti,valutazione,data,codiceUtente) VALUES(?,?,?,?,?)";
+    private final String queryModificaEsame = "UPDATE esame SET nome = ?,crediti=?,valutazione=?,data=? WHERE id = ?";
+    private final String queryLetturaEsami = "SELECT * FROM esame WHERE codiceUtente=?";
+    private final String queryRimozioneEsame = "DELETE FROM esame WHERE id = ?";
     
     private GestoreArchiviazioneEsami() {
         int porta;
@@ -61,7 +62,7 @@ class GestoreArchiviazioneEsami{
         }        
     }
     
-    public void leggiEsami(String codiceUtente) {
+    public void leggiEsami(String codiceUtente,ObservableList<Esame> l) {
         try {
             PreparedStatement ips = connessioneDatabase.prepareStatement(queryLetturaEsami);
             ips.setString(1, codiceUtente);
@@ -69,13 +70,13 @@ class GestoreArchiviazioneEsami{
             Esame e;
             while(ers.next()) {
                 e = new Esame(ers.getInt("id"),
-                              ers.getString("name"),
-                              ers.getInt("mark"),
-                              ers.getInt("credits"),
-                              ers.getDate("date").toLocalDate(),
-                              ers.getString("usercode"));
+                              ers.getString("nome"),
+                              ers.getInt("valutazione"),
+                              ers.getInt("crediti"),
+                              ers.getDate("data").toLocalDate(),
+                              ers.getString("codiceUtente"));
                 System.out.println(e.getNome());
-                RisorsaListaEsami.getIstanza().aggiungiEsame(e);
+                l.add(e);
             }
         } catch(SQLException ex) {
             System.out.println("Impossibile recuperare gli esami: "+ex.getLocalizedMessage());

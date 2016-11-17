@@ -42,10 +42,11 @@ public class RisorsaListaEsami  {
     }
     
     public void popolaEsami(String cu) {
-        GestoreArchiviazioneEsami.getIstanza().leggiEsami(cu);
+        getListaEsami().clear();
+        GestoreArchiviazioneEsami.getIstanza().leggiEsami(cu,getListaEsami());
     }
     
-    void aggiungiEsame(Esame e) {
+    private void aggiungiEsame(Esame e) {
             listaEsami.add(e);
     }
     
