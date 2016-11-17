@@ -1,4 +1,4 @@
-package clientlog;
+package logattivita;
 
 import com.thoughtworks.xstream.XStream;
 import java.io.Serializable;

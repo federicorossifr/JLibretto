@@ -1,11 +1,11 @@
 package interfacciagrafica;
+import logattivita.ClientLogAttivitaXML;
 import javafx.collections.*;
 import javafx.scene.control.*;
 import javafx.scene.control.TableColumn.*;
 import javafx.scene.control.cell.*;
 import javafx.scene.input.MouseEvent;
 import javafx.util.converter.NumberStringConverter;
-import clientlog.*;
 import javafx.event.Event;
 import modellodati.*;
 class TabellaEsami extends TableView {

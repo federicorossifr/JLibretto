@@ -1,4 +1,4 @@
-package clientlog;
+package logattivita;
 
 import java.io.Serializable;
 

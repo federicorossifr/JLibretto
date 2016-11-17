@@ -1,6 +1,6 @@
 package interfacciagrafica;
 
-import clientlog.*;
+import logattivita.ClientLogAttivitaXML;
 import configurazione.*;
 import javafx.application.*;
 import javafx.collections.ObservableList;

@@ -15,8 +15,8 @@ class FormInserimentoEsame extends GridPane {
     final ComboBox<Integer> inputValutazioneEsame = new ComboBox<>();
     final DatePicker inputDataEsame = new DatePicker();    
     private final TextField inputCodiceUtente = new PasswordField();    
-    private final Button pulsanteInvioForm = new BottoneLog("Inserisci");
-    private final Button pulsanteApplicaCodiceUtente = new BottoneLog("Applica");
+    private final Button pulsanteInvioForm = new BottoneLogger("Inserisci");
+    private final Button pulsanteApplicaCodiceUtente = new BottoneLogger("Applica");
     private Label etichettaInputCodiceUtente = new Label("Codice utente");
     private Label etichettaInputNomeEsame = new Label("Nome esame");
     private Label etichettaInputCreditiEsame = new Label("Crediti esame");

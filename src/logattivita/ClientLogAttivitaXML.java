@@ -1,4 +1,4 @@
-package clientlog;
+package logattivita;
 import configurazione.ConfigurazioniNonDisponibiliException;
 import java.io.DataOutputStream;
 import java.net.Socket;
