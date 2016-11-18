@@ -1,6 +1,6 @@
 package interfacciagrafica;
 
-import modellodati.RisorsaListaEsami;
+import modellodati.ControlloreListaEsami;
 import java.time.LocalDate;
 import javafx.geometry.*;
 import javafx.scene.Node;
@@ -79,7 +79,7 @@ class FormInserimentoEsame extends GridPane {
             Integer mark = ottieniValutazione();
             LocalDate d = inputDataEsame.getValue();
             String codiceUtente = inputCodiceUtente.getText();
-            RisorsaListaEsami.getIstanza().creaEsame(name, mark, credits, d, codiceUtente);
+            ControlloreListaEsami.getIstanza().creaEsame(name, mark, credits, d, codiceUtente);
             pulisciForm();
         } catch(Exception e) {
             System.out.println(e.getLocalizedMessage());
@@ -93,7 +93,7 @@ class FormInserimentoEsame extends GridPane {
             inputCodiceUtente.setEditable(false);
             pulsanteInvioForm.setDisable(false);
             pulsanteApplicaCodiceUtente.setDisable(true);
-            RisorsaListaEsami.getIstanza().popolaEsami(codice);
+            ControlloreListaEsami.getIstanza().popolaEsami(codice);
             pulisciForm();
         } catch(Exception e) {
             System.out.println("Errore nella compilazione del codice utente: "+e.getLocalizedMessage());

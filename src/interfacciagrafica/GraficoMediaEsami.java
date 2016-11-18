@@ -12,7 +12,7 @@ abstract class GraficoMediaEsami extends LineChart {
         tipoMedia = tipoM;        
         setLegendVisible(false);
         setTitle("Grafico media ("+tipoMedia+")");            
-        RisorsaListaEsami.getIstanza().getListaEsami().addListener((ListChangeListener.Change<? extends Esame> c) -> {
+        ControlloreListaEsami.getIstanza().getListaEsami().addListener((ListChangeListener.Change<? extends Esame> c) -> {
             Double mediaFinale = aggiornaComponente((ObservableList<Esame>) c.getList());
             String titoloGrafico = "Grafico media ("+tipoMedia+")";
             DecimalFormat formattatoreMedia = new DecimalFormat("#.##");

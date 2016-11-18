@@ -4,17 +4,17 @@ package modellodati;
 import java.time.LocalDate;
 import javafx.collections.*;
 
-public class RisorsaListaEsami  {
+public class ControlloreListaEsami  {
     private ObservableList<Esame> listaEsami;
-    private static RisorsaListaEsami _istanza;
+    private static ControlloreListaEsami _istanza;
     
-    private RisorsaListaEsami() {
+    private ControlloreListaEsami() {
         listaEsami = FXCollections.observableArrayList();
     }
     
-    public static RisorsaListaEsami getIstanza() {
+    public static ControlloreListaEsami getIstanza() {
         if(_istanza == null)
-            _istanza = new RisorsaListaEsami();
+            _istanza = new ControlloreListaEsami();
         return _istanza;
     }
     

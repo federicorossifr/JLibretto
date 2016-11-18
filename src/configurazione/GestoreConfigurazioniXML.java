@@ -29,7 +29,7 @@ public class GestoreConfigurazioniXML {
         return _istanza;
     }
     
-    private static boolean validaConfigurazioniXML(String fileXML,String fileSchemaXSD) {
+    private boolean validaConfigurazioniXML(String fileXML,String fileSchemaXSD) {
         try {
             DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document documentoConfigurazione = db.parse(new File(fileXML));

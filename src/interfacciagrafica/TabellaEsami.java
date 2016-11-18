@@ -31,7 +31,7 @@ class TabellaEsami extends TableView {
             colonnaCrediti.setSortable(false);
             colonnaValutazione.setSortable(false);            
             colonnaData.setSortable(false);
-            setItems(RisorsaListaEsami.getIstanza().getListaEsami());
+            setItems(ControlloreListaEsami.getIstanza().getListaEsami());
             setEditable(true);
             getColumns().addAll(colonnaNome,colonnaCrediti,colonnaValutazione,colonnaData,colonnaElimina);
             addEventHandler(MouseEvent.MOUSE_CLICKED,event -> {
@@ -48,12 +48,12 @@ class TabellaEsami extends TableView {
         }
         
         private void completaModifica(Esame e,int indiceRiga) {
-             RisorsaListaEsami.getIstanza().modificaEsame(e, indiceRiga);
+             ControlloreListaEsami.getIstanza().modificaEsame(e, indiceRiga);
         }
         
         private void impostaEliminazione() {
             colonnaElimina.setOnEditCommit(event -> {
-                RisorsaListaEsami.getIstanza().eliminaEsame(ottieniRigaCella(event));
+                ControlloreListaEsami.getIstanza().eliminaEsame(ottieniRigaCella(event));
             });
         }
         
@@ -64,7 +64,7 @@ class TabellaEsami extends TableView {
         
         private Esame ottieniElementoModificato(Event cellaModificata) {
             int indice = ottieniRigaCella(cellaModificata);
-            return RisorsaListaEsami.getIstanza().prelevaEsame(indice);
+            return ControlloreListaEsami.getIstanza().prelevaEsame(indice);
         }
 
         private void impostaCompletamentoModificaCelle() {
