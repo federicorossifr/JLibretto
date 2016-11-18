@@ -22,6 +22,7 @@ public class JLibrettoAvvio extends Application{
         root.getChildren().add(mainPanel);
         Scene scene = new Scene(root, 800, 600);
         impostaAzioniChiusuraApplicazione(primaryStage);
+        scene.getStylesheets().add("file:./res/stile.css");
         primaryStage.setTitle("JLibretto");
         primaryStage.setScene(scene);
         primaryStage.show();
