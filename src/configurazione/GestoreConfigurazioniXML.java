@@ -18,7 +18,7 @@ public class GestoreConfigurazioniXML {
     private static GestoreConfigurazioniXML _istanza;
     
     private GestoreConfigurazioniXML() throws ConfigurazioniNonDisponibiliException {
-        boolean risultatoCaricamento = caricaConfigurazioni("configurazioni.xml","configurazioni.xsd");
+        boolean risultatoCaricamento = caricaConfigurazioni("./conf/configurazioni.xml","./conf/configurazioni.xsd");
         if(!risultatoCaricamento)
             throw new ConfigurazioniNonDisponibiliException();
     }

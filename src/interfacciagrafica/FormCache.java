@@ -17,7 +17,7 @@ class FormCache implements Serializable {
 
     public static void salvaInCache(FormInserimentoEsame form) {
         try {
-                ObjectOutputStream streamUscitaBinario = new ObjectOutputStream(new FileOutputStream("cache.bin"));
+                ObjectOutputStream streamUscitaBinario = new ObjectOutputStream(new FileOutputStream("./cache/cache.bin"));
                 String nomeEsame,creditiEsame,votoEsame,dataEsame;
                 try {
                     nomeEsame = form.inputNomeEsame.getText();
@@ -39,7 +39,7 @@ class FormCache implements Serializable {
     }
     public static void caricaDaCache(FormInserimentoEsame form) {
         try {
-            ObjectInputStream streamIngressoBinario = new ObjectInputStream(new FileInputStream("cache.bin"));
+            ObjectInputStream streamIngressoBinario = new ObjectInputStream(new FileInputStream("./cache/cache.bin"));
             FormCache contenutoFormCache = (FormCache)streamIngressoBinario.readObject();
             form.inputCreditiEsame.setText(contenutoFormCache.contenutoInputCrediti);
             form.inputValutazioneEsame.getEditor().setText(contenutoFormCache.contenutoInputValutazione);
