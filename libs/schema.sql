@@ -3,11 +3,11 @@ CREATE DATABASE prg;
 
 USE prg;
 
-CREATE TABLE exam (
+CREATE TABLE esame (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT,
-	name VARCHAR(50) NOT NULL,
-	credits INT NOT NULL,
-	mark INT NOT NULL,
-	date DATE NOT NULL,
-	usercode VARCHAR(255) NOT NULL
+	nome VARCHAR(50) NOT NULL,
+	crediti INT NOT NULL,
+	valutazione INT NOT NULL,
+	data DATE NOT NULL,
+	codiceUtente VARCHAR(255) NOT NULL
 );
