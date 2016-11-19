@@ -2,8 +2,7 @@ package modellodati;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
 
 public class Esame {
     private int id;

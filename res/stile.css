@@ -39,3 +39,7 @@
 
 .default-color0.chart-series-line { -fx-stroke: blue; }
 .default-color0.chart-line-symbol { -fx-background-color: blue, lightblue; }
+
+.erroreForm {
+    -fx-border-color:red;
+}

@@ -57,31 +57,59 @@ class FormInserimentoEsame extends GridPane {
         FormCache.caricaDaCache(this);
     }
     
-    private Integer ottieniValutazione() {
-        Integer mark;
-        Object tmpMark = inputValutazioneEsame.getValue();
-        if(tmpMark instanceof String) 
-            mark = Integer.parseInt((String)tmpMark);
-        else if(tmpMark instanceof Integer)
-            mark = (Integer)tmpMark;
-        else
-            throw new NumberFormatException();
-        if(inputValutazioneEsame.getItems().indexOf(mark) != -1)
-            return mark;
-        else
-            throw new NumberFormatException();
+    private Integer ottieniValutazione() throws CompilazioneFormException {
+        try {
+            Integer valutazione = Integer.parseInt((inputValutazioneEsame.getEditor().getCharacters().toString()));
+            if(inputValutazioneEsame.getItems().indexOf(valutazione) != -1)
+                return valutazione;
+            throw new CompilazioneFormException(inputValutazioneEsame);
+        } catch(NumberFormatException e) {
+            throw new CompilazioneFormException(inputValutazioneEsame);
+        }
     } 
+    
+    private String ottieniNome() throws CompilazioneFormException {
+        try {
+            String s = inputNomeEsame.getText();
+            if(s.length() > 0)
+                return inputNomeEsame.getText();
+            throw new CompilazioneFormException(inputNomeEsame);
+        } catch(Exception e) {
+            throw new CompilazioneFormException(inputNomeEsame);
+        }
+    }
+    
+    private Integer ottieniCrediti() throws CompilazioneFormException {
+        try {
+            return Integer.parseInt(inputCreditiEsame.getText());
+        } catch(Exception e) {
+            throw new CompilazioneFormException(inputCreditiEsame);
+        }
+    }
+    
+    private LocalDate ottieniData() throws CompilazioneFormException {
+        try {
+            LocalDate d = inputDataEsame.getValue();
+            if(d != null)
+                return d;
+            throw new CompilazioneFormException(inputDataEsame);
+        } catch(Exception e) {
+            throw new CompilazioneFormException(inputDataEsame);
+        }
+    }
     
     private void creaEsame() {
         try {
-            String name = inputNomeEsame.getText();
-            Integer credits = Integer.parseInt(inputCreditiEsame.getText());
+            String name = ottieniNome();
+            Integer credits = ottieniCrediti();
             Integer mark = ottieniValutazione();
-            LocalDate d = inputDataEsame.getValue();
+            LocalDate d = ottieniData();
             String codiceUtente = inputCodiceUtente.getText();
             ControlloreListaEsami.getIstanza().creaEsame(name, mark, credits, d, codiceUtente);
             pulisciForm();
-        } catch(Exception e) {
+        } catch(CompilazioneFormException e) {
+            rimuoviErrori();            
+            e.getCausa().getStyleClass().add("erroreForm");
             System.out.println(e.getLocalizedMessage());
         }
     }
@@ -94,13 +122,21 @@ class FormInserimentoEsame extends GridPane {
             pulsanteInvioForm.setDisable(false);
             pulsanteApplicaCodiceUtente.setDisable(true);
             ControlloreListaEsami.getIstanza().popolaEsami(codice);
-            pulisciForm();
+            //pulisciForm();
         } catch(Exception e) {
             System.out.println("Errore nella compilazione del codice utente: "+e.getLocalizedMessage());
         }   
     }
     
+    private void rimuoviErrori() {
+        inputNomeEsame.getStyleClass().remove("erroreForm");
+        inputCreditiEsame.getStyleClass().remove("erroreForm");
+        inputValutazioneEsame.getStyleClass().remove("erroreForm");
+        inputDataEsame.getStyleClass().remove("erroreForm");
+    }
+    
     private void pulisciForm() {
+        rimuoviErrori();
         inputNomeEsame.clear();
         inputCreditiEsame.clear();
         inputValutazioneEsame.getEditor().clear();
