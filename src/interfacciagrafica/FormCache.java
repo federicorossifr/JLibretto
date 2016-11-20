@@ -19,19 +19,10 @@ class FormCache implements Serializable {
         try {
                 ObjectOutputStream streamUscitaBinario = new ObjectOutputStream(new FileOutputStream("./cache/cache.bin"));
                 String nomeEsame,creditiEsame,votoEsame,dataEsame;
-                try {
-                    nomeEsame = form.inputNomeEsame.getText();
-                } catch(Exception e) {nomeEsame = "";}
-                try {
-                    creditiEsame = form.inputCreditiEsame.getText();
-                } catch(Exception e) {creditiEsame = "";}
-                try {
-                    votoEsame = form.inputValutazioneEsame.getEditor().getText();
-                } catch(Exception e) {votoEsame = "";}
-                try {
-                    dataEsame = form.inputDataEsame.getEditor().getText();
-                } catch(Exception e) {dataEsame = "";}
-                
+                nomeEsame = form.inputNomeEsame.getCharacters().toString();
+                creditiEsame = form.inputCreditiEsame.getCharacters().toString();
+                votoEsame = form.inputValutazioneEsame.getEditor().getCharacters().toString();
+                dataEsame = form.inputDataEsame.getEditor().getCharacters().toString();
                 streamUscitaBinario.writeObject(new FormCache(nomeEsame,creditiEsame,votoEsame,dataEsame));
             } catch(Exception e) {
                 System.out.println("Erore nel salvare la cache form: "+e.getMessage());

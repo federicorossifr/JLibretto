@@ -117,13 +117,14 @@ class FormInserimentoEsame extends GridPane {
     private void applicaCodiceUtente() {
         try {
             String codice = inputCodiceUtente.getText();
-            if(codice.length() < 8) return;
+            if(codice.length() < 8) throw new CompilazioneFormException(inputCodiceUtente);
             inputCodiceUtente.setEditable(false);
             pulsanteInvioForm.setDisable(false);
             pulsanteApplicaCodiceUtente.setDisable(true);
             ControlloreListaEsami.getIstanza().popolaEsami(codice);
-            //pulisciForm();
-        } catch(Exception e) {
+            inputCodiceUtente.getStyleClass().remove("erroreForm");            
+        } catch(CompilazioneFormException e) {
+            e.getCausa().getStyleClass().add("erroreForm");
             System.out.println("Errore nella compilazione del codice utente: "+e.getLocalizedMessage());
         }   
     }
