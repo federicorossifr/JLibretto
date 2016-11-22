@@ -1,35 +1,32 @@
 package logattivita;
-import configurazione.ConfigurazioniNonDisponibiliException;
 import java.io.DataOutputStream;
 import java.net.Socket;
 import configurazione.GestoreConfigurazioniXML;
 
 public class ClientLogAttivitaXML extends Thread {
     private final AttivitaXML attivita;
-    private Socket socketInvioXML;
     private ClientLogAttivitaXML(AttivitaXML a) {
         attivita = a;
     }
     @Override
     public void run() {
+        String indirizzoServerLog;
+        Integer portaServerLog;
         try {
-            String indirizzoServerLog;
-            Integer portaServerLog;
-            
             indirizzoServerLog = GestoreConfigurazioniXML.getIstanza().getIPServerLog();
             portaServerLog = GestoreConfigurazioniXML.getIstanza().getPortaServerLog();
-            System.out.println("Tentativo di connessione: "+indirizzoServerLog+" "+portaServerLog);  
-            
-            socketInvioXML = new Socket(indirizzoServerLog,portaServerLog);
-            System.out.println("Socket connesso: "+socketInvioXML.getInetAddress()+" "+socketInvioXML.getPort());
-            
+        } catch(Exception e) {
+            System.out.println("Impossibile configurare il client.");
+            return;
+        }
+        
+        try (
+            Socket socketInvioXML = new Socket(indirizzoServerLog,portaServerLog);
             DataOutputStream streamUscitaAlServer = new DataOutputStream(socketInvioXML.getOutputStream());
+        ) {            
             attivita.indirizzoIPClient = socketInvioXML.getLocalAddress().toString();
             streamUscitaAlServer.writeUTF(attivita.serializzaInXML());
-        } catch(ConfigurazioniNonDisponibiliException exx) {
-            System.out.println("Errore nel caricamento della configurazione");
-        } 
-        catch(Exception e) {
+        } catch(Exception e) {
             System.out.println("Errore di connessione al server di log: "+e.getLocalizedMessage());
         }
     }

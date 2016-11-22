@@ -66,7 +66,7 @@ public class JLibrettoAvvio extends Application{
         String tipoMedia = "";
         try {
             tipoMedia = GestoreConfigurazioniXML.getIstanza().getTipoMedia();
-        } catch(ConfigurazioniNonDisponibiliException e) {
+        } catch(Exception e) {
             System.out.println("Errore nel caricamento delle configurazioni");
             Platform.exit();
             System.exit(1);
@@ -81,11 +81,5 @@ public class JLibrettoAvvio extends Application{
     private FormInserimentoEsame costruisciFormInserimentoEsame(ObservableList<Integer> listaVoti) {
         FormInserimentoEsame gp = new FormInserimentoEsame(listaVoti);
         return gp;
-    }
-
-    public static void main(String[] args) {
-        System.out.println("Avvio applicazione...");
-        launch(args);
-        
     }
 }

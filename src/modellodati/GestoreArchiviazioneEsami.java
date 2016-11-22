@@ -27,8 +27,8 @@ class GestoreArchiviazioneEsami{
             passwdDatabase = GestoreConfigurazioniXML.getIstanza().getPasswordDatabase();            
             String URI = "jdbc:mysql://"+hostname+":"+porta+"/"+nomeDatabase;
             connessioneDatabase = DriverManager.getConnection(URI,utenteDatabase,passwdDatabase);
-        } catch(ConfigurazioniNonDisponibiliException | SQLException e) {
-            System.out.println("Impossibile connettersi al database: "+e.getLocalizedMessage());
+        } catch(Exception e) {
+            System.out.println("Impossibile connettersi all'archivio esami: "+e.getLocalizedMessage());
             Platform.exit();
             System.exit(-1);
         }
@@ -42,8 +42,9 @@ class GestoreArchiviazioneEsami{
     
     
     public int inserisciEsame(Esame e) {
-        try {
+        try(
             PreparedStatement ips = connessioneDatabase.prepareStatement(queryInserimentoEsame,Statement.RETURN_GENERATED_KEYS);
+        ) {
             ips.setString(1, e.getNome());
             ips.setInt(2,e.getCrediti());
             ips.setInt(3,e.getValutazione());
@@ -63,8 +64,9 @@ class GestoreArchiviazioneEsami{
     }
     
     public void leggiEsami(String codiceUtente,ObservableList<Esame> l) {
-        try {
+        try (
             PreparedStatement ips = connessioneDatabase.prepareStatement(queryLetturaEsami);
+        ) {
             ips.setString(1, codiceUtente);
             ResultSet ers = ips.executeQuery();
             Esame e;
@@ -84,8 +86,9 @@ class GestoreArchiviazioneEsami{
     }
     
     public boolean modificaEsame(Esame e) {
-        try {
+        try (
             PreparedStatement eps = connessioneDatabase.prepareStatement(queryModificaEsame);
+        ) {
             eps.setString(1, e.getNome());
             eps.setInt(2, e.getCrediti());
             eps.setInt(3, e.getValutazione());
@@ -100,8 +103,9 @@ class GestoreArchiviazioneEsami{
     }
     
     public boolean rimuoviEsame(int indice) {
-        try {
+        try (
             PreparedStatement rps = connessioneDatabase.prepareStatement(queryRimozioneEsame);
+        ) {
             rps.setInt(1,indice);
             int righeRimosse = rps.executeUpdate();
             return righeRimosse > 0;

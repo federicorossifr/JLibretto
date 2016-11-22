@@ -15,27 +15,20 @@ class FormCache implements Serializable {
         contenutoInputData = d;
     }
 
-    public static void salvaInCache(FormInserimentoEsame form) {
+    public static void salvaInCache(String n,String c,String m,String d) {
         try(ObjectOutputStream streamUscitaBinario = new ObjectOutputStream(new FileOutputStream("./cache/cache.bin"))) {
-                String nomeEsame,creditiEsame,votoEsame,dataEsame;
-                nomeEsame = form.inputNomeEsame.getCharacters().toString();
-                creditiEsame = form.inputCreditiEsame.getCharacters().toString();
-                votoEsame = form.inputValutazioneEsame.getEditor().getCharacters().toString();
-                dataEsame = form.inputDataEsame.getEditor().getCharacters().toString();
-                streamUscitaBinario.writeObject(new FormCache(nomeEsame,creditiEsame,votoEsame,dataEsame));
+                streamUscitaBinario.writeObject(new FormCache(n,c,m,d));
             } catch(Exception e) {
                 System.out.println("Erore nel salvare i dati inseriti: "+e.getMessage());
         } 
     }
-    public static void caricaDaCache(FormInserimentoEsame form) {
+    public static FormCache caricaDaCache() {
         try(ObjectInputStream streamIngressoBinario = new ObjectInputStream(new FileInputStream("./cache/cache.bin"))) {
             FormCache contenutoFormCache = (FormCache)streamIngressoBinario.readObject();
-            form.inputCreditiEsame.setText(contenutoFormCache.contenutoInputCrediti);
-            form.inputValutazioneEsame.getEditor().setText(contenutoFormCache.contenutoInputValutazione);
-            form.inputDataEsame.getEditor().setText(contenutoFormCache.contenutoInputData);
-            form.inputNomeEsame.setText(contenutoFormCache.contenutoInputNome);
+            return contenutoFormCache;
         } catch(IOException | ClassNotFoundException e) {
             System.out.println("Errore nel caricare i dati precedentemente inseriti: "+e.getMessage());
+            return null;
         }
     }
 }

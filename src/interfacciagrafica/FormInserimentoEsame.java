@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import javafx.geometry.*;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.collections.*;
 
@@ -50,11 +49,19 @@ class FormInserimentoEsame extends GridPane {
     }
     
     void salvaContenuto() {
-        FormCache.salvaInCache(this);
+        FormCache.salvaInCache(inputNomeEsame.getCharacters().toString(),
+                               inputCreditiEsame.getCharacters().toString(),
+                               inputValutazioneEsame.getEditor().getCharacters().toString(),
+                               inputDataEsame.getEditor().getCharacters().toString());
     }
     
     private void caricaContenuto() {
-        FormCache.caricaDaCache(this);
+        FormCache contenuto = FormCache.caricaDaCache();
+        if(contenuto == null) return;
+        inputNomeEsame.setText(contenuto.contenutoInputNome);
+        inputCreditiEsame.setText(contenuto.contenutoInputCrediti);
+        inputValutazioneEsame.getEditor().setText(contenuto.contenutoInputValutazione);
+        inputDataEsame.getEditor().setText(contenuto.contenutoInputData);
     }
     
     private Integer ottieniValutazione() throws CompilazioneFormException {
