@@ -41,8 +41,8 @@ class FormInserimentoEsame extends GridPane {
             getChildren().add(n);
         }
         pulsanteInvioForm.setDisable(true);
-        pulsanteInvioForm.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e) -> creaEsame());
-        pulsanteApplicaCodiceUtente.addEventHandler(MouseEvent.MOUSE_CLICKED,(MouseEvent e) -> applicaCodiceUtente());
+        pulsanteInvioForm.setOnAction(event -> creaEsame());
+        pulsanteApplicaCodiceUtente.setOnAction(event -> applicaCodiceUtente());
         setVgap(5);
         setHgap(5);
         setAlignment(Pos.CENTER);
