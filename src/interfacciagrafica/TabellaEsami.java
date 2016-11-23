@@ -35,7 +35,7 @@ class TabellaEsami extends TableView {
             setEditable(true);
             getColumns().addAll(colonnaNome,colonnaCrediti,colonnaValutazione,colonnaData,colonnaElimina);
             addEventHandler(MouseEvent.MOUSE_CLICKED,event -> {
-                ClientLogAttivitaXML.inviaLogClickTabella("TabellaEsami", "JLibretto");
+                ClientLogAttivitaXML.inviaLogClickTabella("JLibretto", "TabellaEsami");
             });
         }
 

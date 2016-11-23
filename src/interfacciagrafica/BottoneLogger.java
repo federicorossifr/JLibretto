@@ -9,7 +9,7 @@ class BottoneLogger extends Button{
         super(contenuto);
         this.getStyleClass().add("bottone");
         this.addEventHandler(MouseEvent.MOUSE_CLICKED,event->{
-            ClientLogAttivitaXML.inviaLogClickBottone(this.getText(), "JLibretto");
+            ClientLogAttivitaXML.inviaLogClickBottone("JLibretto",this.getText());
         });
     }
 }

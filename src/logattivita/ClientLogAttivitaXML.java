@@ -23,8 +23,10 @@ public class ClientLogAttivitaXML extends Thread {
         try (
             Socket socketInvioXML = new Socket(indirizzoServerLog,portaServerLog);
             DataOutputStream streamUscitaAlServer = new DataOutputStream(socketInvioXML.getOutputStream());
-        ) {            
+        ) {
+            System.out.println("Connesso, invio XML.");
             attivita.indirizzoIPClient = socketInvioXML.getLocalAddress().toString();
+            System.out.println("Invio completato.");
             streamUscitaAlServer.writeUTF(attivita.serializzaInXML());
         } catch(Exception e) {
             System.out.println("Errore di connessione al server di log: "+e.getLocalizedMessage());
