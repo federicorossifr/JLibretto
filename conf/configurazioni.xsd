@@ -1,36 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- configurazioni.xsd -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="Configurazioni">
     <xs:complexType>
       <xs:sequence>
+
         <xs:element name="Nucleo">
           <xs:complexType>
             <xs:sequence>
-              <xs:element type="xs:integer" nillable="false" minOccurs="1" maxOccurs="1" name="PortaServerLog"/>
-              <xs:element type="xs:string" nillable="false" minOccurs="1" maxOccurs="1" name="IPServerLog"/>
-              <xs:element type="xs:string" nillable="false" minOccurs="1" maxOccurs="1" name="HostnameDatabase"/>
-              <xs:element type="xs:short" nillable="false" minOccurs="1" maxOccurs="1" name="PortaDatabase"/>
-              <xs:element type="xs:string" nillable="false" minOccurs="1" maxOccurs="1" name="UtenteDatabase"/>
-              <xs:element type="xs:string" nillable="false" minOccurs="1" maxOccurs="1" name="PasswordDatabase"/>
+              <xs:element type="xs:integer" nillable="false" minOccurs="1" name="PortaServerLog"/>
+              <xs:element type="xs:string" nillable="false" minOccurs="1" name="IPServerLog"/>
+              <xs:element type="xs:string" nillable="false" minOccurs="1" name="HostnameDatabase"/>
+              <xs:element type="xs:short" nillable="false" minOccurs="1" name="PortaDatabase"/>
+              <xs:element type="xs:string" nillable="false" minOccurs="1" name="UtenteDatabase"/>
+              <xs:element type="xs:string" nillable="false" minOccurs="1" name="PasswordDatabase"/>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+
         <xs:element name="Preferenze">
           <xs:complexType>
             <xs:sequence>
-              <xs:element minOccurs="1" maxOccurs="1" name="TipoMedia">
-                <xs:simpleType>
-                  <xs:restriction base="xs:string">
-                    <xs:enumeration value="aritmetica" />
-                    <xs:enumeration value="ponderata" />
-                  </xs:restriction>
-                </xs:simpleType>
-              </xs:element>
-              <xs:element type="xs:integer" minOccurs="1" maxOccurs="1" name="MinValutazione" />
-              <xs:element type="xs:integer" minOccurs="1" maxOccurs="1" name="MaxValutazione" />              
+              <xs:element type="xs:integer" minOccurs="1" name="MinValutazione" />
+              <xs:element type="xs:integer" minOccurs="1" name="MaxValutazione" />           
             </xs:sequence>
+      		<xs:attribute type="xs:string" name="TipoMedia" use="required"/>
           </xs:complexType>
         </xs:element>
+
       </xs:sequence>
     </xs:complexType>
   </xs:element>

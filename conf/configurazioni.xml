@@ -8,8 +8,7 @@
 		<UtenteDatabase>root</UtenteDatabase>
 		<PasswordDatabase></PasswordDatabase>
 	</Nucleo>
-	<Preferenze>
-		<TipoMedia>ponderata</TipoMedia>
+	<Preferenze TipoMedia="ponderata">
 		<MinValutazione>18</MinValutazione>
 		<MaxValutazione>33</MaxValutazione>
 	</Preferenze>
