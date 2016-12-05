@@ -31,7 +31,7 @@
 }
 
 
-.table-row-cell:selected .table-cell {
+.table-row-cell:selected {
     -fx-border-insets:1 1 1 1;
     -fx-border-color:blue;
     -fx-background-color: white;

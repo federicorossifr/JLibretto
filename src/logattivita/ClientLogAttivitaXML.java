@@ -13,8 +13,8 @@ public class ClientLogAttivitaXML extends Thread {
         String indirizzoServerLog;
         Integer portaServerLog;
         try {
-            indirizzoServerLog = GestoreConfigurazioniXML.getIstanza().getIPServerLog();
-            portaServerLog = GestoreConfigurazioniXML.getIstanza().getPortaServerLog();
+            indirizzoServerLog = GestoreConfigurazioniXML.ottieni().Nucleo.IPServerLog;
+            portaServerLog = GestoreConfigurazioniXML.ottieni().Nucleo.PortaServerLog;
         } catch(Exception e) {
             System.out.println("Impossibile configurare il client.");
             return;
@@ -26,10 +26,10 @@ public class ClientLogAttivitaXML extends Thread {
         ) {
             System.out.println("Connesso, invio XML.");
             attivita.indirizzoIPClient = socketInvioXML.getLocalAddress().toString();
-            System.out.println("Invio completato.");
             streamUscitaAlServer.writeUTF(attivita.serializzaInXML());
+            System.out.println("Invio completato.");
         } catch(Exception e) {
-            System.out.println("Errore di connessione al server di log: "+e.getLocalizedMessage());
+            System.out.println("Errore di connessione al server di log");
         }
     }
     

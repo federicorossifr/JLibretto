@@ -3,12 +3,14 @@ package configurazione;
 
 import java.io.Serializable;
 
-class Preferenze implements Serializable{
-	String TipoMedia;
-        int MinValutazione;
-        int MaxValutazione;
+public class Preferenze implements Serializable{
+	public String TipoMedia;
+        public int MinValutazione;
+        public int MaxValutazione;
         
-        public Preferenze(String tm) {
+        public Preferenze(String tm,int mv,int Mv) {
             TipoMedia = tm;
+            MinValutazione = mv;
+            MaxValutazione = Mv;
         }
 }

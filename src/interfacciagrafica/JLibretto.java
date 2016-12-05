@@ -3,18 +3,20 @@ package interfacciagrafica;
 import logattivita.ClientLogAttivitaXML;
 import configurazione.*;
 import javafx.application.*;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 
-public class JLibrettoAvvio extends Application{
+public class JLibretto extends Application{
     private FormInserimentoEsame formEsami;
     private GraficoMediaEsami graficoMediaMobileEsami;
     private TabellaEsami tabellaEsami;
 
     @Override
     public void start(Stage primaryStage) {
+        ClientLogAttivitaXML.inviaLogEventoApplicazione("JLibretto",0);
         BorderPane mainPanel = new BorderPane();
         VBox examsContentPanel = costruisciPannelloEsamiPrincipale();
         mainPanel.setCenter(examsContentPanel);
@@ -28,7 +30,6 @@ public class JLibrettoAvvio extends Application{
         primaryStage.show();
         primaryStage.setResizable(false);
         System.out.println("Caricamento contenuto form da cache");
-        ClientLogAttivitaXML.inviaLogEventoApplicazione("JLibretto",0);
     }
     
     private void impostaAzioniChiusuraApplicazione(Stage stage) {
@@ -42,10 +43,14 @@ public class JLibrettoAvvio extends Application{
 
     private VBox costruisciPannelloEsamiPrincipale() {
         try {
-            ObservableList<Integer> listaVoti = GestoreConfigurazioniXML.getIstanza().getListaVotiDiponibili();
+            int vm = GestoreConfigurazioniXML.ottieni().Preferenze.MinValutazione;
+            int vM = GestoreConfigurazioniXML.ottieni().Preferenze.MaxValutazione;
+            ObservableList<Integer> listaVoti = FXCollections.observableArrayList();
+            for(int i = vm;i<=vM;++i) listaVoti.add(i);
             tabellaEsami = new TabellaEsami(listaVoti);
             formEsami = costruisciFormInserimentoEsame(listaVoti);
         } catch(Exception e) {
+            e.printStackTrace();
             Platform.exit();
             System.exit(-1);
         }
@@ -65,7 +70,7 @@ public class JLibrettoAvvio extends Application{
     private GraficoMediaEsami creaGraficoEsami() {
         String tipoMedia = "";
         try {
-            tipoMedia = GestoreConfigurazioniXML.getIstanza().getTipoMedia();
+            tipoMedia = GestoreConfigurazioniXML.ottieni().Preferenze.TipoMedia;
         } catch(Exception e) {
             System.out.println("Errore nel caricamento delle configurazioni");
             Platform.exit();
