@@ -24,7 +24,14 @@
               <xs:element type="xs:integer" minOccurs="1" name="MinValutazione" />
               <xs:element type="xs:integer" minOccurs="1" name="MaxValutazione" />           
             </xs:sequence>
-      		<xs:attribute type="xs:string" name="TipoMedia" use="required"/>
+      		<xs:attribute name="TipoMedia" use="required">
+      			<xs:simpleType>
+      				<xs:restriction base="xs:string">
+      					<xs:enumeration value="ponderata" />
+      					<xs:enumeration value="aritmetica" />
+      				</xs:restriction>
+      			</xs:simpleType>
+      		</xs:attribute>
           </xs:complexType>
         </xs:element>
 
