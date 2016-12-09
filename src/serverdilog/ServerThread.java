@@ -11,7 +11,7 @@ public class ServerThread extends Thread {
     private final CaricatoreValidatoreXML validatore;
     public ServerThread(Socket cl) {
         client = cl;
-        validatore = new CaricatoreValidatoreXML(null,"../etc/attivita.xsd");
+        validatore = new CaricatoreValidatoreXML(null,"../../etc/attivita.xsd");
     }
     
     private void appendiAFile(String xml) {
@@ -22,9 +22,9 @@ public class ServerThread extends Thread {
         String ls = System.lineSeparator();
         xml+=ls+ls;
         try {
-            if(!Files.exists(Paths.get("../log/log.xml")))
-                Files.createFile(Paths.get("../log/log.xml"));
-            Files.write(Paths.get("../log/log.xml"),xml.getBytes(),StandardOpenOption.APPEND);
+            if(!Files.exists(Paths.get("../../log/log.xml")))
+                Files.createFile(Paths.get("../../log/log.xml"));
+            Files.write(Paths.get("../../log/log.xml"),xml.getBytes(),StandardOpenOption.APPEND);
         } catch(Exception e) {
             System.out.println("Impossibile scrivere su file di log: "+e.getMessage());
         }
