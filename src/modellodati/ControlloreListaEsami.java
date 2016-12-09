@@ -10,6 +10,7 @@ public class ControlloreListaEsami  {
     
     private ControlloreListaEsami() {
         listaEsami = FXCollections.observableArrayList();
+        popolaEsami();
     }
     
     public static ControlloreListaEsami getIstanza() {
@@ -18,8 +19,8 @@ public class ControlloreListaEsami  {
         return _istanza;
     }
     
-    public void creaEsame(String n,Integer m,Integer c,LocalDate d,String cu) {
-        Esame e = new Esame(n,m,c,d,cu);
+    public void creaEsame(String n,Integer m,Integer c,LocalDate d) {
+        Esame e = new Esame(n,m,c,d);
         int insertedId = GestoreArchiviazioneEsami.getIstanza().inserisciEsame(e);
         if(insertedId > 0) {
             e.setId(insertedId);
@@ -41,9 +42,9 @@ public class ControlloreListaEsami  {
             notificaCambiamentoEsame(posizioneEsame);
     }
     
-    public void popolaEsami(String cu) {
+    private void popolaEsami() {
         getListaEsami().clear();
-        GestoreArchiviazioneEsami.getIstanza().leggiEsami(cu,getListaEsami());
+        GestoreArchiviazioneEsami.getIstanza().leggiEsami(getListaEsami());
     }
     
     private void aggiungiEsame(Esame e) {

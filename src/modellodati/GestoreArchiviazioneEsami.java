@@ -49,7 +49,7 @@ class GestoreArchiviazioneEsami{
             ips.setInt(2,e.getCrediti());
             ips.setInt(3,e.getValutazione());
             ips.setDate(4,Date.valueOf(LocalDate.parse(e.getData())));
-            ips.setString(5,e.getCodiceUtente());
+            ips.setString(5,GestoreConfigurazioniXML.ottieni().Preferenze.CodiceUtente);
             ips.executeUpdate();
             ResultSet idResult = ips.getGeneratedKeys();
             int id = -1;
@@ -63,11 +63,11 @@ class GestoreArchiviazioneEsami{
         }        
     }
     
-    public void leggiEsami(String codiceUtente,ObservableList<Esame> l) {
+    public void leggiEsami(ObservableList<Esame> l) {
         try (
             PreparedStatement ips = connessioneDatabase.prepareStatement(queryLetturaEsami);
         ) {
-            ips.setString(1, codiceUtente);
+            ips.setString(1, GestoreConfigurazioniXML.ottieni().Preferenze.CodiceUtente);
             ResultSet ers = ips.executeQuery();
             Esame e;
             while(ers.next()) {

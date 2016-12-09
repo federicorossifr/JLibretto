@@ -21,8 +21,8 @@ public class Esame {
         codiceUtente = cu;
     }
     
-    public Esame(String n,Integer m,Integer c,LocalDate d,String cu) {
-        this(-1,n,m,c,d,cu);
+    public Esame(String n,Integer m,Integer c,LocalDate d) {
+        this(-1,n,m,c,d,null);
     }
     
     public String getNome() {return nome.get();}

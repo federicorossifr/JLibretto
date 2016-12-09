@@ -12,6 +12,7 @@ abstract class GraficoMediaEsami extends LineChart {
         tipoMedia = tipoM;        
         setLegendVisible(false);
         setTitle("Grafico media ("+tipoMedia+")");            
+        setAnimated(false);
         ControlloreListaEsami.getIstanza().getListaEsami().addListener((ListChangeListener.Change<? extends Esame> c) -> {
             Double mediaFinale = aggiornaComponente((ObservableList<Esame>) c.getList());
             String titoloGrafico = "Grafico media ("+tipoMedia+")";
@@ -21,7 +22,7 @@ abstract class GraficoMediaEsami extends LineChart {
                 titoloGrafico+= ", media attuale: "+mediaFormattata;
             setTitle(titoloGrafico);   
         });
-        setAnimated(false);
+        aggiornaComponente(ControlloreListaEsami.getIstanza().getListaEsami());
     }
     
     public abstract Integer ottieniTermineSommatoria(int valutazione,int crediti);

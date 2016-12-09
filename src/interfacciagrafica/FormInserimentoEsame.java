@@ -13,10 +13,7 @@ class FormInserimentoEsame extends GridPane {
     final TextField inputCreditiEsame = new TextField();
     final ComboBox<Integer> inputValutazioneEsame = new ComboBox<>();
     final DatePicker inputDataEsame = new DatePicker();    
-    private final TextField inputCodiceUtente = new PasswordField();    
     private final Button pulsanteInvioForm = new BottoneLogger("Inserisci");
-    private final Button pulsanteApplicaCodiceUtente = new BottoneLogger("Applica");
-    private Label etichettaInputCodiceUtente = new Label("Codice utente");
     private Label etichettaInputNomeEsame = new Label("Nome esame");
     private Label etichettaInputCreditiEsame = new Label("Crediti esame");
     private Label etichettaInputValutazioneEsame = new Label("Valutazione esame");
@@ -28,20 +25,16 @@ class FormInserimentoEsame extends GridPane {
         inputValutazioneEsame.setEditable(true);
         inputValutazioneEsame.setItems(listaVoti);
         inputDataEsame.setShowWeekNumbers(false);
-        Node[] gridContent = new Node[]{etichettaInputCodiceUtente,null,etichettaInputNomeEsame,
-                                        etichettaInputCreditiEsame,etichettaInputValutazioneEsame,etichettaInputDataEsame,
-                                        null,inputCodiceUtente,pulsanteApplicaCodiceUtente,
-                                        inputNomeEsame,inputCreditiEsame,inputValutazioneEsame,
-                                        inputDataEsame,pulsanteInvioForm};
-        impostaIndiciGriglia(gridContent,2,7);
+        Node[] gridContent = new Node[]{etichettaInputNomeEsame,etichettaInputCreditiEsame,etichettaInputValutazioneEsame,etichettaInputDataEsame,
+                                        null,inputNomeEsame,inputCreditiEsame,inputValutazioneEsame,inputDataEsame,
+                                        pulsanteInvioForm};
+        impostaIndiciGriglia(gridContent,2,5);
         centraElementiInGriglia(gridContent);
         for(Node n:gridContent) {
             if(n == null) continue;
             getChildren().add(n);
         }
-        pulsanteInvioForm.setDisable(true);
         pulsanteInvioForm.setOnAction(event -> creaEsame());
-        pulsanteApplicaCodiceUtente.setOnAction(event -> applicaCodiceUtente());
         setVgap(5);
         setHgap(5);
         setAlignment(Pos.CENTER);
@@ -62,6 +55,7 @@ class FormInserimentoEsame extends GridPane {
         inputCreditiEsame.setText(contenuto.contenutoInputCrediti);
         inputValutazioneEsame.getEditor().setText(contenuto.contenutoInputValutazione);
         inputDataEsame.getEditor().setText(contenuto.contenutoInputData);
+        System.out.println(inputDataEsame.getEditor().getCharacters());
     }
     
     private Integer ottieniValutazione() throws CompilazioneFormException {
@@ -97,6 +91,7 @@ class FormInserimentoEsame extends GridPane {
     private LocalDate ottieniData() throws CompilazioneFormException {
         try {
             LocalDate d = inputDataEsame.getValue();
+            System.out.println(d);
             if(d != null)
                 return d;
             throw new CompilazioneFormException(inputDataEsame);
@@ -111,8 +106,7 @@ class FormInserimentoEsame extends GridPane {
             Integer credits = ottieniCrediti();
             Integer mark = ottieniValutazione();
             LocalDate d = ottieniData();
-            String codiceUtente = inputCodiceUtente.getText();
-            ControlloreListaEsami.getIstanza().creaEsame(name, mark, credits, d, codiceUtente);
+            ControlloreListaEsami.getIstanza().creaEsame(name, mark, credits, d);
             pulisciForm();
         } catch(CompilazioneFormException e) {
             rimuoviErrori();            
@@ -120,21 +114,7 @@ class FormInserimentoEsame extends GridPane {
             System.out.println(e.getLocalizedMessage());
         }
     }
-    
-    private void applicaCodiceUtente() {
-        try {
-            String codice = inputCodiceUtente.getText();
-            if(codice.length() < 8) throw new CompilazioneFormException(inputCodiceUtente);
-            inputCodiceUtente.setEditable(false);
-            pulsanteInvioForm.setDisable(false);
-            pulsanteApplicaCodiceUtente.setDisable(true);
-            ControlloreListaEsami.getIstanza().popolaEsami(codice);
-            inputCodiceUtente.getStyleClass().remove("erroreForm");            
-        } catch(CompilazioneFormException e) {
-            e.getCausa().getStyleClass().add("erroreForm");
-            System.out.println("Errore nella compilazione del codice utente: "+e.getLocalizedMessage());
-        }   
-    }
+
     
     private void rimuoviErrori() {
         inputNomeEsame.getStyleClass().remove("erroreForm");

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_TABELLA">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>TabellaEsami</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:06:41.599</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_BOTTONE">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>Inserisci</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:06:45.275</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_TABELLA">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>TabellaEsami</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:06:49.072</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_TABELLA">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>TabellaEsami</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:06:50.434</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_TABELLA">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>TabellaEsami</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:06:51.110</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_TABELLA">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>TabellaEsami</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:06:52.657</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_TABELLA">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>TabellaEsami</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:06:53.031</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_TABELLA">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>TabellaEsami</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:06:56.770</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_TABELLA">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>TabellaEsami</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:06:56.932</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_TABELLA">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>TabellaEsami</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:06:57.237</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CHIUSURA_APPLICAZIONE">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:07:25.457</istante>
+</Attività>
+

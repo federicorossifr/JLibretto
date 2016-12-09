@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configurazioni xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-                xsi:noNamespaceSchemaLocation="configurazioni.xsd">
+<Configurazioni>
 	<Nucleo>
 		<PortaServerLog>8080</PortaServerLog>
 		<IPServerLog>localhost</IPServerLog>
@@ -10,6 +9,7 @@
 		<PasswordDatabase></PasswordDatabase>
 	</Nucleo>
 	<Preferenze TipoMedia="ponderata">
+                <CodiceUtente>516382</CodiceUtente>
 		<MinValutazione>18</MinValutazione>
 		<MaxValutazione>33</MaxValutazione>
 	</Preferenze>
