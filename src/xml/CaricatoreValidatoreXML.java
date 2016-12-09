@@ -26,10 +26,10 @@ public class CaricatoreValidatoreXML {
     public boolean validaXML(String xml) {
         try {
             DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document documentoConfigurazione =  db.parse(new InputSource(new StringReader(xml))); //db.parse(new File(percorsoFileXML));
+            Document documentoXML =  db.parse(new InputSource(new StringReader(xml))); //db.parse(new File(percorsoFileXML));
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema schemaConfigurazione = sf.newSchema(new StreamSource(new File(percorsoFileXSD)));
-            schemaConfigurazione.newValidator().validate(new DOMSource(documentoConfigurazione));
+            Schema schema = sf.newSchema(new StreamSource(new File(percorsoFileXSD)));
+            schema.newValidator().validate(new DOMSource(documentoXML));
             return true;
         } catch(SAXException e) {
             System.out.println("Errore di validazione: "+e.getLocalizedMessage());
@@ -47,7 +47,7 @@ public class CaricatoreValidatoreXML {
                 return null;
             return streamXML.fromXML(inputDaFileXML);
         } catch(Exception e) {
-            System.out.println("Impossibile caricare la configurazione: "+e.getLocalizedMessage());
+            System.out.println("Impossibile caricare XML: "+e.getLocalizedMessage());
             return null;
         }     
     }

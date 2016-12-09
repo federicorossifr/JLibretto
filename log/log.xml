@@ -85,3 +85,131 @@
   <istante>2016-12-09T23:07:25.457</istante>
 </Attività>
 
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_TABELLA">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>TabellaEsami</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:17:31.990</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_BOTTONE">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>Inserisci</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:17:34.678</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_TABELLA">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>TabellaEsami</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:17:36.860</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_TABELLA">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>TabellaEsami</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:17:37.608</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_TABELLA">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>TabellaEsami</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:17:39.601</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_TABELLA">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>TabellaEsami</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:17:39.992</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_BOTTONE">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>Inserisci</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:17:49.265</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_BOTTONE">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>Inserisci</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:17:49.687</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_BOTTONE">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>Inserisci</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:17:49.857</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_BOTTONE">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>Inserisci</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:17:50.019</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_BOTTONE">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>Inserisci</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:17:50.181</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_BOTTONE">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>Inserisci</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:17:50.351</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_BOTTONE">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>Inserisci</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:17:50.497</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_BOTTONE">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>Inserisci</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:17:50.667</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_BOTTONE">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>Inserisci</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:17:50.807</istante>
+</Attività>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Attività tipo="CLICK_BOTTONE">
+  <nomeApplicazione>JLibretto</nomeApplicazione>
+  <nomeComponente>Inserisci</nomeComponente>
+  <indirizzoIPClient>/127.0.0.1</indirizzoIPClient>
+  <istante>2016-12-09T23:17:50.961</istante>
+</Attività>
+
