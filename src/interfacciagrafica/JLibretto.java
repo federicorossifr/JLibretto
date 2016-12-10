@@ -2,6 +2,7 @@ package interfacciagrafica;
 
 import logattivita.ClientLogAttivitaXML;
 import configurazione.*;
+import java.text.SimpleDateFormat;
 import javafx.application.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

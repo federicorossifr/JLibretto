@@ -48,7 +48,7 @@ class GestoreArchiviazioneEsami{
             ips.setString(1, e.getNome());
             ips.setInt(2,e.getCrediti());
             ips.setInt(3,e.getValutazione());
-            ips.setDate(4,Date.valueOf(LocalDate.parse(e.getData())));
+            ips.setDate(4,Date.valueOf(LocalDate.parse(e.getData(),Esame.dtf)));
             ips.setString(5,GestoreConfigurazioniXML.ottieni().Preferenze.CodiceUtente);
             ips.executeUpdate();
             ResultSet idResult = ips.getGeneratedKeys();
@@ -92,7 +92,7 @@ class GestoreArchiviazioneEsami{
             eps.setString(1, e.getNome());
             eps.setInt(2, e.getCrediti());
             eps.setInt(3, e.getValutazione());
-            eps.setDate(4,Date.valueOf(LocalDate.parse(e.getData())));
+            eps.setDate(4,Date.valueOf(LocalDate.parse(e.getData(),Esame.dtf)));
             eps.setInt(5,e.getId());
             int affectedRows = eps.executeUpdate();
             return affectedRows > 0;

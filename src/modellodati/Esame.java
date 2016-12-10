@@ -1,7 +1,9 @@
 package modellodati;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.FormatStyle;
 import javafx.beans.property.*;
 
 public class Esame {
@@ -11,13 +13,13 @@ public class Esame {
     private SimpleIntegerProperty valutazione;
     private SimpleIntegerProperty crediti;
     private SimpleStringProperty data;
-
+    static DateTimeFormatter dtf = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
     public Esame(int i,String n,Integer m,Integer c,LocalDate d,String cu) {
         id = i;
         nome = new SimpleStringProperty(n);
         valutazione = new SimpleIntegerProperty(m);
         crediti = new SimpleIntegerProperty(c);
-        data = new SimpleStringProperty(d.toString());
+        data = new SimpleStringProperty(d.format(dtf));
         codiceUtente = cu;
     }
     
@@ -35,8 +37,8 @@ public class Esame {
     public void setData(String d) {
         String vecchiaData = getData();
         try {
-            LocalDate tmpDate = LocalDate.parse(d);
-            data = new SimpleStringProperty(tmpDate.toString());
+            LocalDate tmpDate = LocalDate.parse(d,dtf);
+            data = new SimpleStringProperty(tmpDate.format(dtf));
         } catch(DateTimeParseException e) {
             data = new SimpleStringProperty(vecchiaData);
         }

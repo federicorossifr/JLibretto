@@ -2,6 +2,7 @@ package interfacciagrafica;
 
 import modellodati.ControlloreListaEsami;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import javafx.geometry.*;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -23,6 +24,7 @@ class FormInserimentoEsame extends GridPane {
         super();
         inputValutazioneEsame.setPromptText("Seleziona voto");
         inputValutazioneEsame.setEditable(true);
+        inputDataEsame.setEditable(false);
         inputValutazioneEsame.setItems(listaVoti);
         inputDataEsame.setShowWeekNumbers(false);
         Node[] gridContent = new Node[]{etichettaInputNomeEsame,etichettaInputCreditiEsame,etichettaInputValutazioneEsame,etichettaInputDataEsame,
@@ -54,7 +56,8 @@ class FormInserimentoEsame extends GridPane {
         inputNomeEsame.setText(contenuto.contenutoInputNome);
         inputCreditiEsame.setText(contenuto.contenutoInputCrediti);
         inputValutazioneEsame.getEditor().setText(contenuto.contenutoInputValutazione);
-        inputDataEsame.getEditor().setText(contenuto.contenutoInputData);
+        if(contenuto.contenutoInputData.length() > 0)
+            inputDataEsame.setValue(LocalDate.parse(contenuto.contenutoInputData,DateTimeFormatter.ofPattern("dd/MM/yyyy")));
         System.out.println(inputDataEsame.getEditor().getCharacters());
     }
     
