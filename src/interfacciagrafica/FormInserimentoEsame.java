@@ -3,11 +3,14 @@ package interfacciagrafica;
 import modellodati.ControlloreListaEsami;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.Locale;
 import javafx.geometry.*;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.collections.*;
+import javafx.util.StringConverter;
 
 class FormInserimentoEsame extends GridPane {
     final TextField inputNomeEsame = new TextField();
@@ -27,6 +30,7 @@ class FormInserimentoEsame extends GridPane {
         inputDataEsame.setEditable(false);
         inputValutazioneEsame.setItems(listaVoti);
         inputDataEsame.setShowWeekNumbers(false);
+        impostaFormatoInputData()        ;
         Node[] gridContent = new Node[]{etichettaInputNomeEsame,etichettaInputCreditiEsame,etichettaInputValutazioneEsame,etichettaInputDataEsame,
                                         null,inputNomeEsame,inputCreditiEsame,inputValutazioneEsame,inputDataEsame,
                                         pulsanteInvioForm};
@@ -43,12 +47,33 @@ class FormInserimentoEsame extends GridPane {
         caricaContenuto();
     }
     
+    private void impostaFormatoInputData() {
+         inputDataEsame.setConverter(new StringConverter<LocalDate>() {
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
+            @Override public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+            @Override public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        });   
+    }
+    
     void salvaContenuto() {
         FormCache.salvaInCache(inputNomeEsame.getCharacters().toString(),
                                inputCreditiEsame.getCharacters().toString(),
                                inputValutazioneEsame.getEditor().getCharacters().toString(),
                                inputDataEsame.getEditor().getCharacters().toString());
     }
+    
     
     private void caricaContenuto() {
         FormCache contenuto = FormCache.caricaDaCache();
@@ -57,7 +82,7 @@ class FormInserimentoEsame extends GridPane {
         inputCreditiEsame.setText(contenuto.contenutoInputCrediti);
         inputValutazioneEsame.getEditor().setText(contenuto.contenutoInputValutazione);
         if(contenuto.contenutoInputData.length() > 0)
-            inputDataEsame.setValue(LocalDate.parse(contenuto.contenutoInputData,DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            inputDataEsame.setValue(LocalDate.parse(contenuto.contenutoInputData,DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
         System.out.println(inputDataEsame.getEditor().getCharacters());
     }
     
