@@ -1,49 +1,52 @@
 package modellodati;
-
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.format.FormatStyle;
 import javafx.beans.property.*;
 
 public class Esame {
     private int id;
-    private String codiceUtente;
+    private int codiceEsame;
     private SimpleStringProperty nome;
     private SimpleIntegerProperty valutazione;
     private SimpleIntegerProperty crediti;
     private SimpleStringProperty data;
-    static DateTimeFormatter dtf = DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT);
-    public Esame(int i,String n,Integer m,Integer c,LocalDate d,String cu) {
+    public Esame(int i,Integer ce,String n,Integer v,Integer c,LocalDate d) {
         id = i;
+        codiceEsame = ce;
         nome = new SimpleStringProperty(n);
-        valutazione = new SimpleIntegerProperty(m);
+        valutazione = new SimpleIntegerProperty(v);
         crediti = new SimpleIntegerProperty(c);
-        data = new SimpleStringProperty(d.format(dtf));
-        codiceUtente = cu;
+        data = new SimpleStringProperty(d.toString());
     }
     
-    public Esame(String n,Integer m,Integer c,LocalDate d) {
-        this(-1,n,m,c,d,null);
+    public Esame(String n,Integer v,Integer c,LocalDate d) {
+        this(-1,-1,n,v,c,d);
+    }
+    
+    public Esame(String n,Integer c,Integer ce) {
+        nome = new SimpleStringProperty(n);
+        crediti = new SimpleIntegerProperty(c);
+        codiceEsame = ce;
+    }
+    
+    public Esame() {
+        this(-1,-1,"",18,0,LocalDate.now());
+    }
+    
+    @Override
+    public String toString() {
+        return getNome();
     }
     
     public String getNome() {return nome.get();}
-    public void setNome(String n) { nome = new SimpleStringProperty(n); }
+    public void setNome(String n) {nome.set(n);}
     public Integer getValutazione() {return valutazione.get();}
-    public void setValutazione(Integer m) { valutazione = new SimpleIntegerProperty(m); }
+    public void setValutazione(Integer m) {valutazione.set(m);}
     public Integer getCrediti() {return crediti.get();}
-    public void setCrediti(Integer c) { crediti = new SimpleIntegerProperty(c); }    
-    public String getData() {return data.get();}
-    public void setData(String d) {
-        String vecchiaData = getData();
-        try {
-            LocalDate tmpDate = LocalDate.parse(d,dtf);
-            data = new SimpleStringProperty(tmpDate.format(dtf));
-        } catch(DateTimeParseException e) {
-            data = new SimpleStringProperty(vecchiaData);
-        }
-    }
+    public void setCrediti(Integer c) {crediti.set(c);}    
+    public LocalDate getData() {return LocalDate.parse(data.get());}
+    public void setData(LocalDate d) {data.set(d.toString());}
     public int getId() {return id;}
     public void setId(int i) {id = i;}
-    public String getCodiceUtente() {return codiceUtente;}
+    public int getCodiceEsame() {return codiceEsame;}
+    public void setCodiceEsame(int ce) {codiceEsame = ce;}
 }

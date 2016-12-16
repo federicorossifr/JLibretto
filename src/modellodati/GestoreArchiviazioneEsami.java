@@ -2,16 +2,16 @@ package modellodati;
 
 import configurazione.*;
 import java.sql.*;
-import java.time.LocalDate;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 
 class GestoreArchiviazioneEsami{
     private Connection connessioneDatabase;
     private static GestoreArchiviazioneEsami _istanza;
-    private final String queryInserimentoEsame = "INSERT INTO esame(nome,crediti,valutazione,data,codiceUtente) VALUES(?,?,?,?,?)";
-    private final String queryModificaEsame = "UPDATE esame SET nome = ?,crediti=?,valutazione=?,data=? WHERE id = ?";
-    private final String queryLetturaEsami = "SELECT * FROM esame WHERE codiceUtente=?";
+    private final String queryInserimentoEsame = "INSERT INTO esame(codiceEsame,valutazione,dataSvolgimento) VALUES(?,?,?)";
+    private final String queryModificaEsame = "UPDATE esame SET valutazione=?,dataSvolgimento=? WHERE id = ?";
+    private final String queryLetturaEsamiSvolti = "SELECT * FROM esame NATURAL JOIN esami;";
+    private final String queryLetturaEsamiDisponibili = "SELECT * FROM esami";
     private final String queryRimozioneEsame = "DELETE FROM esame WHERE id = ?";
     
     private GestoreArchiviazioneEsami() {
@@ -45,11 +45,9 @@ class GestoreArchiviazioneEsami{
         try(
             PreparedStatement ips = connessioneDatabase.prepareStatement(queryInserimentoEsame,Statement.RETURN_GENERATED_KEYS);
         ) {
-            ips.setString(1, e.getNome());
-            ips.setInt(2,e.getCrediti());
-            ips.setInt(3,e.getValutazione());
-            ips.setDate(4,Date.valueOf(LocalDate.parse(e.getData(),Esame.dtf)));
-            ips.setString(5,GestoreConfigurazioniXML.ottieni().Preferenze.CodiceUtente);
+            ips.setInt(1, e.getCodiceEsame());
+            ips.setInt(2,e.getValutazione());
+            ips.setDate(3,Date.valueOf(e.getData()));
             ips.executeUpdate();
             ResultSet idResult = ips.getGeneratedKeys();
             int id = -1;
@@ -63,25 +61,41 @@ class GestoreArchiviazioneEsami{
         }        
     }
     
-    public void leggiEsami(ObservableList<Esame> l) {
+    public void leggiEsamiSvolti(ObservableList<Esame> l) {
         try (
-            PreparedStatement ips = connessioneDatabase.prepareStatement(queryLetturaEsami);
+            PreparedStatement ips = connessioneDatabase.prepareStatement(queryLetturaEsamiSvolti);
         ) {
-            ips.setString(1, GestoreConfigurazioniXML.ottieni().Preferenze.CodiceUtente);
             ResultSet ers = ips.executeQuery();
             Esame e;
             while(ers.next()) {
                 e = new Esame(ers.getInt("id"),
+                              ers.getInt("codiceEsame"),
                               ers.getString("nome"),
                               ers.getInt("valutazione"),
                               ers.getInt("crediti"),
-                              ers.getDate("data").toLocalDate(),
-                              ers.getString("codiceUtente"));
+                              ers.getDate("dataSvolgimento").toLocalDate());
                 System.out.println(e.getNome());
                 l.add(e);
             }
         } catch(SQLException ex) {
-            System.out.println("Impossibile recuperare gli esami: "+ex.getLocalizedMessage());
+            System.out.println(ex.getLocalizedMessage());
+        }
+    }
+    
+    public void leggiEsamiDisponibili(ObservableList<Esame> l) {
+        try (
+            PreparedStatement ips = connessioneDatabase.prepareStatement(queryLetturaEsamiDisponibili);
+        ) {
+            ResultSet ers = ips.executeQuery();
+            Esame e;
+            while(ers.next()) {
+                e = new Esame(ers.getString("nome"),
+                              ers.getInt("crediti"),
+                              ers.getInt("codiceEsame"));
+                l.add(e);
+            }
+        } catch(SQLException ex) {
+            System.out.println(ex.getLocalizedMessage());
         }
     }
     
@@ -89,11 +103,9 @@ class GestoreArchiviazioneEsami{
         try (
             PreparedStatement eps = connessioneDatabase.prepareStatement(queryModificaEsame);
         ) {
-            eps.setString(1, e.getNome());
-            eps.setInt(2, e.getCrediti());
-            eps.setInt(3, e.getValutazione());
-            eps.setDate(4,Date.valueOf(LocalDate.parse(e.getData(),Esame.dtf)));
-            eps.setInt(5,e.getId());
+            eps.setInt(1, e.getValutazione());
+            eps.setDate(2,Date.valueOf(e.getData()));
+            eps.setInt(3,e.getId());
             int affectedRows = eps.executeUpdate();
             return affectedRows > 0;
         } catch(SQLException ex) {

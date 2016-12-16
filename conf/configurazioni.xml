@@ -9,7 +9,7 @@
 		<PasswordDatabase></PasswordDatabase>
 	</Nucleo>
 	<Preferenze TipoMedia="ponderata">
-                <CodiceUtente>516382</CodiceUtente>
+        <CodiceUtente>516382</CodiceUtente>
 		<MinValutazione>18</MinValutazione>
 		<MaxValutazione>33</MaxValutazione>
 	</Preferenze>

@@ -2,7 +2,6 @@ package interfacciagrafica;
 
 import logattivita.ClientLogAttivitaXML;
 import configurazione.*;
-import java.text.SimpleDateFormat;
 import javafx.application.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,7 +10,6 @@ import javafx.scene.layout.*;
 import javafx.stage.*;
 
 public class JLibretto extends Application{
-    private FormInserimentoEsame formEsami;
     private GraficoMediaEsami graficoMediaMobileEsami;
     private TabellaEsami tabellaEsami;
 
@@ -25,7 +23,7 @@ public class JLibretto extends Application{
         root.getChildren().add(mainPanel);
         Scene scene = new Scene(root, 800, 600);
         impostaAzioniChiusuraApplicazione(primaryStage);
-        scene.getStylesheets().add("file:./res/stile.css");
+        //scene.getStylesheets().add("file:./res/stile.css");
         primaryStage.setTitle("JLibretto");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -36,7 +34,7 @@ public class JLibretto extends Application{
     private void impostaAzioniChiusuraApplicazione(Stage stage) {
         stage.setOnCloseRequest((WindowEvent we) -> {
            System.out.println("In fase di chiusura, salvataggio in cache del form.");
-           formEsami.salvaContenuto();
+           //formEsami.salvaContenuto();
            System.out.println("Salvataggio completato.");
            ClientLogAttivitaXML.inviaLogEventoApplicazione("JLibretto",1);       
         });
@@ -49,7 +47,6 @@ public class JLibretto extends Application{
             ObservableList<Integer> listaVoti = FXCollections.observableArrayList();
             for(int i = vm;i<=vM;++i) listaVoti.add(i);
             tabellaEsami = new TabellaEsami(listaVoti);
-            formEsami = costruisciFormInserimentoEsame(listaVoti);
         } catch(Exception e) {
             e.printStackTrace();
             Platform.exit();
@@ -59,9 +56,8 @@ public class JLibretto extends Application{
         VBox vb = new VBox();
         HBox hb = new HBox();
         graficoMediaMobileEsami = creaGraficoEsami();
-        HBox.setHgrow(formEsami,Priority.ALWAYS);
         HBox.setHgrow(graficoMediaMobileEsami,Priority.ALWAYS);
-        hb.getChildren().addAll(formEsami,graficoMediaMobileEsami);
+        hb.getChildren().addAll(graficoMediaMobileEsami);
         VBox.setVgrow(hb, Priority.ALWAYS);
         VBox.setVgrow(tabellaEsami, Priority.ALWAYS);
         vb.getChildren().addAll(tabellaEsami,hb);
@@ -83,9 +79,5 @@ public class JLibretto extends Application{
             default: return new GraficoMediaAritmetica();
         }
     }
-    
-    private FormInserimentoEsame costruisciFormInserimentoEsame(ObservableList<Integer> listaVoti) {
-        FormInserimentoEsame gp = new FormInserimentoEsame(listaVoti);
-        return gp;
-    }
+
 }
