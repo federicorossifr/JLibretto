@@ -31,7 +31,8 @@ public class ControlloreListaEsami  {
     }
     
     public void eliminaEsame(int posizioneEsame) {
-        Esame daRimuovere = prelevaEsame(posizioneEsame);
+        if(posizioneEsame == listaEsamiSvolti.size()-1) return;
+        Esame daRimuovere = listaEsamiSvolti.get(posizioneEsame);
         boolean risultato = GestoreArchiviazioneEsami.getIstanza().rimuoviEsame(daRimuovere.getId());
         if(risultato) {
             listaEsamiSvolti.remove(posizioneEsame);
@@ -59,13 +60,13 @@ public class ControlloreListaEsami  {
         return listaEsamiDisponibili;
     }
     
-    public Esame prelevaEsame(int index) {
-        return listaEsamiSvolti.get(index);
+    private void notificaCambiamentoEsame(int index) {
+        Esame daNotificare = listaEsamiSvolti.get(index);
+        listaEsamiSvolti.remove(index);
+        listaEsamiSvolti.add(index,daNotificare);
     }
     
-    private void notificaCambiamentoEsame(int index) {
-        Esame toBeNotified = listaEsamiSvolti.get(index);
-        listaEsamiSvolti.remove(index);
-        listaEsamiSvolti.add(index,toBeNotified);
+    public boolean confrontaConIndiceUltimoEsame(int i) {
+        return i == listaEsamiSvolti.size()-1;
     }
 }

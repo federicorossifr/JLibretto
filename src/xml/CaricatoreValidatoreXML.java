@@ -19,8 +19,6 @@ public class CaricatoreValidatoreXML {
         percorsoFileXML = xml;
         percorsoFileXSD = xsd;
         streamXML = new XStream();
-        streamXML.alias("Configurazioni", configurazione.Configurazioni.class);
-        streamXML.useAttributeFor(configurazione.Preferenze.class, "TipoMedia");
     }
     
     public boolean validaXML(String xml) {
@@ -50,6 +48,11 @@ public class CaricatoreValidatoreXML {
             System.out.println("Impossibile caricare XML: "+e.getLocalizedMessage());
             return null;
         }     
+    }
+    
+    
+    public XStream getStreamXML() {
+        return streamXML;
     }
     
 }

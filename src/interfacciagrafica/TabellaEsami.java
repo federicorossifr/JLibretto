@@ -16,7 +16,7 @@ class TabellaEsami extends TableView<Esame> {
         boolean esameInviabile = false;
         
         private final ObservableList<Integer> listaVoti;
-        public TabellaEsami(ObservableList<Integer> lv) {
+        public TabellaEsami(ObservableList<Integer> lv,PulsanteElimina pe) {
             listaVoti = lv;
             setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             colonnaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -25,13 +25,18 @@ class TabellaEsami extends TableView<Esame> {
             colonnaData.setCellValueFactory(new PropertyValueFactory<>("data"));
 
             impostaFormatoModificaCelle();
-            impostaCompletamentoModificaCelle();
-
+            impostaSelezioneNomeEsame();            
+            impostaCompletamentoModificaDatiEsame();
+            colonnaNome.setSortable(false);
+            colonnaCrediti.setSortable(false);
+            colonnaData.setSortable(false);
+            colonnaValutazione.setSortable(false);
             setItems(ControlloreListaEsami.getIstanza().getListaEsami());
             setEditable(true);
             getColumns().addAll(colonnaNome,colonnaCrediti,colonnaValutazione,colonnaData);
             addEventHandler(MouseEvent.MOUSE_CLICKED,event -> {
                 ClientLogAttivitaXML.inviaLogClickTabella("JLibretto", "TabellaEsami");
+                pe.impostaIndice(getSelectionModel().getSelectedIndex());
             });
             gestisciPressioneInvio();
         }
@@ -54,9 +59,10 @@ class TabellaEsami extends TableView<Esame> {
         
         private void completaModifica(Esame e,int indiceRiga) {
              ControlloreListaEsami.getIstanza().modificaEsame(e, indiceRiga);
+             getSelectionModel().select(indiceRiga);
         }
         
-        private void impostaCompletamentoModificaCelle() {
+        private void impostaSelezioneNomeEsame() {
             colonnaNome.setOnEditCommit(event -> {
                 String c = event.getRowValue().toString();
                 if(getSelectionModel().getSelectedIndex() == getItems().size() -1) {
@@ -73,11 +79,17 @@ class TabellaEsami extends TableView<Esame> {
                     colonnaNome.setVisible(true);
                 }
             });
-            
+        }
+        
+        private void impostaCompletamentoModificaDatiEsame() {
             colonnaValutazione.setOnEditCommit(event -> {
                 event.getRowValue().setValutazione(event.getNewValue());
                 completaModifica(event.getRowValue(),event.getTablePosition().getRow());
-                getSelectionModel().select(event.getTablePosition().getRow());
+            });
+            
+            colonnaData.setOnEditCommit(event -> {
+                event.getRowValue().setData(event.getNewValue());
+                completaModifica(event.getRowValue(),event.getTablePosition().getRow());
             });
             
             /*

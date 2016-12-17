@@ -12,24 +12,24 @@ abstract class GraficoMediaEsami extends LineChart {
         super(new CategoryAxis(),(new NumberAxis()));
         tipoMedia = tipoM;        
         setLegendVisible(false);
-        setTitle("Grafico media ("+tipoMedia+")");            
         setAnimated(false);
         ControlloreListaEsami.getIstanza().getListaEsami().addListener((ListChangeListener.Change<? extends Esame> c) -> {
-            aggiornaComponente(((ObservableList<Esame>)c.getList()).filtered(e -> e.getId() >= 0));
+            aggiornaComponente(((ObservableList<Esame>)c.getList()));
         });
-        aggiornaComponente(ControlloreListaEsami.getIstanza().getListaEsami().filtered(e -> e.getId() >= 0));
+        aggiornaComponente(ControlloreListaEsami.getIstanza().getListaEsami());
     }
     
     public abstract Integer ottieniTermineSommatoria(int valutazione,int crediti);
     public abstract Integer ottieniIncrementoContatore(int valutazione,int crediti);
     
-    public final void aggiornaComponente(FilteredList<Esame> esami) {
+    public final void aggiornaComponente(ObservableList<Esame> esami) {
+        FilteredList<Esame> fl = esami.filtered(e-> e.getId() >= 0);
         Double sommatoria = 0.0;
         Integer contatore = 0;
         Double iterazioneMediaMobile = 0.0;
         Series<String,Double> valoriMediaMobile;        
         valoriMediaMobile = new Series<>();
-        for(Esame e:esami) {
+        for(Esame e:fl) {
             System.out.println(e.getId());
             sommatoria+=ottieniTermineSommatoria(e.getValutazione(),e.getCrediti());
             contatore+=ottieniIncrementoContatore(e.getValutazione(),e.getCrediti());

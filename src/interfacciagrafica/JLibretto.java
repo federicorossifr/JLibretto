@@ -41,26 +41,25 @@ public class JLibretto extends Application{
     }
 
     private VBox costruisciPannelloEsamiPrincipale() {
+        PulsanteElimina pulsanteElimina = new PulsanteElimina();
+        
         try {
             int vm = GestoreConfigurazioniXML.ottieni().Preferenze.MinValutazione;
             int vM = GestoreConfigurazioniXML.ottieni().Preferenze.MaxValutazione;
             ObservableList<Integer> listaVoti = FXCollections.observableArrayList();
             for(int i = vm;i<=vM;++i) listaVoti.add(i);
-            tabellaEsami = new TabellaEsami(listaVoti);
+            tabellaEsami = new TabellaEsami(listaVoti,pulsanteElimina);
         } catch(Exception e) {
             e.printStackTrace();
             Platform.exit();
             System.exit(-1);
         }
+        graficoMediaMobileEsami = creaGraficoEsami();
         
         VBox vb = new VBox();
-        HBox hb = new HBox();
-        graficoMediaMobileEsami = creaGraficoEsami();
-        HBox.setHgrow(graficoMediaMobileEsami,Priority.ALWAYS);
-        hb.getChildren().addAll(graficoMediaMobileEsami);
-        VBox.setVgrow(hb, Priority.ALWAYS);
+        VBox.setVgrow(graficoMediaMobileEsami,Priority.ALWAYS);
         VBox.setVgrow(tabellaEsami, Priority.ALWAYS);
-        vb.getChildren().addAll(tabellaEsami,hb);
+        vb.getChildren().addAll(tabellaEsami,pulsanteElimina,graficoMediaMobileEsami);
         return vb;
     }
     

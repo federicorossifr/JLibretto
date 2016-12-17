@@ -12,7 +12,10 @@ public class GestoreConfigurazioniXML {
 
     
     private static Configurazioni caricaConfigurazioni(String percorsoXML,String percorsoSchemaXML) {
-        return (Configurazioni)(new CaricatoreValidatoreXML(percorsoXML,percorsoSchemaXML)).caricaOggettoDaXML();
+        CaricatoreValidatoreXML cvx = new CaricatoreValidatoreXML(percorsoXML,percorsoSchemaXML);
+        cvx.getStreamXML().alias("Configurazioni", configurazione.Configurazioni.class);
+        cvx.getStreamXML().useAttributeFor(configurazione.Preferenze.class, "TipoMedia");
+        return (Configurazioni)cvx.caricaOggettoDaXML();
     }
 
 }
