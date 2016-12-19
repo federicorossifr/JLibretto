@@ -3,6 +3,7 @@ package interfacciagrafica;
 import java.text.DecimalFormat;
 import javafx.collections.*;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.scene.chart.*;
 import modellodati.*;
 
@@ -13,10 +14,10 @@ abstract class GraficoMediaEsami extends LineChart {
         tipoMedia = tipoM;        
         setLegendVisible(false);
         setAnimated(false);
-        ControlloreListaEsami.getIstanza().getListaEsami().addListener((ListChangeListener.Change<? extends Esame> c) -> {
+        ControlloreListaEsami.getIstanza().getListaEsamiSvolti().addListener((ListChangeListener.Change<? extends Esame> c) -> {
             aggiornaComponente(((ObservableList<Esame>)c.getList()));
         });
-        aggiornaComponente(ControlloreListaEsami.getIstanza().getListaEsami());
+        aggiornaComponente(ControlloreListaEsami.getIstanza().getListaEsamiSvolti());
     }
     
     public abstract Integer ottieniTermineSommatoria(int valutazione,int crediti);

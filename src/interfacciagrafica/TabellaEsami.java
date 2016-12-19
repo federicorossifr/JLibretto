@@ -4,8 +4,7 @@ import logattivita.ClientLogAttivitaXML;
 import javafx.collections.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import modellodati.*;
 class TabellaEsami extends TableView<Esame> {
     
@@ -31,7 +30,7 @@ class TabellaEsami extends TableView<Esame> {
             colonnaCrediti.setSortable(false);
             colonnaData.setSortable(false);
             colonnaValutazione.setSortable(false);
-            setItems(ControlloreListaEsami.getIstanza().getListaEsami());
+            setItems(ControlloreListaEsami.getIstanza().getListaEsamiSvolti());
             setEditable(true);
             getColumns().addAll(colonnaNome,colonnaCrediti,colonnaValutazione,colonnaData);
             addEventHandler(MouseEvent.MOUSE_CLICKED,event -> {
@@ -39,6 +38,30 @@ class TabellaEsami extends TableView<Esame> {
                 pe.impostaIndice(getSelectionModel().getSelectedIndex());
             });
             gestisciPressioneInvio();
+            caricaDatiInseritiDaCache();
+        }
+        
+        private void caricaDatiInseritiDaCache() {
+            CacheInserimento c = new CacheInserimento();
+            Esame e;
+            e = new Esame(-1,c.cacheCodiceEsame,
+                             c.cacheNome,
+                             c.cacheValutazione,
+                             c.cacheCrediti,
+                             (c.cacheData.length() > 0)? LocalDate.parse(c.cacheData):LocalDate.now());
+            if(c.cacheNome.length() > 0)
+                esameInviabile = true;
+            getItems().add(e);
+        }
+        
+        void salvaDatiInseritiInCache() {
+            Esame cachable = getItems().get(getItems().size() -1);
+            CacheInserimento c = new CacheInserimento(cachable.getNome(),
+                                                      cachable.getCrediti(),
+                                                      cachable.getValutazione(),
+                                                      cachable.getData().toString(),
+                                                      cachable.getCodiceEsame());
+            c.salvaDatiEsameInCache();
         }
         
         private void gestisciPressioneInvio() {

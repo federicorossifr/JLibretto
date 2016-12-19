@@ -12,7 +12,7 @@ public class CellaTabellaCalendario extends TableCell<Esame, LocalDate> {
     public void startEdit() {
         if (!isEmpty()) {
             super.startEdit();
-            createDatePicker();
+            creaDatePicker();
             setText(null);
             setGraphic(datePicker);
         }
@@ -21,7 +21,7 @@ public class CellaTabellaCalendario extends TableCell<Esame, LocalDate> {
     @Override
     public void cancelEdit() {
         super.cancelEdit();
-        setText(getDate().toString());
+        setText(getData().toString());
         setGraphic(null);
     }
 
@@ -34,26 +34,26 @@ public class CellaTabellaCalendario extends TableCell<Esame, LocalDate> {
         } else {
             if (isEditing()) {
                 if (datePicker != null) {
-                    datePicker.setValue(getDate());
+                    datePicker.setValue(getData());
                 }
                 setText(null);
                 setGraphic(datePicker);
             } else {
-                setText(getDate().toString());
+                setText(getData().toString());
                 setGraphic(null);
             }
         }
     }
 
-    private void createDatePicker() {
-        datePicker = new DatePicker(getDate());
+    private void creaDatePicker() {
+        datePicker = new DatePicker(getData());
         datePicker.setMinWidth(getWidth() - getGraphicTextGap() * 2);
         datePicker.setOnAction((e) -> {
             commitEdit(datePicker.getValue());
         });
     }
 
-    private LocalDate getDate() {
+    private LocalDate getData() {
         return getItem() == null ? LocalDate.now() : getItem();
     }
 }

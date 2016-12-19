@@ -2,14 +2,14 @@ package modellodati;
 
 import configurazione.*;
 import java.sql.*;
-import javafx.application.Platform;
-import javafx.collections.ObservableList;
+import javafx.application.*;
+import javafx.collections.*;
 
 class GestoreArchiviazioneEsami{
     private Connection connessioneDatabase;
     private static GestoreArchiviazioneEsami _istanza;
-    private final String queryInserimentoEsame = "INSERT INTO esame(codiceEsame,valutazione,dataSvolgimento) VALUES(?,?,?)";
-    private final String queryModificaEsame = "UPDATE esame SET valutazione=?,dataSvolgimento=? WHERE id = ?";
+    private final String queryInserimentoEsame = "INSERT INTO esame(codiceEsame,valutazione,data) VALUES(?,?,?)";
+    private final String queryModificaEsame = "UPDATE esame SET valutazione=?,data=? WHERE id = ?";
     private final String queryLetturaEsamiSvolti = "SELECT * FROM esame NATURAL JOIN esami;";
     private final String queryLetturaEsamiDisponibili = "SELECT * FROM esami";
     private final String queryRimozioneEsame = "DELETE FROM esame WHERE id = ?";
@@ -73,7 +73,7 @@ class GestoreArchiviazioneEsami{
                               ers.getString("nome"),
                               ers.getInt("valutazione"),
                               ers.getInt("crediti"),
-                              ers.getDate("dataSvolgimento").toLocalDate());
+                              ers.getDate("data").toLocalDate());
                 System.out.println(e.getNome());
                 l.add(e);
             }

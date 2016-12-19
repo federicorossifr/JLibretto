@@ -3,8 +3,7 @@ package interfacciagrafica;
 import logattivita.ClientLogAttivitaXML;
 import configurazione.*;
 import javafx.application.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.*;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.*;
@@ -34,7 +33,7 @@ public class JLibretto extends Application{
     private void impostaAzioniChiusuraApplicazione(Stage stage) {
         stage.setOnCloseRequest((WindowEvent we) -> {
            System.out.println("In fase di chiusura, salvataggio in cache del form.");
-           //formEsami.salvaContenuto();
+           tabellaEsami.salvaDatiInseritiInCache();
            System.out.println("Salvataggio completato.");
            ClientLogAttivitaXML.inviaLogEventoApplicazione("JLibretto",1);       
         });
