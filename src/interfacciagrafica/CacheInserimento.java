@@ -7,7 +7,7 @@ class CacheInserimento implements Serializable {
     int cacheCrediti;
     int cacheCodiceEsame;
     int cacheValutazione;
-    
+    boolean cacheValida;
     CacheInserimento(String n,int c,int m,String d,int ce) {
         cacheNome = n;
         cacheCrediti = c;
@@ -24,9 +24,10 @@ class CacheInserimento implements Serializable {
             cacheCrediti = cache.cacheCrediti;
             cacheValutazione = cache.cacheValutazione;
             cacheCodiceEsame = cache.cacheCodiceEsame;
+            cacheValida = true;
         } catch(IOException | ClassNotFoundException e) {
             System.out.println("Errore nel caricare i dati precedentemente inseriti: "+e.getMessage());
-            cacheNome = "";
+            cacheValida = false;
         }
     }
 

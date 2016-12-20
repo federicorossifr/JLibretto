@@ -4,6 +4,7 @@ import logattivita.ClientLogAttivitaXML;
 import configurazione.*;
 import javafx.application.*;
 import javafx.collections.*;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.*;
@@ -22,7 +23,7 @@ public class JLibretto extends Application{
         root.getChildren().add(mainPanel);
         Scene scene = new Scene(root, 800, 600);
         impostaAzioniChiusuraApplicazione(primaryStage);
-        //scene.getStylesheets().add("file:./res/stile.css");
+        scene.getStylesheets().add("file:./res/stile.css");
         primaryStage.setTitle("JLibretto");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -58,6 +59,7 @@ public class JLibretto extends Application{
         VBox vb = new VBox();
         VBox.setVgrow(graficoMediaMobileEsami,Priority.ALWAYS);
         VBox.setVgrow(tabellaEsami, Priority.ALWAYS);
+        VBox.setMargin(pulsanteElimina, new Insets(5,5,5,5));
         vb.getChildren().addAll(tabellaEsami,pulsanteElimina,graficoMediaMobileEsami);
         return vb;
     }

@@ -43,24 +43,22 @@ class TabellaEsami extends TableView<Esame> {
         
         private void caricaDatiInseritiDaCache() {
             CacheInserimento c = new CacheInserimento();
+            System.out.println(c.cacheData);
             Esame e;
-            e = new Esame(-1,c.cacheCodiceEsame,
-                             c.cacheNome,
-                             c.cacheValutazione,
-                             c.cacheCrediti,
-                             (c.cacheData.length() > 0)? LocalDate.parse(c.cacheData):LocalDate.now());
-            if(c.cacheNome.length() > 0)
-                esameInviabile = true;
+            if(c.cacheValida) {
+                e = new Esame(-1,c.cacheCodiceEsame,c.cacheNome,c.cacheValutazione,c.cacheCrediti,LocalDate.parse(c.cacheData));
+                if(c.cacheNome.length() > 0)
+                    esameInviabile = true;
+            }
+            else e = new Esame();
             getItems().add(e);
         }
         
         void salvaDatiInseritiInCache() {
             Esame cachable = getItems().get(getItems().size() -1);
-            CacheInserimento c = new CacheInserimento(cachable.getNome(),
-                                                      cachable.getCrediti(),
-                                                      cachable.getValutazione(),
-                                                      cachable.getData().toString(),
-                                                      cachable.getCodiceEsame());
+            CacheInserimento c;
+            c = new CacheInserimento(cachable.getNome(),cachable.getCrediti(),cachable.getValutazione(),
+                                     cachable.getData().toString(),cachable.getCodiceEsame());
             c.salvaDatiEsameInCache();
         }
         

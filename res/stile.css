@@ -1,23 +1,23 @@
 .button {
-    -fx-background-color:white;
-    -fx-text-fill:blue;
-    -fx-border-insets: 1 1 1 1;
-    -fx-border-color: blue;
-    -fx-font-weight:bold;
-}
-
-.button:hover {
-    -fx-background-color:blue;
+    -fx-background-color:#00838F;
     -fx-text-fill:white;
+    -fx-border-color: #006064;
+    -fx-background-radius: 0;
 }
 
 .button:pressed {
-    -fx-background-color:white;
-    -fx-text-fill:blue;
-}
+    -fx-background-color:#006064;
+    -fx-background-radius: 0;    
+}   
 
+
+.table-view {
+   -fx-background-color: #4DD0E1;
+   -fx-border-insets: 1 1 1 1;
+   -fx-border-color: #4DD0E1;
+}
 .table-view .column-header {
-    -fx-background-color: blue;
+    -fx-background-color: #00BCD4;
 }
 
 .table-view .column-header .label {
@@ -26,20 +26,22 @@
 }
 
 .table-cell {
-    -fx-text-fill:blue;
+    -fx-text-fill:white;
     -fx-alignment: CENTER;
+    -fx-background-color: #4DD0E1;
+    -fx-border-color: #4DD0E1;
 }
 
-
-.table-row-cell:selected {
-    -fx-border-insets:1 1 1 1;
-    -fx-border-color:blue;
-    -fx-background-color: white;
+.table-row-cell {
+    -fx-background-color: #4DD0E1;
+    -fx-padding:0;
+    -fx-cell-size:30px;
 }
 
-.default-color0.chart-series-line { -fx-stroke: blue; }
-.default-color0.chart-line-symbol { -fx-background-color: blue, lightblue; }
-
-.erroreForm {
-    -fx-border-color:red;
+.table-row-cell:selected .table-cell {
+    -fx-background-color: #0097A7;
+    -fx-border-color: #0097A7;    
 }
+
+.default-color0.chart-series-line { -fx-stroke: #00BCD4; }
+.default-color0.chart-line-symbol { -fx-background-color: #00BCD4, #00BCD4; }

@@ -3,7 +3,6 @@ package interfacciagrafica;
 import java.text.DecimalFormat;
 import javafx.collections.*;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.scene.chart.*;
 import modellodati.*;
 
@@ -30,8 +29,8 @@ abstract class GraficoMediaEsami extends LineChart {
         Double iterazioneMediaMobile = 0.0;
         Series<String,Double> valoriMediaMobile;        
         valoriMediaMobile = new Series<>();
+        getData().clear();
         for(Esame e:fl) {
-            System.out.println(e.getId());
             sommatoria+=ottieniTermineSommatoria(e.getValutazione(),e.getCrediti());
             contatore+=ottieniIncrementoContatore(e.getValutazione(),e.getCrediti());
             iterazioneMediaMobile = sommatoria/contatore;
