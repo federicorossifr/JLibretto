@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configurazioni>
-	<Nucleo>
+<Configurazioni TipoMedia="ponderata" ValoreLode="33">
 		<PortaServerLog>8080</PortaServerLog>
 		<IPServerLog>localhost</IPServerLog>
 		<HostnameDatabase>localhost</HostnameDatabase>
 		<PortaDatabase>3306</PortaDatabase>
 		<UtenteDatabase>root</UtenteDatabase>
 		<PasswordDatabase></PasswordDatabase>
-	</Nucleo>
-	<Preferenze TipoMedia="ponderata">
-        <CodiceUtente>516382</CodiceUtente>
-		<MinValutazione>18</MinValutazione>
-		<MaxValutazione>33</MaxValutazione>
-	</Preferenze>
+		<IPClient>111.111.111.111</IPClient>
 </Configurazioni>

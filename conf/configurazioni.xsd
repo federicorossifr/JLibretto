@@ -3,40 +3,24 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="Configurazioni">
     <xs:complexType>
-      <xs:sequence>
-
-        <xs:element name="Nucleo">
-          <xs:complexType>
-            <xs:sequence>
-              <xs:element type="xs:integer" nillable="false" minOccurs="1" name="PortaServerLog"/>
-              <xs:element type="xs:string" nillable="false" minOccurs="1" name="IPServerLog"/>
-              <xs:element type="xs:string" nillable="false" minOccurs="1" name="HostnameDatabase"/>
-              <xs:element type="xs:short" nillable="false" minOccurs="1" name="PortaDatabase"/>
-              <xs:element type="xs:string" nillable="false" minOccurs="1" name="UtenteDatabase"/>
-              <xs:element type="xs:string" nillable="false" minOccurs="1" name="PasswordDatabase"/>
-            </xs:sequence>
-          </xs:complexType>
-        </xs:element>
-
-        <xs:element name="Preferenze">
-          <xs:complexType>
-            <xs:all>
-              <xs:element type="xs:integer" minOccurs="1" name="MinValutazione" />
-              <xs:element type="xs:integer" minOccurs="1" name="MaxValutazione" />
-              <xs:element type="xs:string" minOccurs="1" name="CodiceUtente" />           
-            </xs:all>
-      		<xs:attribute name="TipoMedia" use="required">
-      			<xs:simpleType>
-      				<xs:restriction base="xs:string">
-      					<xs:enumeration value="ponderata" />
-      					<xs:enumeration value="aritmetica" />
-      				</xs:restriction>
-      			</xs:simpleType>
-      		</xs:attribute>
-          </xs:complexType>
-        </xs:element>
-
-      </xs:sequence>
+      <xs:all>
+        <xs:element type="xs:integer" nillable="false" minOccurs="1" name="PortaServerLog"/>
+        <xs:element type="xs:string" nillable="false" minOccurs="1" name="IPServerLog"/>
+        <xs:element type="xs:string" nillable="false" minOccurs="1" name="HostnameDatabase"/>
+        <xs:element type="xs:short" nillable="false" minOccurs="1" name="PortaDatabase"/>
+        <xs:element type="xs:string" nillable="false" minOccurs="1" name="UtenteDatabase"/>
+        <xs:element type="xs:string" nillable="false" minOccurs="1" name="PasswordDatabase"/>
+        <xs:element type="xs:string" nillable="false" minOccurs="1" name="IPClient"/>    		
+      </xs:all>
+	  <xs:attribute name="TipoMedia" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="ponderata" />
+      				<xs:enumeration value="aritmetica" />
+      			</xs:restriction>
+			</xs:simpleType>
+      	</xs:attribute>
+		<xs:attribute name="ValoreLode" use="required" type="xs:integer" ></xs:attribute>	
     </xs:complexType>
   </xs:element>
 </xs:schema>
