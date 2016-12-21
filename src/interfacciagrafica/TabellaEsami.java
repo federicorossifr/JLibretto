@@ -14,15 +14,14 @@ class TabellaEsami extends TableView<Esame> {
         private final TableColumn<Esame,LocalDate> colonnaData = new TableColumn("Data esame");
         boolean esameInviabile = false;
         
-        private final ObservableList<Integer> listaVoti;
-        public TabellaEsami(ObservableList<Integer> lv,PulsanteElimina pe) {
-            listaVoti = lv;
+        private ObservableList<Integer> listaVoti;
+        public TabellaEsami(int valoreLode,PulsanteElimina pe) {
             setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             colonnaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
             colonnaCrediti.setCellValueFactory(new PropertyValueFactory<>("crediti"));
             colonnaValutazione.setCellValueFactory(new PropertyValueFactory<>("valutazione"));
             colonnaData.setCellValueFactory(new PropertyValueFactory<>("data"));
-
+            impostaListaVoti(valoreLode);
             impostaFormatoModificaCelle();
             impostaSelezioneNomeEsame();            
             impostaCompletamentoModificaDatiEsame();
@@ -39,6 +38,12 @@ class TabellaEsami extends TableView<Esame> {
             });
             gestisciPressioneInvio();
             caricaDatiInseritiDaCache();
+        }
+        
+        private void impostaListaVoti(int valoreLode) {
+            listaVoti = FXCollections.observableArrayList();
+            for(int i = 18;i<=30;++i) listaVoti.add(i);
+            listaVoti.add(valoreLode);
         }
         
         private void caricaDatiInseritiDaCache() {

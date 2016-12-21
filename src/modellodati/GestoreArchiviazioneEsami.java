@@ -2,7 +2,6 @@ package modellodati;
 
 import configurazione.*;
 import java.sql.*;
-import javafx.application.*;
 import javafx.collections.*;
 
 class GestoreArchiviazioneEsami{
@@ -12,23 +11,18 @@ class GestoreArchiviazioneEsami{
     private final String queryLetturaEsamiSvolti = "SELECT * FROM esame NATURAL JOIN esami;";
     private final String queryLetturaEsamiDisponibili = "SELECT * FROM esami";
     private final String queryRimozioneEsame = "DELETE FROM esame WHERE id = ?";
-    private String URIConnessioneDB;
-    private String utenteDB;
-    private String passwordDB;
+    private final String URIConnessioneDB;
+    private final String utenteDB;
+    private final String passwordDB;
     
     private GestoreArchiviazioneEsami() {
-        try {
-            int pDB = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().PortaDatabase;
-            String hDB = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().HostnameDatabase;
-            utenteDB = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().UtenteDatabase;
-            passwordDB = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().PasswordDatabase;   
-            String nDB = "prg";
-            URIConnessioneDB = "jdbc:mysql://"+hDB+":"+pDB+"/"+nDB;
-        } catch(Exception e) {
-            System.out.println("Impossibile configurare l'archivio esami: "+e.getLocalizedMessage());
-            Platform.exit();
-            System.exit(-1);
-        }
+        String hDB = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().HostnameDatabase;
+        int pDB = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().PortaDatabase;
+        String nDB = "prg";
+        
+        utenteDB = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().UtenteDatabase;
+        passwordDB = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().PasswordDatabase;   
+        URIConnessioneDB = "jdbc:mysql://"+hDB+":"+pDB+"/"+nDB;
     }
     
     public static  GestoreArchiviazioneEsami getIstanza() {
@@ -47,14 +41,12 @@ class GestoreArchiviazioneEsami{
             ips.setInt(2,e.getValutazione());
             ips.setDate(3,Date.valueOf(e.getData()));
             ips.executeUpdate();
-            ResultSet idResult = ips.getGeneratedKeys();
-            int id = -1;
-            if(idResult.next()) {
-                id = idResult.getInt(1);
-            }
-            return id;
+            ResultSet risID = ips.getGeneratedKeys();
+            if(risID.next())
+                return risID.getInt(1);
+            return -1;
         } catch (SQLException ex) {
-            System.out.println("Impossibile inserire l\'esame: "+ex.getLocalizedMessage());
+            System.out.println(ex.getLocalizedMessage());
             return -1;
         }        
     }
@@ -98,10 +90,9 @@ class GestoreArchiviazioneEsami{
             eps.setInt(1, e.getValutazione());
             eps.setDate(2,Date.valueOf(e.getData()));
             eps.setInt(3,e.getId());
-            int affectedRows = eps.executeUpdate();
-            return affectedRows > 0;
+            return eps.executeUpdate() > 0;
         } catch(SQLException ex) {
-            System.out.println("Impossibile modificare l\'esame: "+ex.getLocalizedMessage());
+            System.out.println(ex.getLocalizedMessage());
             return false;
         }
     }
@@ -112,10 +103,9 @@ class GestoreArchiviazioneEsami{
             PreparedStatement rps = connessioneDatabase.prepareStatement(queryRimozioneEsame);
         ) {
             rps.setInt(1,indice);
-            int righeRimosse = rps.executeUpdate();
-            return righeRimosse > 0;
+            return rps.executeUpdate() > 0;
         } catch(SQLException ex) {
-            System.out.println("Impossibile rimuovere l\'esame: "+ex.getLocalizedMessage());
+            System.out.println(ex.getLocalizedMessage());
             return false;
         }
     }

@@ -3,7 +3,6 @@ package interfacciagrafica;
 import logattivita.ClientLogAttivitaXML;
 import configurazione.*;
 import javafx.application.*;
-import javafx.collections.*;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
@@ -16,46 +15,35 @@ public class JLibretto extends Application{
     @Override
     public void start(Stage primaryStage) {
         ClientLogAttivitaXML.inviaLogEventoApplicazione("JLibretto",0);
-        BorderPane mainPanel = new BorderPane();
-        VBox examsContentPanel = costruisciPannelloEsamiPrincipale();
-        mainPanel.setCenter(examsContentPanel);
+        ParametriConfigurazione pc = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione();
+        if(pc == null) {
+            System.out.println("Errore di configurazione");
+            Platform.exit();
+            System.exit(-1);
+        }                
         StackPane root = new StackPane();
-        root.getChildren().add(mainPanel);
+        root.getChildren().add(costruisciInterfacciaGrafica(pc));
         Scene scene = new Scene(root, 800, 600);
-        impostaAzioniChiusuraApplicazione(primaryStage);
+        impostaAzioniChiusuraApplicazione(primaryStage);      
         scene.getStylesheets().add("file:./res/stile.css");
         primaryStage.setTitle("JLibretto");
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.setResizable(false);
-        System.out.println("Caricamento contenuto form da cache");
     }
     
     private void impostaAzioniChiusuraApplicazione(Stage stage) {
-        stage.setOnCloseRequest((WindowEvent we) -> {
-           System.out.println("In fase di chiusura, salvataggio in cache del form.");
+        stage.setOnCloseRequest(e -> {
            tabellaEsami.salvaDatiInseritiInCache();
-           System.out.println("Salvataggio completato.");
            ClientLogAttivitaXML.inviaLogEventoApplicazione("JLibretto",1);       
         });
     }
 
-    private VBox costruisciPannelloEsamiPrincipale() {
+    private VBox costruisciInterfacciaGrafica(ParametriConfigurazione pc) {
         PulsanteElimina pulsanteElimina = new PulsanteElimina();
-        
-        try {
-            int valoreLode = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().ValoreLode;
-            ObservableList<Integer> listaVoti = FXCollections.observableArrayList();
-            for(int i = 18;i<=30;++i) listaVoti.add(i);
-            listaVoti.add(valoreLode);
-            tabellaEsami = new TabellaEsami(listaVoti,pulsanteElimina);
-        } catch(Exception e) {
-            e.printStackTrace();
-            Platform.exit();
-            System.exit(-1);
-        }
-        graficoMediaMobileEsami = creaGraficoEsami();
-        
+        int valoreLode = pc.ValoreLode;
+        tabellaEsami = new TabellaEsami(valoreLode,pulsanteElimina);
+        graficoMediaMobileEsami = costruisciGraficoEsami(pc);
         VBox vb = new VBox();
         VBox.setVgrow(graficoMediaMobileEsami,Priority.ALWAYS);
         VBox.setVgrow(tabellaEsami, Priority.ALWAYS);
@@ -64,16 +52,8 @@ public class JLibretto extends Application{
         return vb;
     }
     
-    private GraficoMediaEsami creaGraficoEsami() {
-        String tipoMedia = "";
-        try {
-            tipoMedia = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().TipoMedia;
-        } catch(Exception e) {
-            System.out.println("Errore nel caricamento delle configurazioni");
-            Platform.exit();
-            System.exit(1);
-        }
-        switch(tipoMedia) {
+    private GraficoMediaEsami costruisciGraficoEsami(ParametriConfigurazione pc) {
+        switch(pc.TipoMedia) {
             case "aritmetica": return new GraficoMediaAritmetica();
             case "ponderata": return new GraficoMediaPonderata();
             default: return new GraficoMediaAritmetica();

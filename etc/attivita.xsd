@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:element name="Attività">
+  <xs:element name="Attivita">
     <xs:complexType>
       <xs:sequence>
       	<xs:element type="xs:string" name="nomeApplicazione" minOccurs="1" maxOccurs="1" />
         <xs:element type="xs:string" name="nomeComponente" minOccurs="0" maxOccurs="1" />
         <xs:element type="xs:string" name="indirizzoIPClient" minOccurs="1" maxOccurs="1" />
-        <xs:element type="xs:dateTime" name="istante" minOccurs="1" maxOccurs="1" />
+        <xs:element name="marcaTemporale" minOccurs="1" maxOccurs="1" >
+			<xs:complexType>
+				<xs:simpleContent>
+					<xs:extension base="xs:string">
+						<xs:attribute name="formato" type="xs:string" use="required" ></xs:attribute>
+					</xs:extension>
+				</xs:simpleContent>
+			</xs:complexType>
+		</xs:element>
       </xs:sequence>
       <xs:attribute type="xs:string" name="tipo"/>
     </xs:complexType>
