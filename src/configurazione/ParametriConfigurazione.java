@@ -2,7 +2,7 @@ package configurazione;
 
 import java.io.Serializable;
 
-public class Configurazioni implements Serializable {
+public class ParametriConfigurazione implements Serializable {
     public Integer PortaServerLog;
     public String IPServerLog;
     public String IPClient;
@@ -11,7 +11,7 @@ public class Configurazioni implements Serializable {
     public String UtenteDatabase;
     public String PasswordDatabase;    
     public String TipoMedia;
-    public int ValoreLode;
+    public Integer ValoreLode;
 }
 
 

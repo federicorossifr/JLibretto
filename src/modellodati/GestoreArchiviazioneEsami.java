@@ -6,29 +6,26 @@ import javafx.application.*;
 import javafx.collections.*;
 
 class GestoreArchiviazioneEsami{
-    private Connection connessioneDatabase;
     private static GestoreArchiviazioneEsami _istanza;
     private final String queryInserimentoEsame = "INSERT INTO esame(codiceEsame,valutazione,data) VALUES(?,?,?)";
     private final String queryModificaEsame = "UPDATE esame SET valutazione=?,data=? WHERE id = ?";
     private final String queryLetturaEsamiSvolti = "SELECT * FROM esame NATURAL JOIN esami;";
     private final String queryLetturaEsamiDisponibili = "SELECT * FROM esami";
     private final String queryRimozioneEsame = "DELETE FROM esame WHERE id = ?";
+    private String URIConnessioneDB;
+    private String utenteDB;
+    private String passwordDB;
     
     private GestoreArchiviazioneEsami() {
-        int porta;
-        String hostname;
-        String utenteDatabase;
-        String passwdDatabase;
-        String nomeDatabase = "prg";
         try {
-            porta = GestoreConfigurazioniXML.ottieni().PortaDatabase;
-            hostname = GestoreConfigurazioniXML.ottieni().HostnameDatabase;
-            utenteDatabase = GestoreConfigurazioniXML.ottieni().UtenteDatabase;
-            passwdDatabase = GestoreConfigurazioniXML.ottieni().PasswordDatabase;       
-            String URI = "jdbc:mysql://"+hostname+":"+porta+"/"+nomeDatabase;
-            connessioneDatabase = DriverManager.getConnection(URI,utenteDatabase,passwdDatabase);
+            int pDB = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().PortaDatabase;
+            String hDB = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().HostnameDatabase;
+            utenteDB = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().UtenteDatabase;
+            passwordDB = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().PasswordDatabase;   
+            String nDB = "prg";
+            URIConnessioneDB = "jdbc:mysql://"+hDB+":"+pDB+"/"+nDB;
         } catch(Exception e) {
-            System.out.println("Impossibile connettersi all'archivio esami: "+e.getLocalizedMessage());
+            System.out.println("Impossibile configurare l'archivio esami: "+e.getLocalizedMessage());
             Platform.exit();
             System.exit(-1);
         }
@@ -43,6 +40,7 @@ class GestoreArchiviazioneEsami{
     
     public int inserisciEsame(Esame e) {
         try(
+            Connection connessioneDatabase = DriverManager.getConnection(URIConnessioneDB,utenteDB,passwordDB);
             PreparedStatement ips = connessioneDatabase.prepareStatement(queryInserimentoEsame,Statement.RETURN_GENERATED_KEYS);
         ) {
             ips.setInt(1, e.getCodiceEsame());
@@ -63,20 +61,17 @@ class GestoreArchiviazioneEsami{
     
     public void leggiEsamiSvolti(ObservableList<Esame> l) {
         try (
+            Connection connessioneDatabase = DriverManager.getConnection(URIConnessioneDB,utenteDB,passwordDB);                
             PreparedStatement ips = connessioneDatabase.prepareStatement(queryLetturaEsamiSvolti);
-        ) {
             ResultSet ers = ips.executeQuery();
-            Esame e;
-            while(ers.next()) {
-                e = new Esame(ers.getInt("id"),
+        ) {
+            while(ers.next())
+                l.add(new Esame(ers.getInt("id"),
                               ers.getInt("codiceEsame"),
                               ers.getString("nome"),
                               ers.getInt("valutazione"),
                               ers.getInt("crediti"),
-                              ers.getDate("data").toLocalDate());
-                System.out.println(e.getNome());
-                l.add(e);
-            }
+                              ers.getDate("data").toLocalDate()));
         } catch(SQLException ex) {
             System.out.println(ex.getLocalizedMessage());
         }
@@ -84,16 +79,12 @@ class GestoreArchiviazioneEsami{
     
     public void leggiEsamiDisponibili(ObservableList<Esame> l) {
         try (
+            Connection connessioneDatabase = DriverManager.getConnection(URIConnessioneDB,utenteDB,passwordDB);                
             PreparedStatement ips = connessioneDatabase.prepareStatement(queryLetturaEsamiDisponibili);
-        ) {
             ResultSet ers = ips.executeQuery();
-            Esame e;
-            while(ers.next()) {
-                e = new Esame(ers.getString("nome"),
-                              ers.getInt("crediti"),
-                              ers.getInt("codiceEsame"));
-                l.add(e);
-            }
+        ) {
+            while(ers.next()) 
+                l.add(new Esame(ers.getString("nome"),ers.getInt("crediti"),ers.getInt("codiceEsame")));
         } catch(SQLException ex) {
             System.out.println(ex.getLocalizedMessage());
         }
@@ -101,6 +92,7 @@ class GestoreArchiviazioneEsami{
     
     public boolean modificaEsame(Esame e) {
         try (
+            Connection connessioneDatabase = DriverManager.getConnection(URIConnessioneDB,utenteDB,passwordDB);                
             PreparedStatement eps = connessioneDatabase.prepareStatement(queryModificaEsame);
         ) {
             eps.setInt(1, e.getValutazione());
@@ -116,6 +108,7 @@ class GestoreArchiviazioneEsami{
     
     public boolean rimuoviEsame(int indice) {
         try (
+            Connection connessioneDatabase = DriverManager.getConnection(URIConnessioneDB,utenteDB,passwordDB);                
             PreparedStatement rps = connessioneDatabase.prepareStatement(queryRimozioneEsame);
         ) {
             rps.setInt(1,indice);

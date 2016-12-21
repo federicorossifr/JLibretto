@@ -12,12 +12,15 @@ public class ServerDiLog {
     }
 
     public void esegui() {
+        boolean f=false;
         while(true) {
             try(
                 ServerSocket socketServerDiLog = new ServerSocket(portaServer);
             ) {
+                 if(!f)
+                    System.out.println("Server avviato");
                  Socket clientConnesso = socketServerDiLog.accept();
-                 System.out.println("Nuova connessione: "+clientConnesso.getInetAddress());
+                 f=true;
                 (new ServerThread(clientConnesso)).start();
             } catch(Exception e) {
                 System.out.println("Errore di avvio server thread: "+e.getMessage());

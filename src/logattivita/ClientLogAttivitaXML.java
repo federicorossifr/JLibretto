@@ -1,21 +1,22 @@
 package logattivita;
 import java.io.DataOutputStream;
 import java.net.Socket;
-import configurazione.GestoreConfigurazioniXML;
+import configurazione.GestoreParametriConfigurazioneXML;
 
 public class ClientLogAttivitaXML extends Thread {
     private final AttivitaXML attivita;
     private ClientLogAttivitaXML(AttivitaXML a) {
         attivita = a;
+        System.out.println(a.serializzaInXML());
     }
     @Override
     public void run() {
         String indirizzoServerLog;
         Integer portaServerLog;
         try {
-            indirizzoServerLog = GestoreConfigurazioniXML.ottieni().IPServerLog;
-            portaServerLog = GestoreConfigurazioniXML.ottieni().PortaServerLog;
-            attivita.indirizzoIPClient = GestoreConfigurazioniXML.ottieni().IPClient;
+            indirizzoServerLog = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().IPServerLog;
+            portaServerLog = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().PortaServerLog;
+            attivita.indirizzoIPClient = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().IPClient;
         } catch(Exception e) {
             System.out.println("Impossibile configurare il client.");
             return;
@@ -25,10 +26,8 @@ public class ClientLogAttivitaXML extends Thread {
             Socket socketInvioXML = new Socket(indirizzoServerLog,portaServerLog);
             DataOutputStream streamUscitaAlServer = new DataOutputStream(socketInvioXML.getOutputStream());
         ) {
-            System.out.println("Connesso, invio XML.");
-            attivita.indirizzoIPClient = socketInvioXML.getLocalAddress().toString();
             streamUscitaAlServer.writeUTF(attivita.serializzaInXML());
-            System.out.println("Invio completato.");
+            System.out.println("Invio attività completato");
         } catch(Exception e) {
             System.out.println("Errore di connessione al server di log");
         }
