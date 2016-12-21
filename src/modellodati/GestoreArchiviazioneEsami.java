@@ -21,10 +21,10 @@ class GestoreArchiviazioneEsami{
         String passwdDatabase;
         String nomeDatabase = "prg";
         try {
-            porta = GestoreConfigurazioniXML.ottieni().Nucleo.PortaDatabase;
-            hostname = GestoreConfigurazioniXML.ottieni().Nucleo.HostnameDatabase;
-            utenteDatabase = GestoreConfigurazioniXML.ottieni().Nucleo.UtenteDatabase;
-            passwdDatabase = GestoreConfigurazioniXML.ottieni().Nucleo.PasswordDatabase;       
+            porta = GestoreConfigurazioniXML.ottieni().PortaDatabase;
+            hostname = GestoreConfigurazioniXML.ottieni().HostnameDatabase;
+            utenteDatabase = GestoreConfigurazioniXML.ottieni().UtenteDatabase;
+            passwdDatabase = GestoreConfigurazioniXML.ottieni().PasswordDatabase;       
             String URI = "jdbc:mysql://"+hostname+":"+porta+"/"+nomeDatabase;
             connessioneDatabase = DriverManager.getConnection(URI,utenteDatabase,passwdDatabase);
         } catch(Exception e) {

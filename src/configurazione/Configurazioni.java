@@ -3,13 +3,15 @@ package configurazione;
 import java.io.Serializable;
 
 public class Configurazioni implements Serializable {
-    public Nucleo Nucleo;
-    public Preferenze Preferenze;
-    
-    public Configurazioni(Nucleo n,Preferenze p) {
-        Nucleo = n;
-        Preferenze = p;
-    }
+    public Integer PortaServerLog;
+    public String IPServerLog;
+    public String IPClient;
+    public String HostnameDatabase;
+    public Integer PortaDatabase;
+    public String UtenteDatabase;
+    public String PasswordDatabase;    
+    public String TipoMedia;
+    public int ValoreLode;
 }
 
 

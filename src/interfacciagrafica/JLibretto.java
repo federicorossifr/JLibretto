@@ -44,10 +44,10 @@ public class JLibretto extends Application{
         PulsanteElimina pulsanteElimina = new PulsanteElimina();
         
         try {
-            int vm = GestoreConfigurazioniXML.ottieni().Preferenze.MinValutazione;
-            int vM = GestoreConfigurazioniXML.ottieni().Preferenze.MaxValutazione;
+            int valoreLode = GestoreConfigurazioniXML.ottieni().ValoreLode;
             ObservableList<Integer> listaVoti = FXCollections.observableArrayList();
-            for(int i = vm;i<=vM;++i) listaVoti.add(i);
+            for(int i = 18;i<=30;++i) listaVoti.add(i);
+            listaVoti.add(valoreLode);
             tabellaEsami = new TabellaEsami(listaVoti,pulsanteElimina);
         } catch(Exception e) {
             e.printStackTrace();
@@ -67,7 +67,7 @@ public class JLibretto extends Application{
     private GraficoMediaEsami creaGraficoEsami() {
         String tipoMedia = "";
         try {
-            tipoMedia = GestoreConfigurazioniXML.ottieni().Preferenze.TipoMedia;
+            tipoMedia = GestoreConfigurazioniXML.ottieni().TipoMedia;
         } catch(Exception e) {
             System.out.println("Errore nel caricamento delle configurazioni");
             Platform.exit();

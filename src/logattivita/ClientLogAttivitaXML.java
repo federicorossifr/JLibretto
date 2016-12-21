@@ -13,8 +13,9 @@ public class ClientLogAttivitaXML extends Thread {
         String indirizzoServerLog;
         Integer portaServerLog;
         try {
-            indirizzoServerLog = GestoreConfigurazioniXML.ottieni().Nucleo.IPServerLog;
-            portaServerLog = GestoreConfigurazioniXML.ottieni().Nucleo.PortaServerLog;
+            indirizzoServerLog = GestoreConfigurazioniXML.ottieni().IPServerLog;
+            portaServerLog = GestoreConfigurazioniXML.ottieni().PortaServerLog;
+            attivita.indirizzoIPClient = GestoreConfigurazioniXML.ottieni().IPClient;
         } catch(Exception e) {
             System.out.println("Impossibile configurare il client.");
             return;

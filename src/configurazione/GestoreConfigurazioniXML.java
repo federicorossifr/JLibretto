@@ -14,7 +14,8 @@ public class GestoreConfigurazioniXML {
     private static Configurazioni caricaConfigurazioni(String percorsoXML,String percorsoSchemaXML) {
         CaricatoreValidatoreXML cvx = new CaricatoreValidatoreXML(percorsoXML,percorsoSchemaXML);
         cvx.getStreamXML().alias("Configurazioni", configurazione.Configurazioni.class);
-        cvx.getStreamXML().useAttributeFor(configurazione.Preferenze.class, "TipoMedia");
+        cvx.getStreamXML().useAttributeFor(configurazione.Configurazioni.class, "TipoMedia");
+        cvx.getStreamXML().useAttributeFor(configurazione.Configurazioni.class, "ValoreLode");        
         return (Configurazioni)cvx.caricaOggettoDaXML();
     }
 

@@ -3,7 +3,6 @@ package serverdilog;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-
 public class ServerDiLog {
     Integer portaServer;
     String indirizzoServer;
