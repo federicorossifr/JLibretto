@@ -3,7 +3,7 @@ package interfacciagrafica;
 import logattivita.ClientLogAttivitaXML;
 import configurazione.*;
 import javafx.application.*;
-import javafx.geometry.Insets;
+import javafx.geometry.*;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.*;

@@ -6,14 +6,15 @@ import javafx.collections.*;
 public class ControlloreListaEsami  {
     private ObservableList<Esame> listaEsamiSvolti;
     private ObservableList<Esame> listaEsamiDisponibili;
+    private GestoreArchiviazioneEsami archivioEsami;
     private static ControlloreListaEsami _istanza;
     
     private ControlloreListaEsami() {
-        listaEsamiSvolti = FXCollections.observableArrayList();
         listaEsamiDisponibili = FXCollections.observableArrayList();
+        listaEsamiSvolti = FXCollections.observableArrayList();
+        archivioEsami = new GestoreArchiviazioneEsami();
         popolaListeEsami();
         ordinaListaEsamiSvolti();
-        //listaEsamiSvolti.add(new Esame());
     }
     
     public static ControlloreListaEsami getIstanza() {
@@ -28,7 +29,7 @@ public class ControlloreListaEsami  {
     
     public void creaEsame() {
         Esame e = listaEsamiSvolti.get(listaEsamiSvolti.size()-1);
-        int insertedId = GestoreArchiviazioneEsami.getIstanza().inserisciEsame(e);
+        int insertedId = archivioEsami.inserisciEsame(e);
         if(insertedId > 0) {
             e.setId(insertedId);
             ordinaListaEsamiSvolti();
@@ -39,7 +40,7 @@ public class ControlloreListaEsami  {
     public void eliminaEsame(int posizioneEsame) {
         if(posizioneEsame == listaEsamiSvolti.size()-1) return;
         Esame daRimuovere = listaEsamiSvolti.get(posizioneEsame);
-        boolean risultato = GestoreArchiviazioneEsami.getIstanza().rimuoviEsame(daRimuovere.getId());
+        boolean risultato = archivioEsami.rimuoviEsame(daRimuovere.getId());
         if(risultato) {
             listaEsamiSvolti.remove(posizioneEsame);
         }
@@ -47,7 +48,7 @@ public class ControlloreListaEsami  {
     
     public void modificaEsame(Esame e,int posizioneEsame) {
         if(posizioneEsame == listaEsamiSvolti.size()) return;
-        boolean result = GestoreArchiviazioneEsami.getIstanza().modificaEsame(e);
+        boolean result = archivioEsami.modificaEsame(e);
         if(result) {
             ordinaListaEsamiSvolti();
             notificaCambiamentoEsame(posizioneEsame);
@@ -55,9 +56,8 @@ public class ControlloreListaEsami  {
     }
     
     private void popolaListeEsami() {
-        getListaEsamiSvolti().clear();
-        GestoreArchiviazioneEsami.getIstanza().leggiEsamiSvolti(listaEsamiSvolti);
-        GestoreArchiviazioneEsami.getIstanza().leggiEsamiDisponibili(listaEsamiDisponibili);
+        archivioEsami.leggiEsamiDisponibili(listaEsamiDisponibili);
+        archivioEsami.leggiEsamiSvolti(listaEsamiSvolti);
     }
 
     public ObservableList<Esame> getListaEsamiSvolti() {

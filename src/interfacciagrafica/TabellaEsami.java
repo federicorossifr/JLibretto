@@ -48,15 +48,11 @@ class TabellaEsami extends TableView<Esame> {
         
         private void caricaDatiInseritiDaCache() {
             CacheInserimento c = new CacheInserimento();
-            System.out.println(c.cacheData);
-            Esame e;
             if(c.cacheValida) {
-                e = new Esame(-1,c.cacheCodiceEsame,c.cacheNome,c.cacheValutazione,c.cacheCrediti,LocalDate.parse(c.cacheData));
-                if(c.cacheNome.length() > 0)
-                    esameInviabile = true;
+                getItems().add(new Esame(-1,c.cacheCodiceEsame,c.cacheNome,c.cacheValutazione,c.cacheCrediti,LocalDate.parse(c.cacheData)));
+                if(c.cacheNome.length() > 0) esameInviabile = true;
             }
-            else e = new Esame();
-            getItems().add(e);
+            else getItems().add(new Esame());
         }
         
         void salvaDatiInseritiInCache() {
@@ -117,14 +113,5 @@ class TabellaEsami extends TableView<Esame> {
                 event.getRowValue().setData(event.getNewValue());
                 completaModifica(event.getRowValue(),event.getTablePosition().getRow());
             });
-            
-            /*
-            colonnaNome.setOnEditCommit(event -> {
-                Esame edited = ottieniElementoModificato(event);
-                edited.setNome(((CellEditEvent<Esame,String>)event).getNewValue());
-                completaModifica(edited,ottieniRigaCella(event));
-            });*/
-
-
         }
 }

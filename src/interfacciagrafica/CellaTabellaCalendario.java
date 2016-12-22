@@ -1,8 +1,7 @@
 package interfacciagrafica;
 import modellodati.Esame;
 import java.time.LocalDate;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableCell;
+import javafx.scene.control.*;
 
 public class CellaTabellaCalendario extends TableCell<Esame, LocalDate> {
     private DatePicker datePicker;

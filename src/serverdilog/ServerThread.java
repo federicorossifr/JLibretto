@@ -8,14 +8,12 @@ import xml.CaricatoreValidatoreXML;
 
 public class ServerThread extends Thread {
     private final Socket client;
-    private final CaricatoreValidatoreXML validatore;
     public ServerThread(Socket cl) {
         client = cl;
-        validatore = new CaricatoreValidatoreXML(null,"../../etc/attivita.xsd");
     }
     
     private void appendiAFile(String xml) {
-        System.out.println(xml);
+        CaricatoreValidatoreXML validatore = new CaricatoreValidatoreXML(null,"../../etc/attivita.xsd");
         if(!validatore.validaXML(xml)) {
             return;
         }

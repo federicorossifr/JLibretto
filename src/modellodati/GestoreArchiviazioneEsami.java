@@ -5,7 +5,6 @@ import java.sql.*;
 import javafx.collections.*;
 
 class GestoreArchiviazioneEsami{
-    private static GestoreArchiviazioneEsami _istanza;
     private final String queryInserimentoEsame = "INSERT INTO esame(codiceEsame,valutazione,data) VALUES(?,?,?)";
     private final String queryModificaEsame = "UPDATE esame SET valutazione=?,data=? WHERE id = ?";
     private final String queryLetturaEsamiSvolti = "SELECT * FROM esame NATURAL JOIN esami;";
@@ -15,7 +14,7 @@ class GestoreArchiviazioneEsami{
     private final String utenteDB;
     private final String passwordDB;
     
-    private GestoreArchiviazioneEsami() {
+    public GestoreArchiviazioneEsami() {
         String hDB = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().HostnameDatabase;
         int pDB = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().PortaDatabase;
         String nDB = "prg";
@@ -24,13 +23,7 @@ class GestoreArchiviazioneEsami{
         passwordDB = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().PasswordDatabase;   
         URIConnessioneDB = "jdbc:mysql://"+hDB+":"+pDB+"/"+nDB;
     }
-    
-    public static  GestoreArchiviazioneEsami getIstanza() {
-        if(_istanza == null)
-            _istanza = new GestoreArchiviazioneEsami();
-        return _istanza;
-    }
-    
+
     
     public int inserisciEsame(Esame e) {
         try(

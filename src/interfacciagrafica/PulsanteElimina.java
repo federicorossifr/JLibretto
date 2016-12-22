@@ -1,9 +1,8 @@
 package interfacciagrafica;
 
-import logattivita.ClientLogAttivitaXML;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
-import modellodati.ControlloreListaEsami;
+import logattivita.*;
+import javafx.scene.control.*;
+import modellodati.*;
 
 class PulsanteElimina extends Button{
     private int indiceDaEliminare;
@@ -11,7 +10,7 @@ class PulsanteElimina extends Button{
     public PulsanteElimina() {
         super("Elimina");
         this.getStyleClass().add("bottone");
-        this.addEventHandler(MouseEvent.MOUSE_CLICKED,event->{
+        this.setOnAction(event->{
             ClientLogAttivitaXML.inviaLogClickBottone("JLibretto",this.getText());
             elimina();
         });
