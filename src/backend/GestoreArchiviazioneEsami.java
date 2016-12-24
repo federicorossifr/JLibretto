@@ -1,10 +1,11 @@
-package modellodati;
+package backend;
 
-import configurazione.*;
+import middleware.Esame;
+import frontend.GestoreParametriConfigurazioneXML;
 import java.sql.*;
 import javafx.collections.*;
 
-class GestoreArchiviazioneEsami{
+public class GestoreArchiviazioneEsami{
     private final String queryInserimentoEsame = "INSERT INTO esame(codiceEsame,valutazione,data) VALUES(?,?,?)";
     private final String queryModificaEsame = "UPDATE esame SET valutazione=?,data=? WHERE id = ?";
     private final String queryLetturaEsamiSvolti = "SELECT * FROM esame NATURAL JOIN esami;";

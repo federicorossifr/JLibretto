@@ -1,10 +1,10 @@
-package interfacciagrafica;
+package frontend;
 
-import logattivita.ClientLogAttivitaXML;
-import configurazione.*;
+import middleware.*;
 import javafx.application.*;
 import javafx.geometry.*;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 
@@ -23,6 +23,7 @@ public class JLibretto extends Application{
         }                
         StackPane root = new StackPane();
         root.getChildren().add(costruisciInterfacciaGrafica(pc));
+        (new CacheInserimento()).impostaDatiCaricatiInTabella(tabellaEsami);
         Scene scene = new Scene(root, 800, 600);
         impostaAzioniChiusuraApplicazione(primaryStage);      
         scene.getStylesheets().add("file:./res/stile.css");
@@ -34,16 +35,17 @@ public class JLibretto extends Application{
     
     private void impostaAzioniChiusuraApplicazione(Stage stage) {
         stage.setOnCloseRequest(e -> {
-           tabellaEsami.salvaDatiInseritiInCache();
+           (new CacheInserimento(tabellaEsami)).salvaDatiInCache();
            ClientLogAttivitaXML.inviaLogEventoApplicazione("JLibretto",1);       
         });
     }
 
     private VBox costruisciInterfacciaGrafica(ParametriConfigurazione pc) {
-        PulsanteElimina pulsanteElimina = new PulsanteElimina();
+        Button pulsanteElimina = new Button("Elimina");
+        impostaAzioniPulsanteElimina(pulsanteElimina);
         int valoreLode = pc.ValoreLode;
-        tabellaEsami = new TabellaEsami(valoreLode,pulsanteElimina);
-        graficoMediaMobileEsami = costruisciGraficoEsami(pc);
+        tabellaEsami = new TabellaEsami(valoreLode);
+        graficoMediaMobileEsami = new GraficoMediaEsami(pc.TipoMedia);
         VBox vb = new VBox();
         VBox.setVgrow(graficoMediaMobileEsami,Priority.ALWAYS);
         VBox.setVgrow(tabellaEsami, Priority.ALWAYS);
@@ -52,12 +54,11 @@ public class JLibretto extends Application{
         return vb;
     }
     
-    private GraficoMediaEsami costruisciGraficoEsami(ParametriConfigurazione pc) {
-        switch(pc.TipoMedia) {
-            case "aritmetica": return new GraficoMediaAritmetica();
-            case "ponderata": return new GraficoMediaPonderata();
-            default: return new GraficoMediaAritmetica();
-        }
+    private void impostaAzioniPulsanteElimina(Button b) {
+        b.setOnAction(event -> {
+            ClientLogAttivitaXML.inviaLogClickBottone("JLibretto", "Elimina");
+            int i = tabellaEsami.getSelectionModel().getSelectedIndex();
+            ControlloreListaEsami.getIstanza().eliminaEsame(i);
+        });
     }
-
 }

@@ -1,14 +1,28 @@
-package logattivita;
+package middleware;
+import com.thoughtworks.xstream.XStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
-import configurazione.GestoreParametriConfigurazioneXML;
+import frontend.GestoreParametriConfigurazioneXML;
+import middleware.AttivitaXML.MarcaTemporale;
 
 public class ClientLogAttivitaXML extends Thread {
     private final AttivitaXML attivita;
+    private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";    
     private ClientLogAttivitaXML(AttivitaXML a) {
         attivita = a;
-        System.out.println(a.serializzaInXML());
     }
+    
+    private String serializzaAttivitaInXML(AttivitaXML a) {
+        String stringaXml;
+        XStream xs = new XStream();
+        xs.alias("Attivita", AttivitaXML.class);
+        xs.useAttributeFor(AttivitaXML.class, "tipo");
+        xs.useAttributeFor(AttivitaXML.MarcaTemporale.class,"formato");
+        xs.processAnnotations(MarcaTemporale.class);
+        stringaXml = XML_HEADER+System.lineSeparator()+xs.toXML(this);
+        return stringaXml;
+    }
+    
     @Override
     public void run() {
         String indirizzoServerLog;
@@ -26,28 +40,28 @@ public class ClientLogAttivitaXML extends Thread {
             Socket socketInvioXML = new Socket(indirizzoServerLog,portaServerLog);
             DataOutputStream streamUscitaAlServer = new DataOutputStream(socketInvioXML.getOutputStream());
         ) {
-            streamUscitaAlServer.writeUTF(attivita.serializzaInXML());
+            streamUscitaAlServer.writeUTF(serializzaAttivitaInXML(attivita));
             System.out.println("Invio attività completato");
         } catch(Exception e) {
             System.out.println("Errore di connessione al server di log");
         }
     }
     
-    private static void inviaLogClickComponente(String nomeApplicazione,String nomeComponente,TipoAttivita t) {
+    private static void inviaLogClickComponente(String nomeApplicazione,String nomeComponente,String t) {
         AttivitaXML a = new AttivitaXML(nomeApplicazione,t,nomeComponente,"");
         (new ClientLogAttivitaXML(a)).start();
     }
     
     public static void inviaLogClickBottone(String nomeApplicazione,String nomeComponente) {
-        inviaLogClickComponente(nomeApplicazione,nomeComponente,TipoAttivita.CLICK_BOTTONE);
+        inviaLogClickComponente(nomeApplicazione,nomeComponente,"CLICK_BOTTONE");
     }
     
     public static void inviaLogClickTabella(String nomeApplicazione,String nomeComponente) {
-        inviaLogClickComponente(nomeApplicazione,nomeComponente,TipoAttivita.CLICK_TABELLA);
+        inviaLogClickComponente(nomeApplicazione,nomeComponente,"CLICK_TABELLA");
     }
     
     public static void inviaLogEventoApplicazione(String nomeApplicazione,int chiusura) {
-        TipoAttivita t = (chiusura==1)?TipoAttivita.CHIUSURA_APPLICAZIONE:TipoAttivita.AVVIO_APPLICAZIONE;
+        String t = (chiusura==1)?"CHIUSURA_APPLICAZIONE":"AVVIO_APPLICAZIONE";
         AttivitaXML a = new AttivitaXML(nomeApplicazione,t,null,"");
         (new ClientLogAttivitaXML(a)).start();
     }

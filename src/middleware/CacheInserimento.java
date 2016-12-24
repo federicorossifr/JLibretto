@@ -1,22 +1,24 @@
-package interfacciagrafica;
-
+package middleware;
+import frontend.*;
 import java.io.*;
-class CacheInserimento implements Serializable {
+import java.time.LocalDate;
+public class CacheInserimento implements Serializable {
     String cacheNome;
     String cacheData;
     int cacheCrediti;
     int cacheCodiceEsame;
     int cacheValutazione;
     boolean cacheValida;
-    CacheInserimento(String n,int c,int m,String d,int ce) {
-        cacheNome = n;
-        cacheCrediti = c;
-        cacheValutazione = m;
-        cacheData = d;
-        cacheCodiceEsame = ce;
+    public CacheInserimento(TabellaEsami t) {
+        Esame cachable = t.getItems().get(t.getItems().size() -1);        
+        cacheNome = cachable.getNome();
+        cacheCrediti = cachable.getCrediti();
+        cacheValutazione = cachable.getValutazione();
+        cacheData = cachable.getData().toString();
+        cacheCodiceEsame = cachable.getCodiceEsame();
     }
     
-    CacheInserimento() {
+    public CacheInserimento() {
         try(ObjectInputStream streamIngressoBinario = new ObjectInputStream(new FileInputStream("./cache/cache.bin"))) {
             CacheInserimento cache = (CacheInserimento)streamIngressoBinario.readObject();
             cacheNome = cache.cacheNome;
@@ -31,11 +33,20 @@ class CacheInserimento implements Serializable {
         }
     }
 
-    void salvaDatiEsameInCache() {
+    public void salvaDatiInCache() {
         try(ObjectOutputStream streamUscitaBinario = new ObjectOutputStream(new FileOutputStream("./cache/cache.bin"))) {
                 streamUscitaBinario.writeObject(this);
             } catch(Exception e) {
                 System.out.println("Erore nel salvare i dati inseriti: "+e.getMessage());
         } 
+    }
+    
+    public void impostaDatiCaricatiInTabella(TabellaEsami t) {
+        if(cacheValida) {
+            t.getItems().add(new Esame(-1,cacheCodiceEsame,cacheNome,cacheValutazione,cacheCrediti,LocalDate.parse(cacheData)));
+            if(cacheNome.length() > 0) t.esameInviabile = true;
+        } else {
+            t.getItems().add(new Esame());
+        }
     }
 }

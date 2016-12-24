@@ -1,14 +1,15 @@
-package interfacciagrafica;
+package frontend;
 
+import middleware.Esame;
+import middleware.ControlloreListaEsami;
 import java.text.DecimalFormat;
 import javafx.collections.*;
 import javafx.collections.transformation.FilteredList;
 import javafx.scene.chart.*;
-import modellodati.*;
 
-abstract class GraficoMediaEsami extends LineChart {
+class GraficoMediaEsami extends LineChart {
     private final String tipoMedia;
-    public GraficoMediaEsami(String tipoM) {
+    GraficoMediaEsami(String tipoM) {
         super(new CategoryAxis(),(new NumberAxis()));
         tipoMedia = tipoM;        
         setLegendVisible(false);
@@ -19,10 +20,8 @@ abstract class GraficoMediaEsami extends LineChart {
         aggiornaComponente(ControlloreListaEsami.getIstanza().getListaEsamiSvolti());
     }
     
-    public abstract Integer ottieniTermineSommatoria(int valutazione,int crediti);
-    public abstract Integer ottieniIncrementoContatore(int valutazione,int crediti);
     
-    public final void aggiornaComponente(ObservableList<Esame> esami) {
+    private void aggiornaComponente(ObservableList<Esame> esami) {
         FilteredList<Esame> fl = esami.filtered(e-> e.getId() >= 0);
         Double sommatoria = 0.0;
         Integer contatore = 0;
@@ -31,8 +30,15 @@ abstract class GraficoMediaEsami extends LineChart {
         valoriMediaMobile = new Series<>();
         getData().clear();
         for(Esame e:fl) {
-            sommatoria+=ottieniTermineSommatoria(e.getValutazione(),e.getCrediti());
-            contatore+=ottieniIncrementoContatore(e.getValutazione(),e.getCrediti());
+            switch(tipoMedia) {
+                case "ponderata": sommatoria+=(e.getValutazione()*e.getCrediti());
+                                  contatore+=e.getCrediti();
+                                  break;
+                case "aritmetica": sommatoria+=(e.getValutazione()*e.getCrediti());
+                                   contatore++;
+                                   break;
+                default:break;
+            }
             iterazioneMediaMobile = sommatoria/contatore;
             valoriMediaMobile.getData().add(new XYChart.Data(e.getNome(),iterazioneMediaMobile));
         }

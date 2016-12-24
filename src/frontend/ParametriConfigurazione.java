@@ -1,4 +1,4 @@
-package configurazione;
+package frontend;
 
 import java.io.Serializable;
 

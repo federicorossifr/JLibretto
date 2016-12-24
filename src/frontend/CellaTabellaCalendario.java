@@ -1,11 +1,11 @@
-package interfacciagrafica;
-import modellodati.Esame;
+package frontend;
 import java.time.LocalDate;
 import javafx.scene.control.*;
+import middleware.Esame;
 
-public class CellaTabellaCalendario extends TableCell<Esame, LocalDate> {
+class CellaTabellaCalendario extends TableCell<Esame,LocalDate> {
     private DatePicker datePicker;
-    public CellaTabellaCalendario() {}
+    CellaTabellaCalendario() {}
 
     @Override
     public void startEdit() {

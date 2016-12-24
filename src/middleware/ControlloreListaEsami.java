@@ -1,7 +1,8 @@
 
-package modellodati;
+package middleware;
 
 import javafx.collections.*;
+import backend.GestoreArchiviazioneEsami;
 
 public class ControlloreListaEsami  {
     private ObservableList<Esame> listaEsamiSvolti;

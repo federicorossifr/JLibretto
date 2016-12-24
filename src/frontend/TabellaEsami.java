@@ -1,21 +1,22 @@
-package interfacciagrafica;
+package frontend;
+import middleware.Esame;
+import middleware.ControlloreListaEsami;
 import java.time.LocalDate;
-import logattivita.ClientLogAttivitaXML;
+import middleware.ClientLogAttivitaXML;
 import javafx.collections.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
 import javafx.scene.input.*;
-import modellodati.*;
-class TabellaEsami extends TableView<Esame> {
+public class TabellaEsami extends TableView<Esame> {
     
         private final TableColumn<Esame,Esame> colonnaNome = new TableColumn("Nome esame");
         private final TableColumn<Esame,Integer> colonnaCrediti = new TableColumn("Crediti esame");
         private final TableColumn<Esame,Integer> colonnaValutazione = new TableColumn("Valutazione esame");
         private final TableColumn<Esame,LocalDate> colonnaData = new TableColumn("Data esame");
-        boolean esameInviabile = false;
+        public boolean esameInviabile = false;
         
         private ObservableList<Integer> listaVoti;
-        public TabellaEsami(int valoreLode,PulsanteElimina pe) {
+        public TabellaEsami(int valoreLode) {
             setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
             colonnaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
             colonnaCrediti.setCellValueFactory(new PropertyValueFactory<>("crediti"));
@@ -34,33 +35,14 @@ class TabellaEsami extends TableView<Esame> {
             getColumns().addAll(colonnaNome,colonnaCrediti,colonnaValutazione,colonnaData);
             addEventHandler(MouseEvent.MOUSE_CLICKED,event -> {
                 ClientLogAttivitaXML.inviaLogClickTabella("JLibretto", "TabellaEsami");
-                pe.impostaIndice(getSelectionModel().getSelectedIndex());
             });
             gestisciPressioneInvio();
-            caricaDatiInseritiDaCache();
         }
         
         private void impostaListaVoti(int valoreLode) {
             listaVoti = FXCollections.observableArrayList();
             for(int i = 18;i<=30;++i) listaVoti.add(i);
             listaVoti.add(valoreLode);
-        }
-        
-        private void caricaDatiInseritiDaCache() {
-            CacheInserimento c = new CacheInserimento();
-            if(c.cacheValida) {
-                getItems().add(new Esame(-1,c.cacheCodiceEsame,c.cacheNome,c.cacheValutazione,c.cacheCrediti,LocalDate.parse(c.cacheData)));
-                if(c.cacheNome.length() > 0) esameInviabile = true;
-            }
-            else getItems().add(new Esame());
-        }
-        
-        void salvaDatiInseritiInCache() {
-            Esame cachable = getItems().get(getItems().size() -1);
-            CacheInserimento c;
-            c = new CacheInserimento(cachable.getNome(),cachable.getCrediti(),cachable.getValutazione(),
-                                     cachable.getData().toString(),cachable.getCodiceEsame());
-            c.salvaDatiEsameInCache();
         }
         
         private void gestisciPressioneInvio() {

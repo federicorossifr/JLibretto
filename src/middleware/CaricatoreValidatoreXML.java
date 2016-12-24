@@ -1,5 +1,4 @@
-
-package xml;
+package middleware;
 import com.thoughtworks.xstream.XStream;
 import java.io.*;
 import java.nio.file.*;
