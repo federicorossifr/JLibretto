@@ -12,14 +12,14 @@ public class ClientLogAttivitaXML extends Thread {
         attivita = a;
     }
     
-    private String serializzaAttivitaInXML(AttivitaXML a) {
+    private String serializzaAttivitaInXML() {
         String stringaXml;
         XStream xs = new XStream();
         xs.alias("Attivita", AttivitaXML.class);
         xs.useAttributeFor(AttivitaXML.class, "tipo");
         xs.useAttributeFor(AttivitaXML.MarcaTemporale.class,"formato");
         xs.processAnnotations(MarcaTemporale.class);
-        stringaXml = XML_HEADER+System.lineSeparator()+xs.toXML(this);
+        stringaXml = XML_HEADER+System.lineSeparator()+xs.toXML(attivita);
         return stringaXml;
     }
     
@@ -40,7 +40,7 @@ public class ClientLogAttivitaXML extends Thread {
             Socket socketInvioXML = new Socket(indirizzoServerLog,portaServerLog);
             DataOutputStream streamUscitaAlServer = new DataOutputStream(socketInvioXML.getOutputStream());
         ) {
-            streamUscitaAlServer.writeUTF(serializzaAttivitaInXML(attivita));
+            streamUscitaAlServer.writeUTF(serializzaAttivitaInXML());
             System.out.println("Invio attività completato");
         } catch(Exception e) {
             System.out.println("Errore di connessione al server di log");

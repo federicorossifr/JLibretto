@@ -1,4 +1,3 @@
-
 package backend;
 import java.io.DataInputStream;
 import java.net.ServerSocket;
@@ -17,7 +16,7 @@ class ServerDiLog {
     }
     
     private void appendiAFile(String xml) {
-        CaricatoreValidatoreXML validatore = new CaricatoreValidatoreXML(null,"../../etc/attivita.xsd");
+        CaricatoreValidatoreXML validatore = new CaricatoreValidatoreXML(null,"../../log/attivita.xsd");
         if(!validatore.validaXML(xml)) {
             return;
         }
@@ -34,12 +33,14 @@ class ServerDiLog {
 
     private void esegui() {
         while(true) {
+            System.out.println("In attesa di connessioni...");
             try(
                 ServerSocket socketServerDiLog = new ServerSocket(portaServer);
                 Socket s = socketServerDiLog.accept();
                 DataInputStream dis = new DataInputStream(s.getInputStream());
             ) {
                 String attivitaXML = (String)dis.readUTF();
+                System.out.println("Ricevuto: "+attivitaXML);
                 appendiAFile(attivitaXML);                
             } catch(Exception e) {
                 System.out.println("Errore server: "+e.getMessage());

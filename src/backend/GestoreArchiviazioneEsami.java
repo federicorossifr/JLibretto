@@ -25,7 +25,6 @@ public class GestoreArchiviazioneEsami{
         URIConnessioneDB = "jdbc:mysql://"+hDB+":"+pDB+"/"+nDB;
     }
 
-    
     public int inserisciEsame(Esame e) {
         try(
             Connection connessioneDatabase = DriverManager.getConnection(URIConnessioneDB,utenteDB,passwordDB);
