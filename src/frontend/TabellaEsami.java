@@ -1,8 +1,6 @@
 package frontend;
-import middleware.Esame;
-import middleware.ControlloreListaEsami;
+import middleware.*;
 import java.time.LocalDate;
-import middleware.ClientLogAttivitaXML;
 import javafx.collections.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.*;
@@ -33,9 +31,7 @@ public class TabellaEsami extends TableView<Esame> {
             setItems(ControlloreListaEsami.getIstanza().getListaEsamiSvolti());
             setEditable(true);
             getColumns().addAll(colonnaNome,colonnaCrediti,colonnaValutazione,colonnaData);
-            addEventHandler(MouseEvent.MOUSE_CLICKED,event -> {
-                ClientLogAttivitaXML.inviaLogClickTabella("JLibretto", "TabellaEsami");
-            });
+            addEventHandler(MouseEvent.MOUSE_CLICKED,e->ClientLogAttivitaXML.inviaLogClickTabella("JLibretto", "TabellaEsami"));
             gestisciPressioneInvio();
         }
         
