@@ -10,6 +10,7 @@ public class ClientLogAttivitaXML extends Thread {
     private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";    
     private ClientLogAttivitaXML(AttivitaXML a) {
         attivita = a;
+        attivita.indirizzoIPClient = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().IPClient;        
     }
     
     private String serializzaAttivitaInXML() {
@@ -25,25 +26,16 @@ public class ClientLogAttivitaXML extends Thread {
     
     @Override
     public void run() {
-        String indirizzoServerLog;
-        Integer portaServerLog;
-        try {
-            indirizzoServerLog = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().IPServerLog;
-            portaServerLog = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().PortaServerLog;
-            attivita.indirizzoIPClient = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().IPClient;
-        } catch(Exception e) {
-            System.out.println("Impossibile configurare il client.");
-            return;
-        }
-        
+        String indirizzoServerLog = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().IPServerLog;
+        Integer portaServerLog = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().PortaServerLog;
         try (
             Socket socketInvioXML = new Socket(indirizzoServerLog,portaServerLog);
             DataOutputStream streamUscitaAlServer = new DataOutputStream(socketInvioXML.getOutputStream());
         ) {
             streamUscitaAlServer.writeUTF(serializzaAttivitaInXML());
-            System.out.println("Invio attività completato");
+            System.out.println("Invio log completato");
         } catch(Exception e) {
-            System.out.println("Errore di connessione al server di log");
+            System.out.println("Impossibile inviare il log");
         }
     }
     
