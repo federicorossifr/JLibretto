@@ -1,10 +1,9 @@
 package backend;
-import java.io.DataInputStream;
-import java.net.ServerSocket;
+import java.io.*;
+import java.net.*;
 import java.net.Socket;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
+import java.nio.file.*;
+
 import middleware.CaricatoreValidatoreXML;
 
 class ServerDiLog {
