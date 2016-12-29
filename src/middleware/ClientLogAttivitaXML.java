@@ -1,3 +1,4 @@
+///////////////////////////////
 package middleware;
 import com.thoughtworks.xstream.XStream;
 import java.io.DataOutputStream;
@@ -19,7 +20,7 @@ public class ClientLogAttivitaXML extends Thread {
         xs.alias("Attivita", AttivitaXML.class);
         xs.useAttributeFor(AttivitaXML.class, "tipo");
         xs.useAttributeFor(AttivitaXML.MarcaTemporale.class,"formato");
-        xs.processAnnotations(MarcaTemporale.class);
+        xs.processAnnotations(MarcaTemporale.class); //(1)
         stringaXml = XML_HEADER+System.lineSeparator()+xs.toXML(attivita);
         return stringaXml;
     }
@@ -58,3 +59,9 @@ public class ClientLogAttivitaXML extends Thread {
         (new ClientLogAttivitaXML(a)).start();
     }
 }
+
+/*
+    (1):Consente a XStream di utilizzare le annotazioni inserite su MarcaTemporale
+        e utilizzare il convertitore specificato.
+        ref: http://x-stream.github.io/annotations-tutorial.html#Aliasing
+*/

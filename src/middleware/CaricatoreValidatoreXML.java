@@ -1,3 +1,4 @@
+//////////////////
 package middleware;
 import com.thoughtworks.xstream.XStream;
 import java.io.*;
@@ -50,8 +51,14 @@ public class CaricatoreValidatoreXML {
     }
     
     
-    public XStream getStreamXML() {
+    public XStream getStreamXML() { //(1)
         return streamXML;
     }
     
 }
+
+
+/*
+    (1): Restituisce l'oggetto XStream per permettere al cliente di configurare la conversione
+         tramite alias e convertitori.
+*/

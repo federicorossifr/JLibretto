@@ -1,6 +1,7 @@
+//////////////////////////////////////////////////////
 package backend;
 
-import middleware.Esame;
+import middleware.*;
 import frontend.GestoreParametriConfigurazioneXML;
 import java.sql.*;
 import javafx.collections.*;

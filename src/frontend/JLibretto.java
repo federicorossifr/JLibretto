@@ -3,15 +3,15 @@ package frontend;
 import middleware.*;
 import javafx.application.*;
 import javafx.geometry.*;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.*;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 
 public class JLibretto extends Application{
     private GraficoMediaEsami graficoMediaMobileEsami;
     private TabellaEsami tabellaEsami;
-
+    private Button pulsanteElimina;
     @Override
     public void start(Stage primaryStage) {
         ClientLogAttivitaXML.inviaLogEventoApplicazione("JLibretto",0);
@@ -41,7 +41,7 @@ public class JLibretto extends Application{
     }
 
     private VBox costruisciInterfacciaGrafica(ParametriConfigurazione pc) {
-        Button pulsanteElimina = new Button("Elimina");
+        pulsanteElimina = new Button("Elimina");
         impostaAzioniPulsanteElimina(pulsanteElimina);
         int valoreLode = pc.ValoreLode;
         tabellaEsami = new TabellaEsami(valoreLode);

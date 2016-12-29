@@ -1,3 +1,4 @@
+////////////////////////////////////////////////////
 package middleware;
 import java.time.LocalDate;
 import javafx.beans.property.*;
@@ -9,6 +10,7 @@ public class Esame {
     private SimpleIntegerProperty valutazione;
     private SimpleIntegerProperty crediti;
     private SimpleStringProperty data;
+    //COSTRUTTORE PER ESAMI SVOLTI LETTI DA ARCHIVIAZIONE
     public Esame(int i,Integer ce,String n,Integer v,Integer c,LocalDate d) {
         id = i;
         codiceEsame = ce;
@@ -16,18 +18,16 @@ public class Esame {
         valutazione = new SimpleIntegerProperty(v);
         crediti = new SimpleIntegerProperty(c);
         data = new SimpleStringProperty(d.toString());
-    }
-    
-    public Esame(String n,Integer v,Integer c,LocalDate d) {
-        this(-1,-1,n,v,c,d);
-    }
-    
+    }    
+
+    //COSTRUTTORE PER ESAMI DISPONIBILI LETTI DA ARCHIVIAZIONE
     public Esame(String n,Integer c,Integer ce) {
         nome = new SimpleStringProperty(n);
         crediti = new SimpleIntegerProperty(c);
         codiceEsame = ce;
     }
     
+    //COSTRUTTORE PER ESAME VUOTO -> ULTIMA RIGA TABELLA
     public Esame() {
         this(-1,-1,"",18,0,LocalDate.now());
     }

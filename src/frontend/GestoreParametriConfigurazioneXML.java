@@ -1,3 +1,4 @@
+////////////////////////
 package frontend;
 import middleware.CaricatoreValidatoreXML;
 
@@ -9,8 +10,6 @@ public class GestoreParametriConfigurazioneXML {
         }
         return c;
     }
-
-    
     private static ParametriConfigurazione caricaParametriConfigurazioneDaXML(String percorsoXML,String percorsoSchemaXML) {
         CaricatoreValidatoreXML cvx = new CaricatoreValidatoreXML(percorsoXML,percorsoSchemaXML);
         cvx.getStreamXML().alias("Configurazioni", frontend.ParametriConfigurazione.class);
