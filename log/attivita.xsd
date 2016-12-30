@@ -2,10 +2,10 @@
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="Attivita">
     <xs:complexType>
-      <xs:sequence>
-      	<xs:element type="xs:string" name="nomeApplicazione" minOccurs="1" maxOccurs="1" />
+      <xs:all>
         <xs:element type="xs:string" name="nomeComponente" minOccurs="0" maxOccurs="1" />
         <xs:element type="xs:string" name="indirizzoIPClient" minOccurs="1" maxOccurs="1" />
+      	<xs:element type="xs:string" name="tipo"/>
         <xs:element name="marcaTemporale" minOccurs="1" maxOccurs="1" >
 			<xs:complexType>
 				<xs:simpleContent>
@@ -15,8 +15,8 @@
 				</xs:simpleContent>
 			</xs:complexType>
 		</xs:element>
-      </xs:sequence>
-      <xs:attribute type="xs:string" name="tipo"/>
+      </xs:all>
+      <xs:attribute type="xs:string" name="nomeApplicazione" use="required" />
     </xs:complexType>
   </xs:element>
 </xs:schema>

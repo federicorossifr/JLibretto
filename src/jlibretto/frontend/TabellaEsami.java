@@ -1,6 +1,8 @@
 ///////////////////////////////////
-package frontend;
-import middleware.*;
+package jlibretto.frontend;
+import jlibretto.middleware.Esame;
+import jlibretto.middleware.ControlloreListaEsami;
+import jlibretto.middleware.ClientLogAttivitaXML;
 import java.time.LocalDate;
 import javafx.collections.*;
 import javafx.scene.control.*;

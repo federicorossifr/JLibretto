@@ -1,8 +1,8 @@
 ////////////////////////////////////77
-package frontend;
+package jlibretto.frontend;
 
-import middleware.Esame;
-import middleware.ControlloreListaEsami;
+import jlibretto.middleware.Esame;
+import jlibretto.middleware.ControlloreListaEsami;
 import java.text.DecimalFormat;
 import javafx.collections.*;
 import javafx.collections.transformation.FilteredList;
@@ -24,31 +24,18 @@ class GraficoMediaEsami extends LineChart {
     
     private void aggiornaComponente(ObservableList<Esame> esami) {
         FilteredList<Esame> fl = esami.filtered(e-> e.getId() >= 0);
-        Double sommatoria = 0.0;
-        Integer contatore = 0;
-        Double iterazioneMediaMobile = 0.0;
-        Series<String,Double> valoriMediaMobile;        
-        valoriMediaMobile = new Series<>();
+        ObservableList<Double> medieMobili[] = ControlloreListaEsami.getIstanza().calcolaValoriMediaMobile();
+        Series<String,Double> valoriMediaMobile = new Series<>();        
         getData().clear();
-        for(Esame e:fl) {
-            switch(tipoMedia) {
-                case "ponderata": sommatoria+=(e.getValutazione()*e.getCrediti());
-                                  contatore+=e.getCrediti();
-                                  break;
-                case "aritmetica": sommatoria+=(e.getValutazione()*e.getCrediti());
-                                   contatore++;
-                                   break;
-                default:break;
-            }
-            iterazioneMediaMobile = sommatoria/contatore;
-            valoriMediaMobile.getData().add(new XYChart.Data(e.getNome(),iterazioneMediaMobile));
+        Double iterazioneMediaMobile = 0.0;
+        for(int i = 0; i < fl.size();++i) {
+            iterazioneMediaMobile = (tipoMedia.equals("aritmetica"))? medieMobili[0].get(i):medieMobili[1].get(i);
+            valoriMediaMobile.getData().add(new XYChart.Data(fl.get(i).getNome(),iterazioneMediaMobile));
         }
         setData(FXCollections.observableArrayList(valoriMediaMobile));
         String titoloGrafico = "Grafico media ("+tipoMedia+")";
-        DecimalFormat formattatoreMedia = new DecimalFormat("#.##");
-        String mediaFormattata = formattatoreMedia.format(iterazioneMediaMobile);
         if(iterazioneMediaMobile > 0)
-            titoloGrafico+= ", media attuale: "+mediaFormattata;
+            titoloGrafico+= ", media attuale: "+new DecimalFormat("#.##").format(iterazioneMediaMobile);
         setTitle(titoloGrafico);           
     }
  }

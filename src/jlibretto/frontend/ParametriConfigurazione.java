@@ -1,5 +1,5 @@
 ////////////////
-package frontend;
+package jlibretto.frontend;
 
 import java.io.Serializable;
 

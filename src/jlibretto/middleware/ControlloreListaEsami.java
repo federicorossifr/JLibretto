@@ -1,8 +1,8 @@
 ///////////////////////////////////////////////7
-package middleware;
+package jlibretto.middleware;
 
 import javafx.collections.*;
-import backend.GestoreArchiviazioneEsami;
+import jlibretto.backend.GestoreArchiviazioneEsami;
 
 public class ControlloreListaEsami  {
     private ObservableList<Esame> listaEsamiSvolti;
@@ -77,5 +77,21 @@ public class ControlloreListaEsami  {
     
     public boolean confrontaConIndiceUltimoEsame(int i) {
         return i == listaEsamiSvolti.size()-1;
+    }
+    
+    public ObservableList<Double>[] calcolaValoriMediaMobile() {
+        ObservableList<Double> ret[] = new  ObservableList[]{FXCollections.observableArrayList(),FXCollections.observableArrayList()};
+        Integer contatoreAr=0,contatorePo=0;
+        Double sommaAr=0.0,sommaPo=0.0;
+        for(Esame e:listaEsamiSvolti) {
+            if(e.getId() < 0) continue;
+            sommaAr+=e.getValutazione();
+            contatoreAr+=1;
+            ret[0].add(sommaAr/contatoreAr);
+            sommaPo+=e.getCrediti()*e.getValutazione();
+            contatorePo+=e.getCrediti();
+            ret[1].add(sommaPo/contatorePo);
+        }
+        return ret;
     }
 }

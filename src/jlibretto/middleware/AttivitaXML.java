@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////
-package middleware;
+package jlibretto.middleware;
 
 import com.thoughtworks.xstream.annotations.*;
 import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;

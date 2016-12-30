@@ -1,6 +1,6 @@
 ////////////////////////
-package frontend;
-import middleware.CaricatoreValidatoreXML;
+package jlibretto.frontend;
+import jlibretto.CaricatoreValidatoreXML;
 
 public class GestoreParametriConfigurazioneXML {
     private static ParametriConfigurazione c;
@@ -12,9 +12,9 @@ public class GestoreParametriConfigurazioneXML {
     }
     private static ParametriConfigurazione caricaParametriConfigurazioneDaXML(String percorsoXML,String percorsoSchemaXML) {
         CaricatoreValidatoreXML cvx = new CaricatoreValidatoreXML(percorsoXML,percorsoSchemaXML);
-        cvx.getStreamXML().alias("Configurazioni", frontend.ParametriConfigurazione.class);
-        cvx.getStreamXML().useAttributeFor(frontend.ParametriConfigurazione.class, "TipoMedia");
-        cvx.getStreamXML().useAttributeFor(frontend.ParametriConfigurazione.class, "ValoreLode");        
+        cvx.getStreamXML().alias("Configurazioni", jlibretto.frontend.ParametriConfigurazione.class);
+        cvx.getStreamXML().useAttributeFor(jlibretto.frontend.ParametriConfigurazione.class, "TipoMedia");
+        cvx.getStreamXML().useAttributeFor(jlibretto.frontend.ParametriConfigurazione.class, "ValoreLode");        
         return (ParametriConfigurazione)cvx.caricaOggettoDaXML();
     }
 

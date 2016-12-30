@@ -1,10 +1,10 @@
 ///////////////////////////////
-package middleware;
+package jlibretto.middleware;
 import com.thoughtworks.xstream.XStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
-import frontend.GestoreParametriConfigurazioneXML;
-import middleware.AttivitaXML.MarcaTemporale;
+import jlibretto.frontend.GestoreParametriConfigurazioneXML;
+import jlibretto.middleware.AttivitaXML.MarcaTemporale;
 
 public class ClientLogAttivitaXML extends Thread {
     private final AttivitaXML attivita;
@@ -18,7 +18,7 @@ public class ClientLogAttivitaXML extends Thread {
         String stringaXml;
         XStream xs = new XStream();
         xs.alias("Attivita", AttivitaXML.class);
-        xs.useAttributeFor(AttivitaXML.class, "tipo");
+        xs.useAttributeFor(AttivitaXML.class,"nomeApplicazione");
         xs.useAttributeFor(AttivitaXML.MarcaTemporale.class,"formato");
         xs.processAnnotations(MarcaTemporale.class); //(1)
         stringaXml = XML_HEADER+System.lineSeparator()+xs.toXML(attivita);

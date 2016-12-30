@@ -1,6 +1,6 @@
 ////////////////////////////
-package middleware;
-import frontend.*;
+package jlibretto.middleware;
+import jlibretto.frontend.TabellaEsami;
 import java.io.*;
 import java.time.LocalDate;
 public class CacheInserimento implements Serializable {

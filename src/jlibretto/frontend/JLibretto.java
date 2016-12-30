@@ -1,6 +1,8 @@
-package frontend;
+package jlibretto.frontend;
 
-import middleware.*;
+import jlibretto.middleware.CacheInserimento;
+import jlibretto.middleware.ControlloreListaEsami;
+import jlibretto.middleware.ClientLogAttivitaXML;
 import javafx.application.*;
 import javafx.geometry.*;
 import javafx.scene.*;

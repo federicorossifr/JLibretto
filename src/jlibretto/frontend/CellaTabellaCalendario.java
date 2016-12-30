@@ -1,8 +1,8 @@
 ///////////////////////////////////////
-package frontend;
+package jlibretto.frontend;
 import java.time.LocalDate;
 import javafx.scene.control.*;
-import middleware.Esame;
+import jlibretto.middleware.Esame;
 
 class CellaTabellaCalendario extends TableCell<Esame,LocalDate> {
     private DatePicker datePicker;

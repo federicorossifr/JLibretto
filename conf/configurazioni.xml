@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configurazioni TipoMedia="ponderata" ValoreLode="33">
+<Configurazioni TipoMedia="aritmetica" ValoreLode="33">
 		<PortaServerLog>8080</PortaServerLog>
 		<IPServerLog>localhost</IPServerLog>
 		<HostnameDatabase>localhost</HostnameDatabase>

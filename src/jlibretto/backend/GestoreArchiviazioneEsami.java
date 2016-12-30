@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////
-package backend;
+package jlibretto.backend;
 
-import middleware.*;
-import frontend.GestoreParametriConfigurazioneXML;
+import jlibretto.middleware.Esame;
+import jlibretto.frontend.GestoreParametriConfigurazioneXML;
 import java.sql.*;
 import javafx.collections.*;
 
