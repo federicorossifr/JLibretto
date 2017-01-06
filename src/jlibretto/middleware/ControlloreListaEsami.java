@@ -2,6 +2,7 @@
 package jlibretto.middleware;
 
 import javafx.collections.*;
+import javafx.collections.transformation.FilteredList;
 import jlibretto.backend.GestoreArchiviazioneEsami;
 
 public class ControlloreListaEsami  {
@@ -79,11 +80,12 @@ public class ControlloreListaEsami  {
         return i == listaEsamiSvolti.size()-1;
     }
     
-    public ObservableList<Double>[] calcolaValoriMediaMobile() {
+    public ObservableList<Double>[] calcolaValoriMediaMobile(boolean caratterizzanti) {
         ObservableList<Double> ret[] = new  ObservableList[]{FXCollections.observableArrayList(),FXCollections.observableArrayList()};
         Integer contatoreAr=0,contatorePo=0;
         Double sommaAr=0.0,sommaPo=0.0;
-        for(Esame e:listaEsamiSvolti) {
+        FilteredList<Esame> fl = listaEsamiSvolti.filtered(es -> (!caratterizzanti || es.getCaratterizzante()));
+        for(Esame e:fl) {
             if(e.getId() < 0) continue;
             sommaAr+=e.getValutazione();
             contatoreAr+=1;
@@ -93,5 +95,13 @@ public class ControlloreListaEsami  {
             ret[1].add(sommaPo/contatorePo);
         }
         return ret;
+    }
+    
+    public Double getMedia(boolean ponderata,boolean caratterizzanti) {
+        int indice = (ponderata)?1:0;
+        ObservableList<Double> ret = calcolaValoriMediaMobile(caratterizzanti)[indice];
+        if(ret.size() == 0) return 0.0;
+        Double media = ret.get(ret.size()-1);
+        return media;
     }
 }

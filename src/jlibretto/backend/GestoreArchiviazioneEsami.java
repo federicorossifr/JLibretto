@@ -57,7 +57,8 @@ public class GestoreArchiviazioneEsami{
                               ers.getString("nome"),
                               ers.getInt("valutazione"),
                               ers.getInt("crediti"),
-                              ers.getDate("data").toLocalDate()));
+                              ers.getDate("data").toLocalDate(),
+                              ers.getBoolean("caratterizzante"))); //rev2
         } catch(SQLException ex) {
             System.out.println(ex.getLocalizedMessage());
         }
@@ -70,7 +71,7 @@ public class GestoreArchiviazioneEsami{
             ResultSet ers = ips.executeQuery();
         ) {
             while(ers.next()) 
-                l.add(new Esame(ers.getString("nome"),ers.getInt("crediti"),ers.getInt("codiceEsame")));
+                l.add(new Esame(ers.getString("nome"),ers.getInt("crediti"),ers.getInt("codiceEsame"),ers.getBoolean("caratterizzante"))); //rev2
         } catch(SQLException ex) {
             System.out.println(ex.getLocalizedMessage());
         }

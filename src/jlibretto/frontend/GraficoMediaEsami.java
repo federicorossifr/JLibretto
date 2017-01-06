@@ -24,7 +24,7 @@ class GraficoMediaEsami extends LineChart {
     
     private void aggiornaComponente(ObservableList<Esame> esami) {
         FilteredList<Esame> fl = esami.filtered(e-> e.getId() >= 0);
-        ObservableList<Double> medieMobili[] = ControlloreListaEsami.getIstanza().calcolaValoriMediaMobile();
+        ObservableList<Double> medieMobili[] = ControlloreListaEsami.getIstanza().calcolaValoriMediaMobile(false);
         Series<String,Double> valoriMediaMobile = new Series<>();        
         getData().clear();
         Double iterazioneMediaMobile = 0.0;

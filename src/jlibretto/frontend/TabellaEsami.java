@@ -73,6 +73,7 @@ public class TabellaEsami extends TableView<Esame> {
                     event.getRowValue().setCrediti(event.getNewValue().getCrediti());
                     event.getRowValue().setNome(event.getNewValue().getNome());
                     event.getRowValue().setCodiceEsame(event.getNewValue().getCodiceEsame());
+                    event.getRowValue().setCaratterizzante(event.getNewValue().getCaratterizzante());
                     colonnaCrediti.setVisible(false);
                     colonnaCrediti.setVisible(true);
                     esameInviabile = true; 
