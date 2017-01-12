@@ -11,7 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.*;
 
-public class JLibretto extends Application{
+public class AvvioJLibretto extends Application{
     private GraficoMediaEsami graficoMediaMobileEsami;
     private TabellaEsami tabellaEsami;
     private Button pulsanteElimina;
@@ -69,13 +69,15 @@ public class JLibretto extends Application{
     private void impostaAzioniMenuVotoTesi(ComboBox c,String tipoMedia) {
         c.setOnAction(event -> {
             int votoTesi = (int)c.getSelectionModel().getSelectedItem();
-            System.out.println("Selezionato: " +votoTesi);
             Double mediaTot = ControlloreListaEsami.getIstanza().getMedia(tipoMedia.equals("ponderata"),false);
+            if(mediaTot == 0) {
+                outputVotoLaurea.setText("Voto laurea: ");
+                return;
+            }
             int mediaCar = (int)Math.round(ControlloreListaEsami.getIstanza().getMedia(tipoMedia.equals("ponderata"),true));
             Double passo = (30.0-18.0)/7;
             int votoCommissione = (mediaCar != 18 && mediaCar < 30 && mediaCar > 0)? (int)Math.ceil((mediaCar-18)/passo):0;
             votoCommissione = (mediaCar >= 30)? 7:votoCommissione;
-            System.out.println(votoCommissione+" "+votoTesi+" "+mediaCar+" "+mediaTot);
             int votoLaurea = (int)Math.round(mediaTot*3+18+votoTesi+votoCommissione);
             votoLaurea = (votoLaurea>=110)? 110:votoLaurea;
             outputVotoLaurea.setText("Voto laurea: "+votoLaurea);

@@ -70,7 +70,7 @@ public class GestoreArchiviazioneEsami{
             PreparedStatement ips = connessioneDatabase.prepareStatement(queryLetturaEsamiDisponibili);
             ResultSet ers = ips.executeQuery();
         ) {
-            while(ers.next()) 
+            while(ers.next())
                 l.add(new Esame(ers.getString("nome"),ers.getInt("crediti"),ers.getInt("codiceEsame"),ers.getBoolean("caratterizzante"))); //rev2
         } catch(SQLException ex) {
             System.out.println(ex.getLocalizedMessage());

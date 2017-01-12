@@ -69,7 +69,6 @@ public class TabellaEsami extends TableView<Esame> {
             colonnaNome.setOnEditCommit(event -> {
                 String c = event.getRowValue().toString();
                 if(getSelectionModel().getSelectedIndex() == getItems().size() -1) {
-                    System.out.println("Modifica come inserimento");
                     event.getRowValue().setCrediti(event.getNewValue().getCrediti());
                     event.getRowValue().setNome(event.getNewValue().getNome());
                     event.getRowValue().setCodiceEsame(event.getNewValue().getCodiceEsame());

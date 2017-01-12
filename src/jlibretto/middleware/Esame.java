@@ -27,6 +27,7 @@ public class Esame {
         nome = new SimpleStringProperty(n);
         crediti = new SimpleIntegerProperty(c);
         codiceEsame = ce;
+        caratterizzante = crt;
     }
     
     //COSTRUTTORE PER ESAME VUOTO -> ULTIMA RIGA TABELLA
