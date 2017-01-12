@@ -34,7 +34,6 @@ public class ClientLogAttivitaXML extends Thread {
             DataOutputStream streamUscitaAlServer = new DataOutputStream(socketInvioXML.getOutputStream());
         ) {
             streamUscitaAlServer.writeUTF(serializzaAttivitaInXML());
-            System.out.println("Invio log completato");
         } catch(Exception e) {
             System.out.println("Impossibile inviare il log");
         }
