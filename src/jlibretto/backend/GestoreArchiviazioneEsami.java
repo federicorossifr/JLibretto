@@ -12,7 +12,7 @@ public class GestoreArchiviazioneEsami{
     private final String queryLetturaEsamiSvolti = "SELECT * FROM esame NATURAL JOIN esami;";
     private final String queryLetturaEsamiDisponibili = "SELECT * FROM esami";
     private final String queryRimozioneEsame = "DELETE FROM esame WHERE id = ?";
-    private final String URIConnessioneDB;
+    private final String URIConnessioneDB; //(1)
     private final String utenteDB;
     private final String passwordDB;
     
@@ -26,7 +26,7 @@ public class GestoreArchiviazioneEsami{
         URIConnessioneDB = "jdbc:mysql://"+hDB+":"+pDB+"/"+nDB;
     }
 
-    public int inserisciEsame(Esame e) {
+    public int inserisciEsame(Esame e) { 
         try(
             Connection connessioneDatabase = DriverManager.getConnection(URIConnessioneDB,utenteDB,passwordDB);
             PreparedStatement ips = connessioneDatabase.prepareStatement(queryInserimentoEsame,Statement.RETURN_GENERATED_KEYS);
@@ -45,7 +45,7 @@ public class GestoreArchiviazioneEsami{
         }        
     }
     
-    public void leggiEsamiSvolti(ObservableList<Esame> l) {
+    public void leggiEsamiSvolti(ObservableList<Esame> l) { //(2)
         try (
             Connection connessioneDatabase = DriverManager.getConnection(URIConnessioneDB,utenteDB,passwordDB);                
             PreparedStatement ips = connessioneDatabase.prepareStatement(queryLetturaEsamiSvolti);
@@ -58,13 +58,13 @@ public class GestoreArchiviazioneEsami{
                               ers.getInt("valutazione"),
                               ers.getInt("crediti"),
                               ers.getDate("data").toLocalDate(),
-                              ers.getBoolean("caratterizzante"))); //rev2
+                              ers.getBoolean("caratterizzante"))); 
         } catch(SQLException ex) {
             System.out.println(ex.getLocalizedMessage());
         }
     }
     
-    public void leggiEsamiDisponibili(ObservableList<Esame> l) {
+    public void leggiEsamiDisponibili(ObservableList<Esame> l) { //(3)
         try (
             Connection connessioneDatabase = DriverManager.getConnection(URIConnessioneDB,utenteDB,passwordDB);                
             PreparedStatement ips = connessioneDatabase.prepareStatement(queryLetturaEsamiDisponibili);
@@ -105,3 +105,9 @@ public class GestoreArchiviazioneEsami{
         }
     }
 }
+
+
+// (1): Contiene l'URI da usare nei metodi della classe per la connessione al database
+// (2): Metodo per la lettura degli esami da db già inseriti dall'utente dell'applicazione
+// (3): Metodo per la lettura degli esami precaricati nel DB (hanno solo nome,numero di crediti e informazione
+//      sulla caratterizzazione dell'esame per il corso di laurea.

@@ -1,8 +1,6 @@
 ///////////////////////////////////
 package jlibretto.frontend;
-import jlibretto.middleware.Esame;
-import jlibretto.middleware.ControlloreListaEsami;
-import jlibretto.middleware.ClientLogAttivitaXML;
+import jlibretto.middleware.*;
 import java.time.LocalDate;
 import javafx.collections.*;
 import javafx.scene.control.*;
@@ -10,15 +8,14 @@ import javafx.scene.control.cell.*;
 import javafx.scene.input.*;
 public class TabellaEsami extends TableView<Esame> {
     
-        private final TableColumn<Esame,Esame> colonnaNome = new TableColumn("Nome esame");
+        private final TableColumn<Esame,Esame> colonnaNome = new TableColumn("Nome esame"); //(5)
         private final TableColumn<Esame,Integer> colonnaCrediti = new TableColumn("Crediti esame");
         private final TableColumn<Esame,Integer> colonnaValutazione = new TableColumn("Valutazione esame");
         private final TableColumn<Esame,LocalDate> colonnaData = new TableColumn("Data esame");
-        public boolean esameInviabile = false;
         
         private ObservableList<Integer> listaVoti;
         public TabellaEsami(int valoreLode) {
-            setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+            setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); //(1)
             colonnaNome.setCellValueFactory(new PropertyValueFactory<>("nome"));
             colonnaCrediti.setCellValueFactory(new PropertyValueFactory<>("crediti"));
             colonnaValutazione.setCellValueFactory(new PropertyValueFactory<>("valutazione"));
@@ -27,7 +24,7 @@ public class TabellaEsami extends TableView<Esame> {
             impostaFormatoModificaCelle();
             impostaSelezioneNomeEsame();            
             impostaCompletamentoModificaDatiEsame();
-            colonnaNome.setSortable(false);
+            colonnaNome.setSortable(false); //(2)
             colonnaCrediti.setSortable(false);
             colonnaData.setSortable(false);
             colonnaValutazione.setSortable(false);
@@ -47,10 +44,9 @@ public class TabellaEsami extends TableView<Esame> {
         private void gestisciPressioneInvio() {
             setOnKeyPressed(event -> {
                 if(event.getCode() != KeyCode.ENTER) return;
-                if(esameInviabile) {
+                if(getItems().get(getItems().size()-1).getCodiceEsame() > 0) { //(3)
                     ControlloreListaEsami.getIstanza().creaEsame();
                 }
-                esameInviabile = false;
             });
         }
 
@@ -68,14 +64,13 @@ public class TabellaEsami extends TableView<Esame> {
         private void impostaSelezioneNomeEsame() {
             colonnaNome.setOnEditCommit(event -> {
                 String c = event.getRowValue().toString();
-                if(getSelectionModel().getSelectedIndex() == getItems().size() -1) {
+                if(getSelectionModel().getSelectedIndex() == getItems().size() -1) { //(4)
                     event.getRowValue().setCrediti(event.getNewValue().getCrediti());
                     event.getRowValue().setNome(event.getNewValue().getNome());
                     event.getRowValue().setCodiceEsame(event.getNewValue().getCodiceEsame());
                     event.getRowValue().setCaratterizzante(event.getNewValue().getCaratterizzante());
-                    colonnaCrediti.setVisible(false);
+                    colonnaCrediti.setVisible(false); //(6)
                     colonnaCrediti.setVisible(true);
-                    esameInviabile = true; 
                 } else {
                     event.getRowValue().setNome(c);
                     colonnaNome.setVisible(false);
@@ -96,3 +91,13 @@ public class TabellaEsami extends TableView<Esame> {
             });
         }
 }
+
+// (1): Proprietà grafica: le colonne occupano tutta la dimensione in larghezza in egual misura
+// (2): Colonne non ordinabili in quanto ha senso (per come è fatto un libretto) solo l'ordinamento
+//      per data dal più vecchio al più nuovo.
+// (3): Solo se è stato selezionato l'esame dalla prima colonna è possibile premere INVIO per inserirlo
+// (4): Non ha senso modificare il nome dell'esame di un esame già inserito, al massimo lo si può eliminare
+// (5): Ogni elemento del ComboBox è in realtà un oggetto Esame e non la sola proprietà nomeEsame.
+//      quando viene selezionato l'esame dal menu a tendina le proprietà nomeEsame,crediti e caratterizzante
+//      vengono replicate sull'esame che rappresenta la riga, cioè quello che verrà inserito nel DB.
+// (6): Necessario per visualizzare le modifiche della riga nella tabella. 

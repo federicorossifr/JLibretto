@@ -21,10 +21,10 @@ public class CaricatoreValidatoreXML {
         streamXML = new XStream();
     }
     
-    public boolean validaXML(String xml) {
+    public boolean validaXML(String xml) { //(1)
         try {
             DocumentBuilder db = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document documentoXML =  db.parse(new InputSource(new StringReader(xml))); //db.parse(new File(percorsoFileXML));
+            Document documentoXML =  db.parse(new InputSource(new StringReader(xml))); 
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = sf.newSchema(new StreamSource(new File(percorsoFileXSD)));
             schema.newValidator().validate(new DOMSource(documentoXML));
@@ -38,7 +38,7 @@ public class CaricatoreValidatoreXML {
         }
     }
     
-    public Object caricaOggettoDaXML() {
+    public Object caricaOggettoDaXML() { //(2)
         try {
             String inputDaFileXML = new String(Files.readAllBytes(Paths.get(percorsoFileXML)));
             if(!validaXML(inputDaFileXML))
@@ -51,7 +51,7 @@ public class CaricatoreValidatoreXML {
     }
     
     
-    public XStream getStreamXML() { //(1)
+    public XStream getStreamXML() { //(3)
         return streamXML;
     }
     
@@ -59,6 +59,10 @@ public class CaricatoreValidatoreXML {
 
 
 /*
-    (1): Restituisce l'oggetto XStream per permettere al cliente di configurare la conversione
+    (1): Valida una stringa XML (non necessariamente da file): si utilizza InputSource e StringReader al posto di
+         File(percorsoXML).
+    (2): Crea un istanza di Object a partire da una stringa XML contenuta in un file. La responsabilità di cast ad un tipo più
+         specializzato è riservata al cliente.
+    (3): Restituisce l'oggetto XStream per permettere al cliente di configurare la conversione
          tramite alias e convertitori.
 */

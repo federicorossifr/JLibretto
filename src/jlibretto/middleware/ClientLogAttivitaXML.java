@@ -8,7 +8,7 @@ import jlibretto.middleware.AttivitaXML.MarcaTemporale;
 
 public class ClientLogAttivitaXML extends Thread {
     private final AttivitaXML attivita;
-    private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";    
+    private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"; //(1)    
     private ClientLogAttivitaXML(AttivitaXML a) {
         attivita = a;
         attivita.indirizzoIPClient = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione().IPClient;        
@@ -63,4 +63,5 @@ public class ClientLogAttivitaXML extends Thread {
     (1):Consente a XStream di utilizzare le annotazioni inserite su MarcaTemporale
         e utilizzare il convertitore specificato.
         ref: http://x-stream.github.io/annotations-tutorial.html#Aliasing
+    (2):Header XML da usare nella produzione di righe di log XML.
 */

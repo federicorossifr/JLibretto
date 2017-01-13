@@ -15,7 +15,7 @@ class GraficoMediaEsami extends LineChart {
         tipoMedia = tipoM;        
         setLegendVisible(false);
         setAnimated(false);
-        ControlloreListaEsami.getIstanza().getListaEsamiSvolti().addListener((ListChangeListener.Change<? extends Esame> c) -> {
+        ControlloreListaEsami.getIstanza().getListaEsamiSvolti().addListener((ListChangeListener.Change<? extends Esame> c) -> { //(1)
             aggiornaComponente(((ObservableList<Esame>)c.getList()));
         });
         aggiornaComponente(ControlloreListaEsami.getIstanza().getListaEsamiSvolti());
@@ -29,7 +29,7 @@ class GraficoMediaEsami extends LineChart {
         getData().clear();
         Double iterazioneMediaMobile = 0.0;
         for(int i = 0; i < fl.size();++i) {
-            iterazioneMediaMobile = (tipoMedia.equals("aritmetica"))? medieMobili[0].get(i):medieMobili[1].get(i);
+            iterazioneMediaMobile = (tipoMedia.equals("aritmetica"))? medieMobili[0].get(i):medieMobili[1].get(i); //(2)
             valoriMediaMobile.getData().add(new XYChart.Data(fl.get(i).getNome(),iterazioneMediaMobile));
         }
         setData(FXCollections.observableArrayList(valoriMediaMobile));
@@ -39,3 +39,8 @@ class GraficoMediaEsami extends LineChart {
         setTitle(titoloGrafico);           
     }
  }
+
+//(1): Aggiunta di un observer alla lista osservabile listaEsamiSvolti per intercettarne
+//     le modifiche:
+//https://docs.oracle.com/javase/8/javafx/api/javafx/collections/ObservableList.html#addListener-javafx.collections.ListChangeListener
+//(2): L'indice 0 contiene le medie mobili aritmetiche, l'indice 1 quelle ponderate

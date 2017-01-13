@@ -25,9 +25,7 @@ public class ControlloreListaEsami  {
         return _istanza;
     }
     
-    private void ordinaListaEsamiSvolti() {
-        listaEsamiSvolti.sort((e1,e2) -> e1.getData().compareTo(e2.getData()));        
-    }
+    private void ordinaListaEsamiSvolti() {listaEsamiSvolti.sort((e1,e2) -> e1.getData().compareTo(e2.getData()));}
     
     public void creaEsame() {
         Esame e = listaEsamiSvolti.get(listaEsamiSvolti.size()-1);
@@ -62,23 +60,15 @@ public class ControlloreListaEsami  {
         archivioEsami.leggiEsamiSvolti(listaEsamiSvolti);
     }
 
-    public ObservableList<Esame> getListaEsamiSvolti() {
-        return listaEsamiSvolti;
-    }
+    public ObservableList<Esame> getListaEsamiSvolti() {return listaEsamiSvolti;}
+    public ObservableList<Esame> getListaEsamiDisponibili() {return listaEsamiDisponibili;}
     
-    public ObservableList<Esame> getListaEsamiDisponibili() {
-        return listaEsamiDisponibili;
-    }
-    
-    private void notificaCambiamentoEsame(int index) {
+    private void notificaCambiamentoEsame(int index) { //(1)
         Esame daNotificare = listaEsamiSvolti.get(index);
         listaEsamiSvolti.remove(index);
         listaEsamiSvolti.add(index,daNotificare);
     }
     
-    public boolean confrontaConIndiceUltimoEsame(int i) {
-        return i == listaEsamiSvolti.size()-1;
-    }
     
     public ObservableList<Double>[] calcolaValoriMediaMobile(boolean caratterizzanti) {
         ObservableList<Double> ret[] = new  ObservableList[]{FXCollections.observableArrayList(),FXCollections.observableArrayList()};
@@ -105,3 +95,9 @@ public class ControlloreListaEsami  {
         return media;
     }
 }
+
+
+//(1)   Il pattern observer di ObservableList permette di osservare 
+//      solo i cambiamenti "esterni" della lista (aggiunta,rimozione di elementi)
+//      ma non i cambiamenti delle proprietà della lista, quando un esame viene modificato
+//      si notifica agli osservatori rimuovendolo e reinserendolo nella stessa posizione.

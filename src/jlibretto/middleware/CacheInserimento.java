@@ -9,7 +9,7 @@ public class CacheInserimento implements Serializable {
     int cacheCrediti;
     int cacheCodiceEsame;
     int cacheValutazione;
-    boolean cacheCaratterizzante; //rev2
+    boolean cacheCaratterizzante;
     boolean cacheValida;
     public CacheInserimento(TabellaEsami t) {
         Esame cachable = t.getItems().get(t.getItems().size() -1);        
@@ -18,6 +18,7 @@ public class CacheInserimento implements Serializable {
         cacheValutazione = cachable.getValutazione();
         cacheData = cachable.getData().toString();
         cacheCodiceEsame = cachable.getCodiceEsame();
+        cacheCaratterizzante = cachable.getCaratterizzante();
     }
     
     public CacheInserimento() {
@@ -28,7 +29,7 @@ public class CacheInserimento implements Serializable {
             cacheCrediti = cache.cacheCrediti;
             cacheValutazione = cache.cacheValutazione;
             cacheCodiceEsame = cache.cacheCodiceEsame;
-            cacheCaratterizzante = cache.cacheCaratterizzante; //rev2
+            cacheCaratterizzante = cache.cacheCaratterizzante;
             cacheValida = true;
         } catch(IOException | ClassNotFoundException e) {
             System.out.println("Errore nel caricare i dati precedentemente inseriti: "+e.getMessage());
@@ -46,8 +47,7 @@ public class CacheInserimento implements Serializable {
     
     public void impostaDatiCaricatiInTabella(TabellaEsami t) {
         if(cacheValida) {
-            t.getItems().add(new Esame(-1,cacheCodiceEsame,cacheNome,cacheValutazione,cacheCrediti,LocalDate.parse(cacheData),cacheCaratterizzante)); //rev2
-            if(cacheNome.length() > 0) t.esameInviabile = true;
+            t.getItems().add(new Esame(-1,cacheCodiceEsame,cacheNome,cacheValutazione,cacheCrediti,LocalDate.parse(cacheData),cacheCaratterizzante));
         } else {
             t.getItems().add(new Esame());
         }

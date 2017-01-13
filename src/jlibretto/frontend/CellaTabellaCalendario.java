@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import javafx.scene.control.*;
 import jlibretto.middleware.Esame;
 
-class CellaTabellaCalendario extends TableCell<Esame,LocalDate> {
+class CellaTabellaCalendario extends TableCell<Esame,LocalDate> { //(1)
     private DatePicker datePicker;
     CellaTabellaCalendario() {}
 
@@ -57,3 +57,7 @@ class CellaTabellaCalendario extends TableCell<Esame,LocalDate> {
         return getItem() == null ? LocalDate.now() : getItem();
     }
 }
+
+// (1): La classe consente di mostrare un datepicker al posto di una cella della tabella
+//      quando si entra in modalità di modifica
+//      DOCS: https://docs.oracle.com/javafx/2/api/javafx/scene/control/TableCell.html
