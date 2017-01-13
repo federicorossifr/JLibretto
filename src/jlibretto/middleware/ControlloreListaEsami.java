@@ -84,7 +84,7 @@ public class ControlloreListaEsami  {
         ObservableList<Double> ret[] = new  ObservableList[]{FXCollections.observableArrayList(),FXCollections.observableArrayList()};
         Integer contatoreAr=0,contatorePo=0;
         Double sommaAr=0.0,sommaPo=0.0;
-        FilteredList<Esame> fl = listaEsamiSvolti.filtered(es -> (!caratterizzanti || es.getCaratterizzante()));
+        FilteredList<Esame> fl = listaEsamiSvolti.filtered(es -> (es.getId() >= 0 && (!caratterizzanti || es.getCaratterizzante())));
         for(Esame e:fl) {
             if(e.getId() < 0) continue;
             sommaAr+=e.getValutazione();
