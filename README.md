@@ -14,6 +14,6 @@ First-RUN instructions:
     <li>Start app: <strong>run.bat</strong></li>
 </ol>
 
-All the DOCS are contained in <a href="https://github.com/osirisf/JLibretto/blob/master/DOC.pdf">DOC.pdf</a>.
+All the DOCS are contained in <a download="DOC.pdf" href="https://github.com/osirisf/JLibretto/blob/master/DOC.pdf">DOC.pdf</a>.
 It also contains a simple USER MANUAL.
     
