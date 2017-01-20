@@ -12,7 +12,7 @@ First-RUN instructions:
     <li>Add course exams to table 'esami' using any MySQL client</li>
     <li>[OPTIONALLY] Start log server: <strong>serverlog.bat</strong></li>
     <li>Start app: <strong>run.bat</strong></li>
-<ol>
+</ol>
 
 All the DOCS are contained in <a href="https://github.com/osirisf/JLibretto/blob/master/DOC.pdf">DOC.pdf</a>.
 It also contains a simple USER MANUAL.
