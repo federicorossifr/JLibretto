@@ -1,2 +1,1 @@
 # JLibretto
-Advanced Programming project
