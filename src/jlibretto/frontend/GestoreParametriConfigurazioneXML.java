@@ -6,7 +6,7 @@ public class GestoreParametriConfigurazioneXML {
     private static ParametriConfigurazione c; //(1)
     public static ParametriConfigurazione ottieniParametriConfigurazione() {
         if(c == null) {
-            c = caricaParametriConfigurazioneDaXML("./conf/configurazioni.xml","./conf/configurazioni.xsd");
+            c = caricaParametriConfigurazioneDaXML("../../conf/configurazioni.xml","../../conf/configurazioni.xsd");
         }
         return c;
     }

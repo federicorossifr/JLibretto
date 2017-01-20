@@ -18,19 +18,19 @@ public class AvvioJLibretto extends Application{ //(1)
     private Label etichettaVotoLaurea;
     @Override
     public void start(Stage primaryStage) {
-        ClientLogAttivitaXML.inviaLogEventoApplicazione("JLibretto",0);
         ParametriConfigurazione pc = GestoreParametriConfigurazioneXML.ottieniParametriConfigurazione(); //(2)
         if(pc == null) {
             System.out.println("Errore di configurazione");
             Platform.exit();
             System.exit(-1);
         }                
+        ClientLogAttivitaXML.inviaLogEventoApplicazione("JLibretto",0);
         StackPane root = new StackPane();
         root.getChildren().add(costruisciInterfacciaGrafica(pc));
         (new CacheInserimento()).impostaDatiCaricatiInTabella(tabellaEsami);
         Scene scene = new Scene(root, 800, 600);
         impostaAzioniChiusuraApplicazione(primaryStage);      
-        scene.getStylesheets().add("file:./res/stile.css");
+        scene.getStylesheets().add("file:../../res/stile.css");
         primaryStage.setTitle("JLibretto");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -68,6 +68,7 @@ public class AvvioJLibretto extends Application{ //(1)
     
     private void impostaAzioniMenuVotoTesi(ComboBox c,String tipoMedia) { //(5)
         c.setOnAction(event -> {
+            ClientLogAttivitaXML.inviaLogClickMenu("JLibretto", "Voto tesi");            
             int votoTesi = (int)c.getSelectionModel().getSelectedItem();
             Double mediaTot = ControlloreListaEsami.getIstanza().getMedia(tipoMedia.equals("ponderata"),false);
             if(mediaTot == 0) {

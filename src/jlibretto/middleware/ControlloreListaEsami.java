@@ -16,7 +16,6 @@ public class ControlloreListaEsami  {
         listaEsamiSvolti = FXCollections.observableArrayList();
         archivioEsami = new GestoreArchiviazioneEsami();
         popolaListeEsami();
-        ordinaListaEsamiSvolti();
     }
     
     public static ControlloreListaEsami getIstanza() {
@@ -25,14 +24,12 @@ public class ControlloreListaEsami  {
         return _istanza;
     }
     
-    private void ordinaListaEsamiSvolti() {listaEsamiSvolti.sort((e1,e2) -> e1.getData().compareTo(e2.getData()));}
     
     public void creaEsame() {
         Esame e = listaEsamiSvolti.get(listaEsamiSvolti.size()-1);
         int insertedId = archivioEsami.inserisciEsame(e);
         if(insertedId > 0) {
             e.setId(insertedId);
-            ordinaListaEsamiSvolti();
             listaEsamiSvolti.add(new Esame());
         }        
     }
@@ -50,7 +47,6 @@ public class ControlloreListaEsami  {
         if(posizioneEsame == listaEsamiSvolti.size()) return;
         boolean result = archivioEsami.modificaEsame(e);
         if(result) {
-            ordinaListaEsamiSvolti();
             notificaCambiamentoEsame(posizioneEsame);
         }
     }

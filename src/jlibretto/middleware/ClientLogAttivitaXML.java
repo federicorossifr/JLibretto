@@ -48,6 +48,10 @@ public class ClientLogAttivitaXML extends Thread {
         inviaLogClickComponente(nomeApplicazione,nomeComponente,"CLICK_BOTTONE");
     }
     
+    public static void inviaLogClickMenu(String nomeApplicazione,String nomeComponente) {
+        inviaLogClickComponente(nomeApplicazione,nomeComponente,"CLICK_MENU");
+    }    
+    
     public static void inviaLogClickTabella(String nomeApplicazione,String nomeComponente) {
         inviaLogClickComponente(nomeApplicazione,nomeComponente,"CLICK_TABELLA");
     }

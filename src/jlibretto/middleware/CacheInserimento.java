@@ -22,7 +22,7 @@ public class CacheInserimento implements Serializable {
     }
     
     public CacheInserimento() {
-        try(ObjectInputStream streamIngressoBinario = new ObjectInputStream(new FileInputStream("./cache/cache.bin"))) {
+        try(ObjectInputStream streamIngressoBinario = new ObjectInputStream(new FileInputStream("../../cache/cache.bin"))) {
             CacheInserimento cache = (CacheInserimento)streamIngressoBinario.readObject();
             cacheNome = cache.cacheNome;
             cacheData = cache.cacheData;
@@ -38,7 +38,7 @@ public class CacheInserimento implements Serializable {
     }
 
     public void salvaDatiInCache() {
-        try(ObjectOutputStream streamUscitaBinario = new ObjectOutputStream(new FileOutputStream("./cache/cache.bin"))) {
+        try(ObjectOutputStream streamUscitaBinario = new ObjectOutputStream(new FileOutputStream("../../cache/cache.bin"))) {
                 streamUscitaBinario.writeObject(this);
             } catch(Exception e) {
                 System.out.println("Erore nel salvare i dati inseriti: "+e.getMessage());

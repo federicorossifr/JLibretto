@@ -48,7 +48,7 @@ class ServerDiLog { //(1)
     }
     
     public static void main(String[] args) {
-        if(args.length < 2) {
+        if(args.length < 1) {
             System.out.println("[GUIDA] java serverdilog.ServerDiLog <porta>");
             System.exit(-1);
         }
