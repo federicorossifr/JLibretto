@@ -40,7 +40,7 @@ public class GestoreArchiviazioneEsami{
                 return risID.getInt(1);
             return -1;
         } catch (SQLException ex) {
-            System.out.println(ex.getLocalizedMessage());
+            System.out.println("Errore di inserimento di un esame\n===>(forse stai inserendo un esame già inserito)");
             return -1;
         }        
     }
@@ -60,7 +60,7 @@ public class GestoreArchiviazioneEsami{
                               ers.getDate("data").toLocalDate(),
                               ers.getBoolean("caratterizzante"))); 
         } catch(SQLException ex) {
-            System.out.println(ex.getLocalizedMessage());
+            System.out.println("Errore di lettura esami svolti");
         }
     }
     
@@ -73,7 +73,7 @@ public class GestoreArchiviazioneEsami{
             while(ers.next())
                 l.add(new Esame(ers.getString("nome"),ers.getInt("crediti"),ers.getInt("codiceEsame"),ers.getBoolean("caratterizzante"))); //rev2
         } catch(SQLException ex) {
-            System.out.println(ex.getLocalizedMessage());
+            System.out.println("Errore di lettura esami precaricati");
         }
     }
     
@@ -87,7 +87,7 @@ public class GestoreArchiviazioneEsami{
             eps.setInt(3,e.getId());
             return eps.executeUpdate() > 0;
         } catch(SQLException ex) {
-            System.out.println(ex.getLocalizedMessage());
+            System.out.println("Errore di modifica di un esame");
             return false;
         }
     }
@@ -100,7 +100,7 @@ public class GestoreArchiviazioneEsami{
             rps.setInt(1,indice);
             return rps.executeUpdate() > 0;
         } catch(SQLException ex) {
-            System.out.println(ex.getLocalizedMessage());
+            System.out.println("Errore di rimozione di un esame");
             return false;
         }
     }

@@ -32,7 +32,6 @@ public class CacheInserimento implements Serializable {
             cacheCaratterizzante = cache.cacheCaratterizzante;
             cacheValida = true;
         } catch(IOException | ClassNotFoundException e) {
-            System.out.println("Errore nel caricare i dati precedentemente inseriti: "+e.getMessage());
             cacheValida = false;
         }
     }
