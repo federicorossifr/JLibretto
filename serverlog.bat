@@ -1,4 +1,4 @@
-@echo off
+@echo on
 cd src
 @echo Compilazione...
 javac -classpath ..\libs\xstream-1.4.7.jar;..\libs\xmlpull-1.1.3.1.jar; jlibretto\backend\ServerDiLog.java -d ..\build\classes\
