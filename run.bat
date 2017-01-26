@@ -1,4 +1,5 @@
 @echo off
+mkdir build\classes
 cd src
 @echo Compilazione...
 javac -classpath ..\libs\xstream-1.4.7.jar;..\libs\xmlpull-1.1.3.1.jar; jlibretto\frontend\AvvioJLibretto.java -d ..\build\classes\
